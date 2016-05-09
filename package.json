@@ -1,0 +1,56 @@
+{
+  "name": "generator-liquid",
+  "version": "0.0.0",
+  "description": "Liquid builds out starter WordPress and static projects with the following: Scotch Box (Vagrant), YeoPress (WordPress), Sage (theme), SCSS, Gulp, Bower",
+  "homepage": "https://github.com/ryanaltvater/generator-liquid",
+  "author": {
+    "name": "Ryan Altvater",
+    "email": "ryan@ryanaltvater.com",
+    "url": "http://ryanaltvater.com"
+  },
+  "files": [
+    "generators"
+  ],
+  "main": "generators/index.js",
+  "keywords": [
+    "vagrant",
+    "yeopress",
+    "wordpress",
+    "sage",
+    "scss",
+    "gulp",
+    "bower",
+    "yeoman-generator"
+  ],
+  "dependencies": {
+    "yeoman-generator": "^0.22.0",
+    "chalk": "^1.0.0",
+    "yosay": "^1.0.2"
+  },
+  "devDependencies": {
+    "yeoman-test": "^1.0.0",
+    "yeoman-assert": "^2.0.0",
+    "eslint": "^2.1.0",
+    "eslint-config-xo-space": "^0.12.0",
+    "gulp": "^3.9.0",
+    "gulp-eslint": "^2.0.0",
+    "gulp-exclude-gitignore": "^1.0.0",
+    "gulp-line-ending-corrector": "^1.0.1",
+    "gulp-istanbul": "^0.10.3",
+    "gulp-mocha": "^2.0.0",
+    "gulp-plumber": "^1.0.0",
+    "gulp-nsp": "^2.1.0"
+  },
+  "eslintConfig": {
+    "extends": "xo-space",
+    "env": {
+      "mocha": true
+    }
+  },
+  "repository": "ryanaltvater/generator-liquid",
+  "scripts": {
+    "prepublish": "gulp prepublish",
+    "test": "gulp"
+  },
+  "license": "MIT"
+}
