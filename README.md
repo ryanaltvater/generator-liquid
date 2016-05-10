@@ -1,8 +1,5 @@
 ![Alt text](http://ryanaltvater.com/assets/img/logo-liquid.png "Liquid - A Yeoman Generator")
 
-[![NPM version][npm-image]][npm-url] [![Build Status][travis-image]][travis-url] [![Dependency Status][daviddm-image]][daviddm-url]
->
-
 ## Installation
 
 First, install [Yeoman](http://yeoman.io) and generator-liquid using [npm](https://www.npmjs.com/) (we assume you have pre-installed [node.js](https://nodejs.org/)).
