@@ -1,7 +1,6 @@
+![Alt text](http://ryanaltvater.com/assets/img/logo-liquid.png "Liquid - A Yeoman Generator")
 
-[liquid-image]
-
-# generator-liquid [![NPM version][npm-image]][npm-url] [![Build Status][travis-image]][travis-url] [![Dependency Status][daviddm-image]][daviddm-url]
+[![NPM version][npm-image]][npm-url] [![Build Status][travis-image]][travis-url] [![Dependency Status][daviddm-image]][daviddm-url]
 >
 
 ## Installation
@@ -16,7 +15,7 @@ npm install -g generator-liquid
 Then generate your new project:
 
 ```bash
-yo liquid-wp
+yo liquid
 ```
 
 ## Getting To Know Yeoman
@@ -30,7 +29,6 @@ yo liquid-wp
 
 MIT © [Ryan Altvater](http://ryanaltvater.com)
 
-[liquid-image]: http://ryanaltvater.com/assets/img/logo-liquid.png
 [npm-image]: https://badge.fury.io/js/generator-liquid.svg
 [npm-url]: https://npmjs.org/package/generator-liquid
 [travis-image]: https://travis-ci.org/ryanaltvater/generator-liquid.svg?branch=master
