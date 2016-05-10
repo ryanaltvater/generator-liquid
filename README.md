@@ -1,3 +1,6 @@
+
+[liquid-image]
+
 # generator-liquid [![NPM version][npm-image]][npm-url] [![Build Status][travis-image]][travis-url] [![Dependency Status][daviddm-image]][daviddm-url]
 >
 
@@ -27,7 +30,7 @@ yo liquid-wp
 
 MIT © [Ryan Altvater](http://ryanaltvater.com)
 
-
+[liquid-image]: http://ryanaltvater.com/assets/img/logo-liquid.png
 [npm-image]: https://badge.fury.io/js/generator-liquid.svg
 [npm-url]: https://npmjs.org/package/generator-liquid
 [travis-image]: https://travis-ci.org/ryanaltvater/generator-liquid.svg?branch=master
