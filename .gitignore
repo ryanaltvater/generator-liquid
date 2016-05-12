@@ -1,2 +1,67 @@
-.DS_Store
+## Custom
+
+*.sublime-*
+.vagrant
+_copy
+_designs
+importbuddy.php
+public
+README.md
+Search-Replace-DB
+secrets.json
+wp-config.php
+
+
+## Node.js
+
+*.log
+*.pid
+*.seed
+.lock-wscript
+build/Release
+coverage
+lib-cov
+logs
 node_modules
+pids
+
+
+## Bower
+
+bower
+bower_components
+
+
+## CSS/SCSS
+
+*.css.map
+.sass-cache
+
+
+## OS X
+
+._*
+.apdisk
+.AppleDB
+.AppleDesktop
+.AppleDouble
+.DS_Store
+.LSOverride
+.Spotlight-V100
+.Trashes
+Icon
+Network Trash Folder
+Temporary Items
+
+
+## Windows
+
+*.cab
+*.msi
+*.msm
+*.msp
+*.lnk
+$RECYCLE.BIN/
+Desktop.ini
+ehthumbs.db
+Thumbs.db
