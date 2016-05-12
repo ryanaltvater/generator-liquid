@@ -1,0 +1,115 @@
+@font-face {
+	src: url("../fonts/icons/icons.eot");
+	src: url("../fonts/icons/icons.eot#iefix") format("embedded-opentype"),
+		 url("../fonts/icons/icons.svg#Icons") format("svg"),
+		 url("../fonts/icons/icons.woff") format("woff"),
+		 url("../fonts/icons/icons.ttf") format("truetype");
+	font-family: "Icons";
+	font-weight: normal;
+	font-style: normal;
+}
+
+[class^="icon__"]:before,
+[class*=" icon__"]:before {
+	position: relative;
+	display: inline-block;
+	font-family: "Icons";
+	font-weight: normal;
+	font-style: normal;
+	font-variant: normal;
+	text-align: center;
+	text-decoration: inherit;
+	text-transform: none;
+
+	speak: none;
+}
+
+.icon {
+	&__menu {
+		&:before {
+			content: "\E001";
+		}
+	}
+
+	&__close {
+		&:before {
+			content: "\E002";
+		}
+	}
+
+	&__facebook {
+		&:before {
+			content: "\E003";
+		}
+	}
+
+	&__twitter {
+		&:before {
+			content: "\E004";
+		}
+	}
+
+	&__linkedin {
+		&:before {
+			content: "\E005";
+		}
+	}
+
+	&__google-plus {
+		&:before {
+			content: "\E006";
+		}
+	}
+
+	&__youtube {
+		&:before {
+			content: "\E007";
+		}
+	}
+}
+
+* {
+	text-rendering: optimizeLegibility;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+}
+
+html {
+	font-size: 100%;
+}
+
+body {
+	@include primary-font;
+	@include font-size(14px);
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+	@include secondary-font;
+
+	margin-bottom: 10px;
+}
+
+p,
+ul {
+	line-height: 1.4;
+}
+
+p {
+	margin-bottom: 20px;
+}
+
+a,
+a:active,
+a:focus,
+a:visited {
+	text-decoration: none;
+}
+
+sup {
+	top: -5px;
+}

@@ -1,0 +1,28 @@
+/* ========================================================================================== */
+/*  EXTENDS
+/* ========================================================================================== */
+
+%clearfix {
+	*zoom: 1;
+
+	&:before,
+	&:after {
+		display: table;
+		content: " ";
+	}
+
+	&:after {
+		clear: both;
+	}
+}
+
+%visuallyhidden {
+	position: absolute;
+	width: 1px;
+	height: 1px;
+	padding: 0;
+	margin: -1px;
+	overflow: hidden;
+	clip: rect(0 0 0 0);
+	clip: rect(0, 0, 0, 0);
+}

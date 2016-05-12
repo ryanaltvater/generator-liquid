@@ -1,0 +1,35 @@
+{
+  "name": "<%= projectName %>",
+  "version": "0.0.0",
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "devDependencies": {
+    "jquery": "1.9.0",
+    "modernizr": "^2.8.3",
+    "normalize.css": "^4.0.0"
+  },
+  "install": {
+    "path": {
+      "css": "src/liquid/assets/css/scss/bower",
+      "scss": "src/liquid/assets/css/scss/bower",
+      "js": "src/liquid/assets/js"
+    },
+    "sources": {
+      "jquery": "bower_components/jquery/jquery.min.js",
+      "modernizr": "bower_components/modernizr/modernizr.js",
+      "normalize.css": {
+        "mapping": [
+          {
+            "bower_components/normalize.css/normalize.css": "_normalize.scss"
+          }
+        ]
+      }
+    }
+  }
+}

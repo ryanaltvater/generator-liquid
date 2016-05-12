@@ -1,0 +1,142 @@
+@media print {
+	body {
+		width: 100% !important;
+		padding: 0 !important;
+		margin: 0 !important;
+		font-size: 14pt;
+		line-height: 1.45;
+		color: #000;
+		background: none;
+	}
+
+	h1,
+	h2,
+	h3,
+	h4,
+	h5,
+	h6 {
+		page-break-after: avoid;
+	}
+
+	h1 {
+		font-size: 19pt;
+	}
+
+	h2 {
+		font-size: 17pt;
+	}
+
+	h3 {
+		font-size: 15pt;
+	}
+
+	h4,
+	h5,
+	h6 {
+		font-size: 14pt;
+	}
+
+	p,
+	h2,
+	h3 {
+		orphans: 3;
+		widows: 3;
+	}
+
+	code {
+		font: 12pt Courier, monospace;
+	}
+
+	blockquote {
+		padding: 1em;
+		margin: 1.2em;
+		font-size: 12pt;
+	}
+
+	hr {
+		background-color: #ccc;
+	}
+
+	img {
+		float: left;
+		max-width: 100% !important;
+		margin: 1em 1.5em 1.5em 0;
+	}
+
+	a img {
+		border: none;
+	}
+
+	a:link,
+	a:visited {
+		font-weight: 700;
+		color: #333;
+		text-decoration: underline;
+		background: transparent;
+	}
+
+	a:link[href^="http://"]:after,
+	a[href^="http://"]:visited:after {
+		font-size: 90%;
+		content: " (" attr(href) ") ";
+	}
+
+	abbr[title]:after {
+		content: " (" attr(title) ")";
+	}
+
+	a[href^="http://"] {
+		color: #000;
+	}
+
+	a[href$=".jpg"]:after,
+	a[href$=".jpeg"]:after,
+	a[href$=".gif"]:after,
+	a[href$=".png"]:after {
+		display: none;
+		content: " (" attr(href) ") ";
+	}
+
+	a[href^="#"]:after,
+	a[href^="javascript:"]:after {
+		content: "";
+	}
+
+	table {
+		margin: 1px;
+		text-align: left;
+	}
+
+	th {
+		font-weight: bold;
+		border-bottom: 1px solid #333;
+	}
+
+	td {
+		border-bottom: 1px solid #333;
+	}
+
+	th,
+	td {
+		padding: 4px 10px 4px 0;
+	}
+
+	tfoot {
+		font-style: italic;
+	}
+
+	caption {
+		margin-bottom: 2em;
+		text-align: left;
+		background: #fff;
+	}
+
+	thead {
+		display: table-header-group;
+	}
+
+	img,
+	tr {
+		page-break-inside: avoid;
+	}
+}

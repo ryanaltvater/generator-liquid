@@ -1,0 +1,23 @@
+.nav {
+	ul {
+		padding-left: 0;
+		margin-bottom: 0;
+		list-style: none;
+	}
+
+	li {
+		display: inline-block;
+		float: left;
+		padding: 0 20px;
+		margin-bottom: 0;
+
+		&:first-of-type {
+			padding-left: 0;
+		}
+
+		&:last-of-type {
+			float: none;
+			padding-right: 0;
+		}
+	}
+}
