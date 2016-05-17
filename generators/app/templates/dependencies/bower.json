@@ -1,7 +1,6 @@
 {
-  "name": "<%= projectName %>",
+  "name": "<%= projectNameLower %>",
   "version": "0.0.0",
-  "license": "MIT",
   "ignore": [
     "**/.*",
     "node_modules",
@@ -31,5 +30,6 @@
         ]
       }
     }
-  }
+  },
+  "license": "MIT"
 }
