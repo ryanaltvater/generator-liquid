@@ -7,9 +7,25 @@ var yeoman = require('yeoman-generator'),
     liquidWordPressGenerator = yeoman.Base.extend({
         prompting: function () {
             var done = this.async(),
-                requiredValidate = function (value) {
+                validateRequired = function (value) {
                     if (value === '') {
                         return 'This field is required.';
+                    }
+
+                    return true;
+                },
+                validateURL = function (value) {
+                    value = value.replace(/\/+$/g, '');
+
+                    if (!/^http[s]?:\/\//.test(value)) {
+                        value = 'http://' + value;
+                    }
+
+                    return value;
+                },
+                validateEmail = function (value) {
+                    if (!/^[A-Z0-9._%+-]+@([A-Z0-9-]+\.)+[A-Z]{2,4}$/i.test(value)) {
+                        return 'Please enter a valid email.';
                     }
 
                     return true;
@@ -28,103 +44,104 @@ var yeoman = require('yeoman-generator'),
                     name: 'projectURL',
                     type: 'input',
                     default: 'http://192.168.33.10',
-                    filter: function (value) {
-                        value = value.replace(/\/+$/g, '');
-
-                        if (!/^http[s]?:\/\//.test(value)) {
-                            value = 'http://' + value;
-                        }
-
-                        return value;
-                    }
-                },
-                {
-                    message: 'Database name',
-                    name: 'dbName',
-                    type: 'input',
-                    default: 'scotchbox'
-                },
-                {
-                    message: 'Database username',
-                    name: 'dbUsername',
-                    type: 'input',
-                    default: 'root'
-                },
-                {
-                    message: 'Database password',
-                    name: 'dbPassword',
-                    type: 'input',
-                    default: 'root'
+                    filter: validateURL
                 },
                 {
                     message: 'WordPress username',
-                    name: 'wpUser',
+                    name: 'wpUsername',
                     type: 'input',
                     default: 'admin'
                 },
                 {
                     message: 'WordPress password',
                     name: 'wpPassword',
-                    type: 'input',
-                    validate: requiredValidate
+                    type: 'password',
+                    validate: validateRequired
                 },
                 {
                     message: 'WordPress email',
                     name: 'wpEmail',
-                    type: 'input',
-                    validate: requiredValidate
+                    type: 'email',
+                    validate: validateEmail
                 },
+                {
+                    message: 'Start Vagrant?',
+                    name: 'startVagrant',
+                    type: 'confirm',
+                    default: true
+                }
             ];
 
             this.prompt(prompts, function (props) {
                 this.projectName = props.projectName;
                 this.projectURL = props.projectURL;
-                this.dbName = props.dbName;
-                this.dbUsername = props.dbUsername;
-                this.dbPassword = props.dbPassword;
-                this.wpUser = props.wpUser;
+                this.wpUsername = props.wpUsername;
                 this.wpPassword = props.wpPassword;
                 this.wpEmail = props.wpEmail;
+                this.startVagrant = props.startVagrant;
 
                 done();
             }.bind(this));
         },
 
         installWordPress: function () {
+            this.log(chalk.magenta('Installing WordPress...'));
+
             var done = this.async();
 
-            // Temporarily installs WordPress into a "wordpress" folder in the "public" folder
-            this.log(chalk.magenta('Installing WordPress...'));
-            this.tarball('http://wordpress.org/latest.zip', 'public', done);
+            // Temporarily installs WordPress to a "wordpress" folder in the "public" folder
+            this.tarball('http://wordpress.org/latest.zip', 'public/', done);
         },
 
         moveWordPressContents: function () {
-            // Moves "wordpress" contents into the "public" folder
-            shell.exec('cp -a public/wordpress/** public');
-        },
-
-        removeWordPressThemes: function () {
-            // Removes temporary "wordpress" folder
-            shell.exec('rm -f -r public/wp-content/themes/**');
+            // Moves "wordpress" contents to the "public" folder
+            shell.exec('cp -a public/wordpress/** public/');
         },
 
         removeWordPressFolder: function () {
             // Removes temporary "wordpress" folder
-            shell.exec('rm -f -r public/wordpress');
+            shell.exec('rm -f -r public/wordpress/');
         },
 
-        setupProjectFiles: function () {
-            // Copies "Vagrantfile" to the project folder
-            this.log(chalk.magenta('Setting up project files...'));
+        removeConfigFiles: function () {
+            // Removes installed config files, to be replaced
+            shell.exec('rm -f -r public/wp-admin/includes/update-core.php');
+            shell.exec('rm -f -r public/wp-includes/class-wp-theme.php');
+            shell.exec('rm -f -r public/wp-includes/default-constants.php');
+        },
+
+        replaceConfigFiles: function () {
+            // Replaces removed config files with files from "wordpress" folder
             this.fs.copy(
-              this.templatePath('../../app/templates/vagrant/Vagrantfile'),
-              this.destinationPath('Vagrantfile')
+                this.templatePath('wordpress/**/*'),
+                this.destinationPath('public/')
+            );
+        },
+
+        removeWordPressThemes: function () {
+            // Removes default WordPress themes
+            shell.exec('rm -f -r public/wp-content/themes/**');
+        },
+
+        writing: function () {
+            this.log(chalk.magenta('Setting up project files...'));
+
+            // Copies "Vagrantfile" to the project folder
+            this.fs.copy(
+                this.templatePath('../../app/templates/vagrant/Vagrantfile'),
+                this.destinationPath('Vagrantfile')
+            );
+
+            // Copies Vagrant "config.php" to the theme folder
+            this.fs.copy(
+                this.templatePath('../../app/templates/vagrant/config.php'),
+                this.destinationPath('public/wp-content/themes/liquid/config.php')
             );
 
             // Copies "dotfiles" to the project folder
             this.fs.copy(
-              this.templatePath('../../app/templates/dotfiles/.*'),
-              this.destinationPath('./')
+                this.templatePath('../../app/templates/dotfiles/.*'),
+                this.destinationPath('./')
             );
 
             // Copies "dependencies" to the "src" theme folder
@@ -132,38 +149,58 @@ var yeoman = require('yeoman-generator'),
               this.templatePath('../../app/templates/dependencies/*'),
               this.destinationPath('./'),
               {
-                  projectName: this.projectName
+                projectType: 'WordPress',
+                projectName: this.projectName.replace(/ /g, '-'),
+                projectNameLower: this.projectName.toLowerCase().replace(/ /g, '-'),
               }
             );
 
-            // Copies "gulpfile.js" file to the project folder
+            // Copies "gulpfile.js" to the project folder
             this.fs.copy(
-              this.templatePath('gulp/gulpfile.js'),
-              this.destinationPath('gulpfile.js')
+                this.templatePath('gulp/gulpfile.js'),
+                this.destinationPath('gulpfile.js')
             );
 
-            // Copies "liquid" files to the "src" folder
+            // Copies "liquid" theme to the "src" folder
             this.fs.copy(
-              this.templatePath('liquid/**'),
-              this.destinationPath('src/liquid/')
+                this.templatePath('liquid/**'),
+                this.destinationPath('src/liquid/')
             );
 
             // Copies "assets" to the "src" theme folder
             this.fs.copy(
-              this.templatePath('../../app/templates/assets/**'),
-              this.destinationPath('src/liquid/assets/')
+                this.templatePath('../../app/templates/assets/**'),
+                this.destinationPath('src/liquid/assets/')
             );
 
             // Copies "favicons" to the "src" theme folder
             this.fs.copy(
-              this.templatePath('../../app/templates/favicons/*'),
-              this.destinationPath('src/liquid/')
+                this.templatePath('../../app/templates/favicons/*'),
+                this.destinationPath('src/liquid/')
             );
         },
 
-        // install: function () {
-        //     this.installDependencies();
-        // }
+        install: function () {
+            if (this.startVagrant === true) {
+                var done = this.async();
+
+                this.log(chalk.magenta('Starting Vagrant...'));
+
+                // Starts Vagrant server
+                shell.exec('vagrant up');
+
+                done();
+            }
+
+            this.log(chalk.magenta('Installing dependencies...'));
+
+            // Installs Node and Bower dependencies
+            this.installDependencies();
+        },
+
+        end: function () {
+            shell.exec('curl -d "weblog_title=' + this.projectName + '&user_name=' + this.wpUsername + '&admin_password=' + this.wpPassword + '&admin_password2=' + this.wpPassword + '&admin_email=' + this.wpEmail + '" http://' + this.projectURL + '/wp-admin/install.php?step=2');
+        }
     });
 
 module.exports = liquidWordPressGenerator;
