@@ -10,7 +10,7 @@ var gulp 				= require('gulp');
 /* ============================== */
 
 var autoprefixer 		= require('gulp-autoprefixer'),
-	bower 				= require('bower.json'),
+	bower 				= require('./bower.json'),
 	browserSync 		= require('browser-sync').create(),
 	changed 			= require('gulp-changed'),
 	concat 				= require('gulp-concat'),
@@ -19,7 +19,7 @@ var autoprefixer 		= require('gulp-autoprefixer'),
 	header 				= require('gulp-header'),
 	iconfont 			= require('gulp-iconfont'),
 	notify 				= require('gulp-notify'),
-	package 			= require('package.json'),
+	package 			= require('./package.json'),
 	plumber 			= require('gulp-plumber'),
 	reload 				= browserSync.reload,
 	replace 			= require('gulp-replace'),
@@ -53,6 +53,10 @@ var srcRoot 			= 'src/liquid/',
 var banner = [
 	'/* ========================================================================================== */\n' +
 	'/*  <%= package.name %>\n' +
+	'/*  <%= package.description %>\n' +
+	'/*  \n' +
+	'/*  Copyright © ' + new Date().getFullYear() + '. Released under the <%= package.license %> license.\n' +
+	'/*  <%= package.homepage %>\n' +
 	'/* ========================================================================================== */\n\n'
 ].join('\n');
 
