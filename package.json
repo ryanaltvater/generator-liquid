@@ -20,7 +20,10 @@
   ],
   "homepage": "https://github.com/ryanaltvater/generator-liquid",
   "issues": "https://github.com/ryanaltvater/generator-liquid/issues",
-  "repository": "git@github.com:ryanaltvater/generator-liquid.git",
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:ryanaltvater/generator-liquid.git"
+  },
   "author": {
     "name": "Ryan Altvater",
     "email": "ryan@ryanaltvater.com",
