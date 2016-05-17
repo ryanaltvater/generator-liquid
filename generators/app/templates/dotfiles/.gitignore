@@ -4,12 +4,10 @@
 .vagrant
 _copy
 _designs
+icons
 importbuddy.php
 public
-README.md
 Search-Replace-DB
-secrets.json
-wp-config.php
 
 
 ## Node.js
