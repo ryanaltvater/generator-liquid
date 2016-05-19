@@ -2,48 +2,48 @@
 /*  GULP
 /* ========================================================================================== */
 
-var gulp 				= require('gulp');
+var gulp = require('gulp');
 
 
 /* ============================== */
 /*  Plugins
 /* ============================== */
 
-var autoprefixer 		= require('gulp-autoprefixer'),
-	bower 				= require('./bower.json'),
-	browserSync 		= require('browser-sync').create(),
-	changed 			= require('gulp-changed'),
-	concat 				= require('gulp-concat'),
-	cssmin 				= require('gulp-cssmin'),
-	gcmq 				= require('gulp-group-css-media-queries'),
-	header 				= require('gulp-header'),
-	iconfont 			= require('gulp-iconfont'),
-	notify 				= require('gulp-notify'),
-	package 			= require('./package.json'),
-	plumber 			= require('gulp-plumber'),
-	reload 				= browserSync.reload,
-	replace 			= require('gulp-replace'),
-	runSequence 		= require('run-sequence'),
-	sass 				= require('gulp-sass'),
-	uglify 				= require('gulp-uglify');
+var autoprefixer = require('gulp-autoprefixer'),
+	bower = require('./bower.json'),
+	browserSync	= require('browser-sync').create(),
+	changed = require('gulp-changed'),
+	concat = require('gulp-concat'),
+	cssmin = require('gulp-cssmin'),
+	gcmq = require('gulp-group-css-media-queries'),
+	header = require('gulp-header'),
+	iconfont = require('gulp-iconfont'),
+	notify = require('gulp-notify'),
+	package = require('./package.json'),
+	plumber = require('gulp-plumber'),
+	reload = browserSync.reload,
+	replace = require('gulp-replace'),
+	runSequence = require('run-sequence'),
+	sass = require('gulp-sass'),
+	uglify = require('gulp-uglify');
 
 
 /* ============================== */
 /*  Destinations
 /* ============================== */
 
-var srcRoot 			= 'src/liquid/',
-    srcSCSS 			= 'src/liquid/assets/css/scss/',
-    srcCSS 				= 'src/liquid/assets/css/',
-    srcFonts 			= 'src/liquid/assets/fonts/',
-    srcImg 				= 'src/liquid/assets/img/',
-    srcIcons 			= 'src/liquid/assets/img/svg/',
-    srcJS 				= 'src/liquid/assets/js/',
-	destRoot 			= 'public/wp-content/themes/liquid/',
-	destCSS 			= 'public/wp-content/themes/liquid/assets/css/',
-    destFonts 			= 'public/wp-content/themes/liquid/assets/fonts/',
-    destImg 			= 'public/wp-content/themes/liquid/assets/img/',
-    destJS 				= 'public/wp-content/themes/liquid/assets/js/';
+var srcRoot = 'src/liquid/',
+    srcSCSS = 'src/liquid/assets/css/scss/',
+    srcCSS = 'src/liquid/assets/css/',
+    srcFonts = 'src/liquid/assets/fonts/',
+    srcImg = 'src/liquid/assets/img/',
+    srcIcons = 'src/liquid/assets/img/svg/',
+    srcJS = 'src/liquid/assets/js/',
+	destRoot = 'public/wp-content/themes/liquid/',
+	destCSS = 'public/wp-content/themes/liquid/assets/css/',
+    destFonts = 'public/wp-content/themes/liquid/assets/fonts/',
+    destImg = 'public/wp-content/themes/liquid/assets/img/',
+    destJS = 'public/wp-content/themes/liquid/assets/js/';
 
 
 /* ============================== */
@@ -72,7 +72,7 @@ gulp.task('html', function() {
 	.pipe(changed(destRoot))
 	.pipe(gulp.dest(destRoot))
 	.pipe(reload({
-		stream			: true
+		stream: true
 	}));
 });
 
@@ -86,21 +86,21 @@ gulp.task('css', function() {
 		srcSCSS + 'styles.scss'
 	])
 	.pipe(plumber({
-		errorHandler	: notify.onError('Error: <%= error.message %>')
+		errorHandler: notify.onError('Error: <%= error.message %>')
 	}))
 	.pipe(sass())
 	.pipe(autoprefixer({
-		browsers		: ['last 2 versions'],
-		cascade			: false
+		browsers: ['last 2 versions'],
+		cascade: false
 	}))
 	.pipe(gcmq())
 	.pipe(cssmin())
 	.pipe(header(banner, {
-		package			: package
+		package: package
 	}))
 	.pipe(gulp.dest(destCSS))
 	.pipe(reload({
-		stream			: true
+		stream: true
 	}));
 });
 
@@ -116,7 +116,7 @@ gulp.task('fonts', ['icons'], function() {
 	.pipe(changed(destFonts))
 	.pipe(gulp.dest(destFonts))
 	.pipe(reload({
-		stream			: true
+		stream: true
 	}));
 });
 
@@ -134,7 +134,7 @@ gulp.task('images', function() {
 	.pipe(changed(destImg))
 	.pipe(gulp.dest(destImg))
 	.pipe(reload({
-		stream			: true
+		stream: true
 	}));
 });
 
@@ -148,14 +148,14 @@ gulp.task('icons', function() {
 		srcIcons + '*.svg'
 	])
 	.pipe(iconfont({
-		fontName		: 'icons',
-		normalize		: true,
+		fontName: 'icons',
+		normalize: true,
 		appendCodepoints: true,
-//		appendUnicode	: true
+//		appendUnicode: true
 	}))
 	.pipe(gulp.dest(srcFonts + 'icons/'))
 	.pipe(reload({
-		stream			: true
+		stream: true
 	}));
 });
 
@@ -170,16 +170,16 @@ gulp.task('js', function() {
 		srcJS + 'scripts.js'
 	])
 	.pipe(plumber({
-		errorHandler	: notify.onError('Error: <%= error.message %>')
+		errorHandler: notify.onError('Error: <%= error.message %>')
 	}))
 	.pipe(concat('scripts.min.js'))
 	.pipe(uglify())
  	.pipe(header(banner, {
-	 	package			: package
+	 	package: package
 	 }))
 	.pipe(gulp.dest(destJS))
 	.pipe(reload({
-		stream			: true
+		stream: true
 	}));
 });
 
@@ -227,7 +227,7 @@ gulp.task('move', function() {
 
 gulp.task('webserver', function() {
 	browserSync.init({
- 		proxy			: 'http://192.168.33.10'
+ 		proxy: 'http://192.168.33.10'
 	});
 });
 
