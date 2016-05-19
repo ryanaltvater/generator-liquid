@@ -26,39 +26,6 @@
  */
 
 
- /* ========================================================================================== */
- /*  ADVANCED CUSTOM FIELDS PRO
- /* ========================================================================================== */
-
-if ( function_exists( 'acf_add_options_page' ) ) {
-	acf_add_options_page( array(
-		'page_title' 	=> 'Global Settings',
-		'menu_title'	=> 'Theme Settings',
-		'menu_slug' 	=> 'theme-settings',
-		'capability'	=> 'edit_posts',
-		'redirect'		=> false
-	) );
-
-	acf_add_options_sub_page( array(
-		'page_title' 	=> 'Contact Info Settings',
-		'menu_title'	=> 'Contact Info',
-		'parent_slug'	=> 'theme-settings',
-	) );
-
-	acf_add_options_sub_page( array(
-		'page_title' 	=> 'Social Media Settings',
-		'menu_title'	=> 'Social Media',
-		'parent_slug'	=> 'theme-settings',
-	) );
-
-	acf_add_options_sub_page( array(
-		'page_title' 	=> 'Favicon Settings',
-		'menu_title'	=> 'Favicons',
-		'parent_slug'	=> 'theme-settings',
-	) );
-}
-
-
 /**
  * Set the content width based on the theme's design and stylesheet.
  *
@@ -228,41 +195,6 @@ function twentyfifteen_fonts_url() {
 endif;
 
 
-/* ========================================================================================== */
-/*  ENQUEUE SCRIPTS
-/* ========================================================================================== */
-
-function enqueue_assets() {
-
-
-/* ============================== */
-/*  Fonts
-/* ============================== */
-
-//	wp_enqueue_style( 'google-fonts', 'http' . ($_SERVER['SERVER_PORT'] == 443 ? 's' : '') . '://fonts.googleapis.com/css?family=Open+Sans', false, null );
-
-
-/* ============================== */
-/*  Styles
-/* ============================== */
-
-//	wp_enqueue_style( 'jquery-ui', 'http' . ($_SERVER['SERVER_PORT'] == 443 ? 's' : '') . '://code.jquery.com/ui/1.11.3/themes/smoothness/jquery-ui.css', false, null );
-	wp_enqueue_style( 'styles', get_template_directory_uri() . '/assets/css/styles.css' );
-
-
-/* ============================== */
-/*  Scripts
-/* ============================== */
-
-	wp_deregister_script( 'jquery' );
-
-	wp_enqueue_script( 'jquery', 'http' . ($_SERVER['SERVER_PORT'] == 443 ? 's' : '') . '://ajax.googleapis.com/ajax/libs/jquery/{{JQUERY_VERSION}}/jquery.min.js', false, null );
-//	wp_enqueue_script( 'jquery-ui', 'http' . ($_SERVER['SERVER_PORT'] == 443 ? 's' : '') . '://code.jquery.com/ui/1.11.3/jquery-ui.js', false, null );
-	wp_enqueue_script( 'modernizr', get_template_directory_uri() . '/assets/js/modernizr/modernizr.js' );
-}
-if ( !is_admin() ) add_action( 'wp_enqueue_scripts', 'enqueue_assets', 11 );
-
-
 /**
  * Add featured image as background image to post navigation elements.
  *
@@ -361,6 +293,42 @@ require get_template_directory() . '/includes/customizer.php';
 
 
 /* ========================================================================================== */
+/*  ENQUEUE SCRIPTS
+/* ========================================================================================== */
+
+function enqueue_assets() {
+
+
+/* ============================== */
+/*  Fonts
+/* ============================== */
+
+//	wp_enqueue_style( 'google-fonts', 'http' . ($_SERVER['SERVER_PORT'] == 443 ? 's' : '') . '://fonts.googleapis.com/css?family=Open+Sans', false, null );
+
+
+/* ============================== */
+/*  Styles
+/* ============================== */
+
+//	wp_enqueue_style( 'jquery-ui', 'http' . ($_SERVER['SERVER_PORT'] == 443 ? 's' : '') . '://code.jquery.com/ui/1.11.3/themes/smoothness/jquery-ui.css', false, null );
+	wp_enqueue_style( 'styles', get_template_directory_uri() . '/assets/css/styles.css' );
+
+
+/* ============================== */
+/*  Scripts
+/* ============================== */
+
+	wp_deregister_script( 'jquery' );
+
+	wp_enqueue_script( 'jquery', 'http' . ($_SERVER['SERVER_PORT'] == 443 ? 's' : '') . '://ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js', false, null );
+//	wp_enqueue_script( 'jquery-ui', 'http' . ($_SERVER['SERVER_PORT'] == 443 ? 's' : '') . '://code.jquery.com/ui/1.11.3/jquery-ui.js', false, null );
+	wp_enqueue_script( 'modernizr', get_template_directory_uri() . '/assets/js/modernizr/modernizr.js' );
+}
+
+if ( !is_admin() ) add_action( 'wp_enqueue_scripts', 'enqueue_assets', 11 );
+
+
+/* ========================================================================================== */
 /*  REGISTER PLUGINS
 /* ========================================================================================== */
 
@@ -424,24 +392,6 @@ function register_plugins() {
 			'external_url'       => 'https://wordpress.org/plugins/duplicate-post/'
 		),
 		array(
-			'name'               => 'EWWW Image Optimizer',
-			'slug'               => 'ewww-image-optimizer',
-			'source'             => 'https://downloads.wordpress.org/plugin/ewww-image-optimizer.2.5.3.zip',
-			'required'           => true,
-			'force_activation'   => true,
-			'force_deactivation' => false,
-			'external_url'       => 'https://wordpress.org/plugins/ewww-image-optimizer/'
-		),
-		array(
-			'name'               => 'iThemes Sync',
-			'slug'               => 'ithemes-sync',
-			'source'             => 'http://www.ryanaltvater.com/downloads/ithemes-sync.zip',
-			'required'           => true,
-			'force_activation'   => true,
-			'force_deactivation' => false,
-			'external_url'       => 'https://ithemes.com/purchase/sync/'
-		),
-		array(
 			'name'               => 'Relevanssi',
 			'slug'               => 'relevanssi',
 			'source'             => 'https://downloads.wordpress.org/plugin/relevanssi.3.5.3.zip',
@@ -453,25 +403,16 @@ function register_plugins() {
 		array(
 			'name'               => 'TinyMCE Advanced',
 			'slug'               => 'tinymce-advanced',
-			'source'             => 'https://downloads.wordpress.org/plugin/tinymce-advanced.4.2.5.zip',
+			'source'             => 'https://downloads.wordpress.org/plugin/tinymce-advanced.4.3.10.1.zip',
 			'required'           => true,
 			'force_activation'   => true,
 			'force_deactivation' => false,
 			'external_url'       => 'https://wordpress.org/plugins/tinymce-advanced/'
 		),
 		array(
-			'name'               => 'Uber Login Logo',
-			'slug'               => 'uber-login-logo',
-			'source'             => 'https://downloads.wordpress.org/plugin/uber-login-logo.1.5.1.zip',
-			'required'           => true,
-			'force_activation'   => true,
-			'force_deactivation' => false,
-			'external_url'       => 'https://wordpress.org/plugins/uber-login-logo/'
-		),
-		array(
 			'name'               => 'Wordfence Security',
 			'slug'               => 'wordfence',
-			'source'             => 'https://downloads.wordpress.org/plugin/wordfence.6.0.23.zip',
+			'source'             => 'https://downloads.wordpress.org/plugin/wordfence.6.1.7.zip',
 			'required'           => true,
 			'force_activation'   => true,
 			'force_deactivation' => false,
@@ -480,7 +421,7 @@ function register_plugins() {
 		array(
 			'name'               => 'WordPress SEO by Yoast',
 			'slug'               => 'wordpress-seo',
-			'source'             => 'https://downloads.wordpress.org/plugin/wordpress-seo.2.3.5.zip',
+			'source'             => 'https://downloads.wordpress.org/plugin/wordpress-seo.3.2.5.zip',
 			'required'           => true,
 			'force_activation'   => true,
 			'force_deactivation' => false,
@@ -513,7 +454,7 @@ function register_plugins() {
         array(
             'name'               => 'Akismet',
             'slug'               => 'akismet',
-            'source'             => 'https://downloads.wordpress.org/plugin/akismet.3.1.5.zip',
+            'source'             => 'https://downloads.wordpress.org/plugin/akismet.3.1.11.zip',
             'required'           => false,
             'force_activation'   => false,
             'force_deactivation' => false,
@@ -522,7 +463,7 @@ function register_plugins() {
         array(
             'name'               => 'Asset Queue Manager',
             'slug'               => 'asset-queue-manager',
-            'source'             => 'https://downloads.wordpress.org/plugin/asset-queue-manager.1.0.0.zip',
+            'source'             => 'https://downloads.wordpress.org/plugin/asset-queue-manager.1.0.3.zip',
             'required'           => false,
             'force_activation'   => false,
             'force_deactivation' => false,
@@ -540,7 +481,7 @@ function register_plugins() {
         array(
             'name'               => 'Breadcrumb NavXT',
             'slug'               => 'breadcrumb-navxt',
-            'source'             => 'https://downloads.wordpress.org/plugin/breadcrumb-navxt.5.2.2.zip',
+            'source'             => 'https://downloads.wordpress.org/plugin/breadcrumb-navxt.5.4.0.zip',
             'required'           => false,
             'force_activation'   => false,
             'force_deactivation' => false,
@@ -558,7 +499,7 @@ function register_plugins() {
         array(
             'name'               => 'Formidable Forms',
             'slug'               => 'formidable',
-            'source'             => 'https://downloads.wordpress.org/plugin/formidable.2.0.15.zip',
+            'source'             => 'https://downloads.wordpress.org/plugin/formidable.2.01.01.zip',
             'required'           => false,
             'force_activation'   => false,
             'force_deactivation' => false,
@@ -576,7 +517,7 @@ function register_plugins() {
         array(
             'name'               => 'JetPack for WordPress.com',
             'slug'               => 'jetpack',
-            'source'             => 'https://downloads.wordpress.org/plugin/jetpack.3.8.0.zip',
+            'source'             => 'https://downloads.wordpress.org/plugin/jetpack.4.0.2.zip',
             'required'           => false,
             'force_activation'   => false,
             'force_deactivation' => false,
@@ -594,12 +535,21 @@ function register_plugins() {
         array(
             'name'               => 'Pods - Custom Content Types and Fields',
             'slug'               => 'pods',
-            'source'             => 'https://downloads.wordpress.org/plugin/pods.2.5.5.zip',
+            'source'             => 'https://downloads.wordpress.org/plugin/pods.2.6.5.2.zip',
             'required'           => false,
             'force_activation'   => false,
             'force_deactivation' => false,
             'external_url'       => 'https://wordpress.org/plugins/pods/'
-        )
+        ),
+		array(
+			'name'               => 'Uber Login Logo',
+			'slug'               => 'uber-login-logo',
+			'source'             => 'https://downloads.wordpress.org/plugin/uber-login-logo.1.5.1.zip',
+			'required'           => false,
+			'force_activation'   => false,
+			'force_deactivation' => false,
+			'external_url'       => 'https://wordpress.org/plugins/uber-login-logo/'
+		)
     );
 
 
@@ -639,3 +589,575 @@ function register_plugins() {
 
     tgmpa( $plugins, $config );
 }
+
+
+/* ========================================================================================== */
+/*  ADVANCED CUSTOM FIELDS PRO
+/* ========================================================================================== */
+
+if ( function_exists( 'acf_add_options_page' ) ) :
+	acf_add_options_page(
+		array(
+			'menu_title' => 'Theme Settings',
+			'menu_slug' => 'theme-settings',
+			'capability' => 'edit_posts'
+		)
+	);
+
+	acf_add_options_page(
+		array(
+			'page_title' => 'Global Settings',
+			'menu_title' => 'Global',
+			'parent_slug' => 'theme-settings'
+		)
+	);
+
+	acf_add_options_page(
+		array(
+			'page_title' => 'Contact Info Settings',
+			'menu_title' => 'Contact Info',
+			'parent_slug' => 'theme-settings'
+		)
+	);
+
+	acf_add_options_page(
+		array(
+			'page_title' => 'Social Media Settings',
+			'menu_title' => 'Social Media',
+			'parent_slug' => 'theme-settings'
+		)
+	);
+
+	acf_add_options_page(
+		array(
+			'page_title' => 'Favicon Settings',
+			'menu_title' => 'Favicons',
+			'parent_slug' => 'theme-settings'
+		)
+	);
+
+	acf_add_local_field_group(
+		array(
+	    	'key' => 'group_56bb92a63de9c',
+	    	'title' => 'Global',
+	    	'fields' => array(
+				array(
+					'key' => "field_56bb92c968504",
+					'label' => 'Logo',
+					'name' => 'logo',
+					'type' => 'image',
+					'instructions' => '',
+					'required' => 0,
+					'conditional_logic' => 0,
+					'wrapper' => array(
+						'width' => '',
+						'class' => '',
+						'id' => ''
+					),
+					'return_format' => 'array',
+					'preview_size' => 'thumbnail',
+					'library' => 'all',
+					'min_width' => '',
+					'min_height' => '',
+					'min_size' => '',
+					'max_width' => '',
+					'max_height' => '',
+					'max_size' => '',
+					'mime_types' => ''
+				),
+				array(
+					'key' => 'field_56bb933933a37',
+					'label' => 'Google Analytics',
+					'name' => 'google_analytics',
+					'type' => 'text',
+					'instructions' => '',
+					'required' => 0,
+					'conditional_logic' => 0,
+					'wrapper' => array(
+						'width' => '',
+						'class' => '',
+						'id' => ''
+					),
+					'default_value' => '',
+					'placeholder' => '',
+					'prepend' => '',
+					'append' => '',
+					'maxlength' => '',
+					'readonly' => 0,
+					'disabled' => 0
+				)
+			),
+			'location' => array(
+				array(
+					array(
+						'param' => 'options_page',
+						'operator' => '==',
+						'value' => 'acf-options-global'
+					)
+				)
+			),
+	       'menu_order' => 0,
+	       'position' => 'normal',
+	       'style' => 'default',
+	       'label_placement' => 'top',
+	       'instruction_placement' => 'label',
+	       'hide_on_screen' => '',
+	       'active' => 1,
+	       'description' => ''
+		)
+	);
+
+	acf_add_local_field_group(
+		array(
+			'key' => 'group_56bb93b90e3b0',
+			'title' => 'Contact Info',
+			'fields' => array(
+				array(
+					'key' => 'field_56bb9d20d5475',
+					'label' => 'Company',
+					'name' => 'company',
+					'type' => 'text',
+					'instructions' => '',
+					'required' => 0,
+					'conditional_logic' => 0,
+					'wrapper' => array(
+						'width' => '',
+						'class' => '',
+						'id' => ''
+					),
+					'default_value' => '',
+					'placeholder' => '',
+					'prepend' => '',
+					'append' => '',
+					'maxlength' => '',
+					'readonly' => 0,
+					'disabled' => 0
+				),
+				array(
+					'key' => 'field_56bb9d2a813f7',
+					'label' => 'Address 1',
+					'name' => 'address_1',
+					'type' => 'text',
+					'instructions' => '',
+					'required' => 0,
+					'conditional_logic' => 0,
+					'wrapper' => array(
+						'width' => '',
+						'class' => '',
+						'id' => ''
+					),
+					'default_value' => '',
+					'placeholder' => '',
+					'prepend' => '',
+					'append' => '',
+					'maxlength' => '',
+					'readonly' => 0,
+					'disabled' => 0
+				),
+				array(
+					'key' => 'field_56bb9d32ace4d',
+					'label' => 'Address 2',
+					'name' => 'address_2',
+					'type' => 'text',
+					'instructions' => '',
+					'required' => 0,
+					'conditional_logic' => 0,
+					'wrapper' => array(
+						'width' => '',
+						'class' => '',
+						'id' => ''
+					),
+					'default_value' => '',
+					'placeholder' => '',
+					'prepend' => '',
+					'append' => '',
+					'maxlength' => '',
+					'readonly' => 0,
+					'disabled' => 0
+				),
+				array(
+					'key' => 'field_56bb9d38ace4e',
+					'label' => 'City',
+					'name' => 'city',
+					'type' => 'text',
+					'instructions' => '',
+					'required' => 0,
+					'conditional_logic' => 0,
+					'wrapper' => array(
+						'width' => '',
+						'class' => '',
+						'id' => ''
+					),
+					'default_value' => '',
+					'placeholder' => '',
+					'prepend' => '',
+					'append' => '',
+					'maxlength' => '',
+					'readonly' => 0,
+					'disabled' => 0
+				),
+				array(
+					'key' => 'field_56bb9d40ace4f',
+					'label' => 'State',
+					'name' => 'state',
+					'type' => 'text',
+					'instructions' => '',
+					'required' => 0,
+					'conditional_logic' => 0,
+					'wrapper' => array(
+						'width' => '',
+						'class' => '',
+						'id' => ''
+					),
+					'default_value' => '',
+					'placeholder' => '',
+					'prepend' => '',
+					'append' => '',
+					'maxlength' => '',
+					'readonly' => 0,
+					'disabled' => 0
+				),
+				array(
+					'key' => 'field_56bb9d47ace50',
+					'label' => 'Zip Code',
+					'name' => 'zip_code',
+					'type' => 'text',
+					'instructions' => '',
+					'required' => 0,
+					'conditional_logic' => 0,
+					'wrapper' => array(
+						'width' => '',
+						'class' => '',
+						'id' => ''
+					),
+					'default_value' => '',
+					'placeholder' => '',
+					'prepend' => '',
+					'append' => '',
+					'maxlength' => '',
+					'readonly' => 0,
+					'disabled' => 0
+				),
+				array(
+					'key' => 'field_56bb9d87ace52',
+					'label' => 'Phone Number',
+					'name' => 'phone_number',
+					'type' => 'text',
+					'instructions' => '',
+					'required' => 0,
+					'conditional_logic' => 0,
+					'wrapper' => array(
+						'width' => '',
+						'class' => '',
+						'id' => ''
+					),
+					'default_value' => '',
+					'placeholder' => '',
+					'prepend' => '',
+					'append' => '',
+					'maxlength' => '',
+					'readonly' => 0,
+					'disabled' => 0
+				),
+				array(
+					'key' => 'field_56bb9d73ace51',
+					'label' => 'Email Address',
+					'name' => 'email_address',
+					'type' => 'text',
+					'instructions' => '',
+					'required' => 0,
+					'conditional_logic' => 0,
+					'wrapper' => array(
+						'width' => '',
+						'class' => '',
+						'id' => ''
+					),
+					'default_value' => '',
+					'placeholder' => '',
+					'prepend' => '',
+					'append' => '',
+					'maxlength' => '',
+					'readonly' => 0,
+					'disabled' => 0
+				)
+			),
+			'location' => array(
+				array(
+					array(
+						'param' => 'options_page',
+						'operator' => '==',
+						'value' => 'acf-options-contact-info'
+					)
+				)
+			),
+			'menu_order' => 0,
+			'position' => 'normal',
+			'style' => 'default',
+			'label_placement' => 'top',
+			'instruction_placement' => 'label',
+			'hide_on_screen' => '',
+			'active' => 1,
+			'description' => ''
+		)
+	);
+
+	acf_add_local_field_group(
+		array(
+			'key' => 'group_56bb943668de9',
+			'title' => 'Social Media',
+			'fields' => array(
+				array(
+					'key' => 'field_56bb9e461ba4e',
+					'label' => 'Facebook URL',
+					'name' => 'facebook_url',
+					'type' => 'url',
+					'instructions' => '',
+					'required' => 0,
+					'conditional_logic' => 0,
+					'wrapper' => array(
+						'width' => '',
+						'class' => '',
+						'id' => ''
+					),
+					'default_value' => '',
+					'placeholder' => '',
+					'prepend' => '',
+					'append' => '',
+					'maxlength' => '',
+					'readonly' => 0,
+					'disabled' => 0
+				),
+				array(
+					'key' => 'field_56bb9e891ba51',
+					'label' => 'Twitter URL',
+					'name' => 'twitter_url',
+					'type' => 'url',
+					'instructions' => '',
+					'required' => 0,
+					'conditional_logic' => 0,
+					'wrapper' => array(
+						'width' => '',
+						'class' => '',
+						'id' => ''
+					),
+					'default_value' => '',
+					'placeholder' => '',
+					'prepend' => '',
+					'append' => '',
+					'maxlength' => '',
+					'readonly' => 0,
+					'disabled' => 0
+				),
+				array(
+					'key' => 'field_56bb9e781ba50',
+					'label' => 'LinkedIn URL',
+					'name' => 'linkedin_url',
+					'type' => 'url',
+					'instructions' => '',
+					'required' => 0,
+					'conditional_logic' => 0,
+					'wrapper' => array(
+						'width' => '',
+						'class' => '',
+						'id' => ''
+					),
+					'default_value' => '',
+					'placeholder' => '',
+					'prepend' => '',
+					'append' => '',
+					'maxlength' => '',
+					'readonly' => 0,
+					'disabled' => 0
+				),
+				array(
+					'key' => 'field_56bb9e551ba4f',
+					'label' => 'Google+ URL',
+					'name' => 'googleplus_url',
+					'type' => 'url',
+					'instructions' => '',
+					'required' => 0,
+					'conditional_logic' => 0,
+					'wrapper' => array(
+						'width' => '',
+						'class' => '',
+						'id' => ''
+					),
+					'default_value' => '',
+					'placeholder' => '',
+					'prepend' => '',
+					'append' => '',
+					'maxlength' => '',
+					'readonly' => 0,
+					'disabled' => 0
+				),
+				array(
+					'key' => 'field_56bb9e931ba52',
+					'label' => 'YouTube URL',
+					'name' => 'youtube_url',
+					'type' => 'url',
+					'instructions' => '',
+					'required' => 0,
+					'conditional_logic' => 0,
+					'wrapper' => array(
+						'width' => '',
+						'class' => '',
+						'id' => ''
+					),
+					'default_value' => '',
+					'placeholder' => '',
+					'prepend' => '',
+					'append' => '',
+					'maxlength' => '',
+					'readonly' => 0,
+					'disabled' => 0
+				)
+			),
+			'location' => array(
+				array(
+					array(
+						'param' => 'options_page',
+						'operator' => '==',
+						'value' => 'acf-options-social-media'
+					)
+				)
+			),
+			'menu_order' => 0,
+			'position' => 'normal',
+			'style' => 'default',
+			'label_placement' => 'top',
+			'instruction_placement' => 'label',
+			'hide_on_screen' => '',
+			'active' => 1,
+			'description' => ''
+		)
+	);
+
+	acf_add_local_field_group(
+		array(
+			'key' => 'group_56bb944867bc3',
+			'title' => 'Favicons',
+			'fields' => array(
+				array(
+					'key' => 'field_56bb9da89160b',
+					'label' => 'Favicon 144x144',
+					'name' => 'favicon_144x144',
+					'type' => 'image',
+					'instructions' => '',
+					'required' => 0,
+					'conditional_logic' => 0,
+					'wrapper' => array(
+						'width' => '',
+						'class' => '',
+						'id' => ''
+					),
+					'return_format' => 'array',
+					'preview_size' => 'thumbnail',
+					'library' => 'all',
+					'min_width' => '',
+					'min_height' => '',
+					'min_size' => '',
+					'max_width' => '',
+					'max_height' => '',
+					'max_size' => '',
+					'mime_types' => ''
+				),
+				array(
+					'key' => 'field_56bb9def27629',
+					'label' => 'Favicon 114x114',
+					'name' => 'favicon_114x114',
+					'type' => 'image',
+					'instructions' => '',
+					'required' => 0,
+					'conditional_logic' => 0,
+					'wrapper' => array(
+						'width' => '',
+						'class' => '',
+						'id' => ''
+					),
+					'return_format' => 'array',
+					'preview_size' => 'thumbnail',
+					'library' => 'all',
+					'min_width' => '',
+					'min_height' => '',
+					'min_size' => '',
+					'max_width' => '',
+					'max_height' => '',
+					'max_size' => '',
+					'mime_types' => ''
+				),
+				array(
+					'key' => 'field_56bb9e0191d6e',
+					'label' => 'Favicon 72x72',
+					'name' => 'favicon_72x72',
+					'type' => 'image',
+					'instructions' => '',
+					'required' => 0,
+					'conditional_logic' => 0,
+					'wrapper' => array(
+						'width' => '',
+						'class' => '',
+						'id' => ''
+					),
+					'return_format' => 'array',
+					'preview_size' => 'thumbnail',
+					'library' => 'all',
+					'min_width' => '',
+					'min_height' => '',
+					'min_size' => '',
+					'max_width' => '',
+					'max_height' => '',
+					'max_size' => '',
+					'mime_types' => ''
+				),
+				array(
+					'key' => 'field_56bb9e2084f53',
+					'label' => 'Favicon 57x57',
+					'name' => 'favicon_57x57',
+					'type' => 'image',
+					'instructions' => '',
+					'required' => 0,
+					'conditional_logic' => 0,
+					'wrapper' => array(
+						'width' => '',
+						'class' => '',
+						'id' => ''
+					),
+					'return_format' => 'array',
+					'preview_size' => 'thumbnail',
+					'library' => 'all',
+					'min_width' => '',
+					'min_height' => '',
+					'min_size' => '',
+					'max_width' => '',
+					'max_height' => '',
+					'max_size' => '',
+					'mime_types' => ''
+				)
+			),
+			'location' => array(
+				array(
+					array(
+						'param' => 'options_page',
+						'operator' => '==',
+						'value' => 'acf-options-favicons'
+					)
+				)
+			),
+			'menu_order' => 0,
+			'position' => 'normal',
+			'style' => 'default',
+			'label_placement' => 'top',
+			'instruction_placement' => 'label',
+			'hide_on_screen' => '',
+			'active' => 1,
+			'description' => ''
+		)
+	);
+endif;
+
+
+/* ========================================================================================== */
+/*  BACKUPBUDDY
+/* ========================================================================================== */
+
+define( 'BACKUPBUDDY_API_ENABLE', true );
