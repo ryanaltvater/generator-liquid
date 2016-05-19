@@ -1,6 +1,6 @@
 <?php
 /**
- * Template Name: Custom &raquo; Home
+ * Template Name: Liquid &raquo; Home
  */
 
 get_header(); ?>
