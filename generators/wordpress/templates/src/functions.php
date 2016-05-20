@@ -419,15 +419,6 @@ function register_plugins() {
 			'external_url'       => 'https://wordpress.org/plugins/wordfence/'
 		),
 		array(
-			'name'               => 'WordPress SEO by Yoast',
-			'slug'               => 'wordpress-seo',
-			'source'             => 'https://downloads.wordpress.org/plugin/wordpress-seo.3.2.5.zip',
-			'required'           => true,
-			'force_activation'   => true,
-			'force_deactivation' => false,
-			'external_url'       => 'https://wordpress.org/plugins/wordpress-seo/'
-		),
-		array(
 			'name'               => 'WP Media Folder',
 			'slug'               => 'wp-media-folder',
 			'source'             => 'http://ryanaltvater.com/downloads/wp-media-folder.zip',
@@ -444,6 +435,15 @@ function register_plugins() {
 			'force_activation'   => true,
 			'force_deactivation' => false,
 			'external_url'       => 'https://wordpress.org/plugins/wp-sweep/'
+		),
+		array(
+			'name'               => 'Yoast SEO',
+			'slug'               => 'wordpress-seo',
+			'source'             => 'https://downloads.wordpress.org/plugin/wordpress-seo.3.2.5.zip',
+			'required'           => true,
+			'force_activation'   => true,
+			'force_deactivation' => false,
+			'external_url'       => 'https://wordpress.org/plugins/wordpress-seo/'
 		),
 
 
@@ -515,7 +515,7 @@ function register_plugins() {
             'external_url'       => 'https://wordpress.org/plugins/gravitate-event-tracking/'
         ),
         array(
-            'name'               => 'JetPack for WordPress.com',
+            'name'               => 'JetPack',
             'slug'               => 'jetpack',
             'source'             => 'https://downloads.wordpress.org/plugin/jetpack.4.0.2.zip',
             'required'           => false,
@@ -533,7 +533,7 @@ function register_plugins() {
             'external_url'       => 'https://wordpress.org/plugins/menu-image/'
         ),
         array(
-            'name'               => 'Pods - Custom Content Types and Fields',
+            'name'               => 'Pods',
             'slug'               => 'pods',
             'source'             => 'https://downloads.wordpress.org/plugin/pods.2.6.5.2.zip',
             'required'           => false,
@@ -1154,10 +1154,3 @@ if ( function_exists( 'acf_add_options_page' ) ) :
 		)
 	);
 endif;
-
-
-/* ========================================================================================== */
-/*  BACKUPBUDDY
-/* ========================================================================================== */
-
-define( 'BACKUPBUDDY_API_ENABLE', true );
