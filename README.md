@@ -40,23 +40,6 @@ $ npm install -g generator-liquid
 
 ## <a name="wp-project"></a>WordPress project
 
-```bash
-.bowerrc
-.csscomb.json
-.editorconfig
-.gitignore
-backupbuddy/
-└ settings.txt
-bower.json
-gulpfile.js
-package.json
-public/
-└ WORDPRESS
-src/
-└ LIQUID
-Vagrantfile
-```
-
 1. Run `gulp` from the root directory
 2. Complete the WordPress installation
 3. Log in
@@ -123,20 +106,6 @@ After installation, these plugins can be manually activated and deactivated.
 ### <a name="wp-deployment"></a>Deployment
 
 ## <a name="static-project"></a>Static project
-
-```bash
-.bowerrc
-.csscomb.json
-.editorconfig
-.gitignore
-bower.json
-gulpfile.js
-package.json
-public/
-src/
-└ LIQUID
-Vagrantfile
-```
 
 1. Run `gulp` from the root directory
 2. Develop all the things
