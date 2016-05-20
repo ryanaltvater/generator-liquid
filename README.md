@@ -66,7 +66,7 @@ $ npm install -g generator-liquid
 
 ##### <a name="wp-plugins-required"></a>Required
 
-After installation, these plugins are automagically activated and cannot be deactivated.
+After these plugins automagically install, they are activated and cannot be deactivated.
 
 - [Advanced Custom Fields Pro](https://advancedcustomfields.com/pro/)
 - [BackupBuddy](https://ithemes.com/purchase/backupbuddy/)
@@ -81,7 +81,7 @@ After installation, these plugins are automagically activated and cannot be deac
 
 ##### <a name="wp-plugins-recommended"></a>Recommended
 
-After installation, these plugins can be manually activated and deactivated.
+After these plugins automagically install, they can be manually activated and deactivated.
 
 - [Akismet](https://wordpress.org/plugins/akismet/)
 - [Asset Queue Manager](https://wordpress.org/plugins/asset-queue-manager/)
