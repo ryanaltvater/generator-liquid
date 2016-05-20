@@ -6,16 +6,13 @@
 - [Project setup](#project-setup)
 - [WordPress project](#wp-project)
   - [Plugins](#wp-plugins)
-    - [Required](#wp-plugins-required)
-    - [Recommended](#wp-plugins-recommended)
   - [BackupBuddy](#wp-backupbuddy)
-    - [Import settings](#wp-backupbuddy-settings)
-    - [Create backup](#wp-backupbuddy-backup)
-    - [Deployment](#wp-backupbuddy-deployment)
   - [Advanced Custom Fields](#wp-acf)
+  - [Deployment](#wp-deployment)
 - [Static project](#static-project)
 - [Commands](#commands)
   - [Vagrant](#commands-vagrant)
+  - [Dependencies](#commands-dependencies)
   - [Gulp](#commands-gulp)
   - [CSScomb](#commands-csscomb)
 - [Develop all the things](#develop-all-the-things)
@@ -32,7 +29,7 @@ $ npm install -g generator-liquid
 
 *If you don't have **npm**, you'll need to install [node.js](https://changelog.com/install-node-js-with-homebrew-on-os-x/).*
 
-## Project setup
+## <a name="project-setup"></a>Project setup
 
 1. Create a project folder
 2. Run `yo liquid` from the root directory
@@ -41,7 +38,24 @@ $ npm install -g generator-liquid
   - **Static**
 4. Create a **Project name**
 
-## WordPress setup
+## <a name="wp-project"></a>WordPress project
+
+```bash
+.bowerrc
+.csscomb.json
+.editorconfig
+.gitignore
+backupbuddy/
+└ settings.txt
+bower.json
+gulpfile.js
+package.json
+public/
+└ WORDPRESS
+src/
+└ LIQUID
+Vagrantfile
+```
 
 1. Run `gulp` from the root directory
 2. Complete the WordPress installation
@@ -54,44 +68,84 @@ $ npm install -g generator-liquid
   - Rename the title from **Sample Page** to **Home**
   - Change the slug from **sample-page** to **home**
   - Change the template from **Default Template** to **Liquid » Home**
+  - *For basic interior pages, create a new page and select the **Liquid » Interior** template. Developing additional templates should follow the same naming convention, **Liquid » Template Name**.*
   - Click **Update**
 7. Under **Settings**, click **Reading**
   - Under **Front page displays**, change **Your latest posts** to **A static page** and select **Home** from the **Front page** dropdown
   - Under **For each article in a feed**, change **Full text** to **Summary**
 8. Under **Settings**, click **Permalinks**
   - Under **Common Settings**, change **Day and name** to **Post name**
+9. Develop all the things
 
-*For basic interior pages, create a new page and select the **Liquid » Interior** template. Developing additional templates should follow the same naming convention, **Liquid » Template Name**.*
+<img src="https://31.media.tumblr.com/tumblr_m5cyekI7BM1rwcc6bo1_400.gif" width="200" height="200">
 
-### Plugins
+### <a name="wp-plugins"></a>Plugins
 
-##### Required
+##### <a name="wp-plugins-required"></a>Required
 
-After installation, these plugins are automatically activated and cannot be deactivated.
+After installation, these plugins are automagically activated and cannot be deactivated.
 
-- [Test]()
+- [Advanced Custom Fields Pro](https://advancedcustomfields.com/pro/)
+- [BackupBuddy](https://ithemes.com/purchase/backupbuddy/)
+- [Disable Comments](https://wordpress.org/plugins/disable-comments/)
+- [Duplicate Post](https://wordpress.org/plugins/duplicate-post/https://wordpress.org/plugins/relevanssi/)
+- [Relevanssi](https://wordpress.org/plugins/relevanssi/)
+- [TinyMCE Advanced](https://wordpress.org/plugins/tinymce-advanced/)
+- [Wordfence Security](https://wordpress.org/plugins/wordfence/)
+- [WP Media Folder](https://www.joomunited.com/wordpress-products/wp-media-folder/)
+- [WP Sweep](https://wordpress.org/plugins/wp-sweep/)
+- [Yoast SEO](https://wordpress.org/plugins/wordpress-seo/)
 
-##### Recommended
+##### <a name="wp-plugins-recommended"></a>Recommended
 
-After installation, these plugins are manually activated and can be deactivated.
+After installation, these plugins can be manually activated and deactivated.
 
-- [Test]()
+- [Akismet](https://wordpress.org/plugins/akismet/)
+- [Asset Queue Manager](https://wordpress.org/plugins/asset-queue-manager/)
+- [BJ Lazy Load](https://wordpress.org/plugins/bj-lazy-load/)
+- [Breadcrumb NavXT](https://wordpress.org/plugins/breadcrumb-navxt/)
+- [Custom User Profile Photo](https://wordpress.org/plugins/custom-user-profile-photo/)
+- [Formidable Forms](https://wordpress.org/plugins/formidable/)
+- [Gravitate Event Tracking](https://wordpress.org/plugins/gravitate-event-tracking/)
+- [JetPack](https://wordpress.org/plugins/jetpack/)
+- [Menu Image](https://wordpress.org/plugins/menu-image/)
+- [Pods](https://wordpress.org/plugins/pods/)
+- [Uber Login Logo](https://wordpress.org/plugins/uber-login-logo/)
 
-### BackupBuddy
+### <a name="wp-backupbuddy"></a>BackupBuddy
 
 ##### Import settings
 
 ##### Create backup
 
-##### Deployment
+### <a name="wp-acf"></a>Advanced Custom Fields
 
-### Advanced Custom Fields
+### <a name="wp-deployment"></a>Deployment
 
-## Static setup
+## <a name="static-project"></a>Static project
 
-## Commands
+```bash
+.bowerrc
+.csscomb.json
+.editorconfig
+.gitignore
+bower.json
+gulpfile.js
+package.json
+public/
+src/
+└ LIQUID
+Vagrantfile
+```
 
-### Vagrant
+1. Run `gulp` from the root directory
+2. Develop all the things
+
+<img src="https://31.media.tumblr.com/tumblr_m5cyekI7BM1rwcc6bo1_400.gif" width="200" height="200">
+
+## <a name="commands"></a>Commands
+
+### <a name="commands-vagrant"></a>Vagrant
 
 There's a `config.php` file embedded in the Liquid theme that displays the Vagrant configuration settings for the project. Once Vagrant is running, you can access the file, locally, at http://192.168.33.10/config.php.
 
@@ -125,7 +179,23 @@ $ vagrant reload
 $ vagrant destroy
 ```
 
-### Gulp
+### <a name="commands-dependencies"></a>Dependencies
+
+The `package.json` file has been set up to trigger the **bower-installer** tool after `npm install` is complete. This will automagically run `bower install`. In the case that you need to install bower components manually, the command is below.
+
+##### Install node modules
+
+```bash
+$ npm install
+```
+
+##### Install bower components
+
+```bash
+$ bower install
+```
+
+### <a name="commands-gulp"></a>Gulp
 
 ```bash
 $ gulp
@@ -135,44 +205,8 @@ $ gulp
 $ gulp build
 ```
 
-```bash
-$ gulp html
-```
+### <a name="commands-csscomb"></a>CSScomb
 
-```bash
-$ gulp css
-```
-
-```bash
-$ gulp fonts
-```
-
-```bash
-$ gulp images
-```
-
-```bash
-$ gulp js
-```
-
-```bash
-$ gulp move
-```
-
-```bash
-$ gulp webserver
-```
-
-```bash
-$ gulp watch
-```
-
-### CSScomb
-
-## Develop all the things
-
-<img src="https://31.media.tumblr.com/tumblr_m5cyekI7BM1rwcc6bo1_400.gif" width="200" height="200">
-
-## License
+## <a name="license"></a>License
 
 MIT © [Ryan Altvater](http://ryanaltvater.com)
