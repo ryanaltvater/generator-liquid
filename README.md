@@ -15,7 +15,6 @@
   - [Dependencies](#commands-dependencies)
   - [Gulp](#commands-gulp)
   - [CSScomb](#commands-csscomb)
-- [Develop all the things](#develop-all-the-things)
 - [License](#license)
 
 ## <a name="installation"></a>Installation
