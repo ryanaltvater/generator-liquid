@@ -1,13 +1,14 @@
 {
   "name": "generator-liquid",
   "version": "1.0.0",
-  "description": "Liquid is a Yeoman generator for building WordPress and static projects with the following: Scotch Box (Vagrant), WordPress, Gulp, SCSS, BrowserSync",
+  "description": "Liquid is a Yeoman generator for building WordPress and static projects with the following: Scotch Box (Vagrant), Gulp, SCSS, BrowserSync",
   "keywords": [
     "yeoman-generator",
     "wordpress-generator",
     "static-generator",
     "vagrant",
     "wordpress",
+    "static",
     "node",
     "bower",
     "gulp",
@@ -16,7 +17,8 @@
     "iconfont",
     "jquery",
     "modernizr",
-    "browsersync"
+    "browsersync",
+    "backupbuddy"
   ],
   "homepage": "https://github.com/ryanaltvater/generator-liquid",
   "issues": "https://github.com/ryanaltvater/generator-liquid/issues",
