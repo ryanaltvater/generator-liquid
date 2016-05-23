@@ -5,10 +5,10 @@
 - [Installation](#installation)
 - [Project setup](#project-setup)
 - [WordPress](#wordpress)
-  - [Plugins](#wp-plugins)
-  - [BackupBuddy](#wp-backupbuddy)
-  - [Advanced Custom Fields](#wp-acf)
-  - [Deployment](#wp-deployment)
+  - [Plugins](#wordpress-plugins)
+  - [Advanced Custom Fields](#wordpress-acf)
+  - [BackupBuddy](#wordpress-backupbuddy)
+  - [Deployment](#wordpress-deployment)
 - [Static](#static)
 - [Commands](#commands)
   - [Vagrant](#commands-vagrant)
@@ -26,7 +26,7 @@ $ npm install -g yo
 $ npm install -g generator-liquid
 ```
 
-*If you don't have **npm**, you'll need to install [node.js](https://changelog.com/install-node-js-with-homebrew-on-os-x/).*
+*If you don't have **npm**, you'll need to install [node.js](https://changelog.com/install-node-js-with-homebrew-on-os-x).*
 
 ## <a name="project-setup"></a>Project setup
 
@@ -50,7 +50,7 @@ $ npm install -g generator-liquid
   - Rename the title from **Sample Page** to **Home**
   - Change the slug from **sample-page** to **home**
   - Change the template from **Default Template** to **Liquid » Home**
-  - *For basic interior pages, create a new page and select the **Liquid » Interior** template. Developing additional templates should follow the same naming convention, **Liquid » Template Name**.*
+    - *(For basic interior pages, create a new page and select the **Liquid » Interior** template. Developing additional templates should follow the same naming convention, **Liquid » Template Name**.)*
   - Click **Update**
 7. Under **Settings**, click **Reading**
   - Under **Front page displays**, change **Your latest posts** to **A static page** and select **Home** from the **Front page** dropdown
@@ -61,48 +61,50 @@ $ npm install -g generator-liquid
 
 <img src="https://31.media.tumblr.com/tumblr_m5cyekI7BM1rwcc6bo1_400.gif" width="200" height="200">
 
-### <a name="wp-plugins"></a>Plugins
+### <a name="wordpress-plugins"></a>Plugins
 
-##### <a name="wp-plugins-required"></a>Required
+##### Required
 
 After these plugins automagically install, they are activated and cannot be deactivated.
 
-- [Advanced Custom Fields Pro](https://advancedcustomfields.com/pro/)
-- [BackupBuddy](https://ithemes.com/purchase/backupbuddy/)
-- [Disable Comments](https://wordpress.org/plugins/disable-comments/)
-- [Duplicate Post](https://wordpress.org/plugins/duplicate-post/https://wordpress.org/plugins/relevanssi/)
-- [Relevanssi](https://wordpress.org/plugins/relevanssi/)
-- [TinyMCE Advanced](https://wordpress.org/plugins/tinymce-advanced/)
-- [Wordfence Security](https://wordpress.org/plugins/wordfence/)
-- [WP Media Folder](https://www.joomunited.com/wordpress-products/wp-media-folder/)
-- [WP Sweep](https://wordpress.org/plugins/wp-sweep/)
-- [Yoast SEO](https://wordpress.org/plugins/wordpress-seo/)
+- [Advanced Custom Fields Pro](https://advancedcustomfields.com/pro) *(Premium)*
+- [BackupBuddy](https://ithemes.com/purchase/backupbuddy) *(Premium)*
+- [Disable Comments](https://wordpress.org/plugins/disable-comments)
+- [Duplicate Post](https://wordpress.org/plugins/duplicate-post/https://wordpress.org/plugins/relevanssi)
+- [Relevanssi](https://wordpress.org/plugins/relevanssi)
+- [TinyMCE Advanced](https://wordpress.org/plugins/tinymce-advanced)
+- [Wordfence Security](https://wordpress.org/plugins/wordfence)
+- [WP Media Folder](https://www.joomunited.com/wordpress-products/wp-media-folder)
+- [WP Sweep](https://wordpress.org/plugins/wp-sweep)
+- [Yoast SEO](https://wordpress.org/plugins/wordpress-seo)
 
-##### <a name="wp-plugins-recommended"></a>Recommended
+##### Recommended
 
 After these plugins automagically install, they can be manually activated and deactivated.
 
-- [Akismet](https://wordpress.org/plugins/akismet/)
-- [Asset Queue Manager](https://wordpress.org/plugins/asset-queue-manager/)
-- [BJ Lazy Load](https://wordpress.org/plugins/bj-lazy-load/)
-- [Breadcrumb NavXT](https://wordpress.org/plugins/breadcrumb-navxt/)
-- [Custom User Profile Photo](https://wordpress.org/plugins/custom-user-profile-photo/)
-- [Formidable Forms](https://wordpress.org/plugins/formidable/)
-- [Gravitate Event Tracking](https://wordpress.org/plugins/gravitate-event-tracking/)
-- [JetPack](https://wordpress.org/plugins/jetpack/)
-- [Menu Image](https://wordpress.org/plugins/menu-image/)
-- [Pods](https://wordpress.org/plugins/pods/)
-- [Uber Login Logo](https://wordpress.org/plugins/uber-login-logo/)
+- [Akismet](https://wordpress.org/plugins/akismet)
+- [Asset Queue Manager](https://wordpress.org/plugins/asset-queue-manager)
+- [BJ Lazy Load](https://wordpress.org/plugins/bj-lazy-load)
+- [Breadcrumb NavXT](https://wordpress.org/plugins/breadcrumb-navxt)
+- [Custom User Profile Photo](https://wordpress.org/plugins/custom-user-profile-photo)
+- [Formidable Forms](https://wordpress.org/plugins/formidable)
+- [Gravitate Event Tracking](https://wordpress.org/plugins/gravitate-event-tracking)
+- [JetPack](https://wordpress.org/plugins/jetpack)
+- [Menu Image](https://wordpress.org/plugins/menu-image)
+- [Pods](https://wordpress.org/plugins/pods)
+- [Uber Login Logo](https://wordpress.org/plugins/uber-login-logo)
 
-### <a name="wp-backupbuddy"></a>BackupBuddy
+### <a name="wordpress-acf"></a>Advanced Custom Fields
+
+### <a name="wordpress-backupbuddy"></a>BackupBuddy
 
 ##### Import settings
 
 ##### Create backup
 
-### <a name="wp-acf"></a>Advanced Custom Fields
+### <a name="wordpress-deployment"></a>Deployment
 
-### <a name="wp-deployment"></a>Deployment
+*(BackupBuddy required)*
 
 ## <a name="static"></a>Static
 
@@ -113,7 +115,7 @@ After these plugins automagically install, they can be manually activated and de
 
 ## <a name="commands"></a>Commands
 
-### <a name="commands-vagrant"></a>Vagrant
+### <a name="commands-vagrant"></a>[Vagrant](https://vagrantup.com)
 
 There's a `config.php` file embedded in the Liquid theme that displays the Vagrant configuration settings for the project. Once Vagrant is running, you can access the file, locally, at http://192.168.33.10/config.php.
 
@@ -163,17 +165,44 @@ $ npm install
 $ bower install
 ```
 
-### <a name="commands-gulp"></a>Gulp
+### <a name="commands-gulp"></a>[Gulp](http://gulpjs.com)
+
+**Default task**
+
+Builds source code to the theme folder, launches [BrowserSync](https://browsersync.io), and watches for code changes.
 
 ```bash
 $ gulp
 ```
 
+**Build task**
+
+Builds source code to the theme folder.
+
 ```bash
 $ gulp build
 ```
 
-### <a name="commands-csscomb"></a>CSScomb
+### <a name="commands-csscomb"></a>[CSScomb](http://csscomb.com)
+
+CSScomb is a coding style formatter that uses the `.csscomb.json` configuration file in the project root to format CSS.
+
+**Install CSScomb**
+
+```bash
+npm install -g csscomb
+```
+
+**Use CSScomb**
+
+```bash
+csscomb src/assets/scss/
+```
+
+**CSScomb plugins**
+
+- [Atom](https://atom.io/packages/atom-css-comb)
+- [Sublime Text](https://packagecontrol.io/packages/CSScomb)
 
 ## <a name="license"></a>License
 
