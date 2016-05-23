@@ -29,16 +29,16 @@ var autoprefixer = require('gulp-autoprefixer'),
 
 
 /* ============================== */
-/*  Destinations
+/*  Locations
 /* ============================== */
 
-var srcRoot = 'src/liquid/',
-    srcSCSS = 'src/liquid/assets/css/scss/',
-    srcCSS = 'src/liquid/assets/css/',
-    srcFonts = 'src/liquid/assets/fonts/',
-    srcImg = 'src/liquid/assets/img/',
-    srcIcons = 'src/liquid/assets/img/svg/',
-    srcJS = 'src/liquid/assets/js/',
+var srcRoot = 'src/',
+    srcSCSS = 'src/assets/css/scss/',
+    srcCSS = 'src/assets/css/',
+    srcFonts = 'src/assets/fonts/',
+    srcImg = 'src/assets/img/',
+    srcIcons = 'src/assets/img/svg/',
+    srcJS = 'src/assets/js/',
 	destRoot = 'public/wp-content/themes/liquid/',
 	destCSS = 'public/wp-content/themes/liquid/assets/css/',
     destFonts = 'public/wp-content/themes/liquid/assets/fonts/',
@@ -204,7 +204,6 @@ gulp.task('replace', function() {
 gulp.task('move', function() {
 	return gulp.src([
 		srcRoot + '*.*',
-		srcCSS + '*.css',
 		srcFonts + '**/*',
 		srcImg + '**/*',
 	    srcJS + '**/*',
