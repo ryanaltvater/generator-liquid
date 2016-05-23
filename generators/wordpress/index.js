@@ -15,12 +15,6 @@ var yeoman = require('yeoman-generator'),
                     name: 'projectName',
                     type: 'input',
                     default: 'New Project'
-                },
-                {
-                    message: 'Start Vagrant?',
-                    name: 'startVagrant',
-                    type: 'confirm',
-                    default: true
                 }
             ];
 
@@ -122,34 +116,32 @@ var yeoman = require('yeoman-generator'),
 
             // Copies "liquid" theme to the "src" folder
             this.fs.copy(
-                this.templatePath('liquid/**'),
-                this.destinationPath('src/liquid/')
+                this.templatePath('src/**'),
+                this.destinationPath('src/')
             );
 
             // Copies "favicons" to the "src" theme folder
             this.fs.copy(
                 this.templatePath('../../app/templates/favicons/*'),
-                this.destinationPath('src/liquid/')
+                this.destinationPath('src/')
             );
 
             // Copies "assets" to the "src" theme folder
             this.fs.copy(
                 this.templatePath('../../app/templates/assets/**'),
-                this.destinationPath('src/liquid/assets/')
+                this.destinationPath('src/assets/')
             );
         },
 
         install: function () {
-            if (this.startVagrant === true) {
-                var done = this.async();
+            var done = this.async();
 
-                this.log(chalk.magenta('Starting Vagrant...'));
+            this.log(chalk.magenta('Starting Vagrant...'));
 
-                // Starts Vagrant server
-                shell.exec('vagrant up');
+            // Starts Vagrant server
+            shell.exec('vagrant up');
 
-                done();
-            }
+            done();
 
             this.log(chalk.magenta('Installing dependencies...'));
 
