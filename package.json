@@ -18,7 +18,13 @@
     "jquery",
     "modernizr",
     "browsersync",
-    "backupbuddy"
+    "advanced-custom-fields",
+    "backupbuddy",
+    "formidable-forms",
+    "jetpack",
+    "pods",
+    "relevanssi",
+    "yoast-seo"
   ],
   "homepage": "https://github.com/ryanaltvater/generator-liquid",
   "issues": "https://github.com/ryanaltvater/generator-liquid/issues",
