@@ -4,12 +4,12 @@
 
 - [Installation](#installation)
 - [Project setup](#project-setup)
-- [WordPress project](#wp-project)
+- [WordPress](#wordpress)
   - [Plugins](#wp-plugins)
   - [BackupBuddy](#wp-backupbuddy)
   - [Advanced Custom Fields](#wp-acf)
   - [Deployment](#wp-deployment)
-- [Static project](#static-project)
+- [Static](#static)
 - [Commands](#commands)
   - [Vagrant](#commands-vagrant)
   - [Dependencies](#commands-dependencies)
@@ -38,7 +38,7 @@ $ npm install -g generator-liquid
   - **Static**
 4. Create a **Project name**
 
-## <a name="wp-project"></a>WordPress project
+## <a name="wordpress"></a>WordPress
 
 1. Run `gulp` from the root directory
 2. Complete the WordPress installation
@@ -105,7 +105,7 @@ After these plugins automagically install, they can be manually activated and de
 
 ### <a name="wp-deployment"></a>Deployment
 
-## <a name="static-project"></a>Static project
+## <a name="static"></a>Static
 
 1. Run `gulp` from the root directory
 2. Develop all the things
