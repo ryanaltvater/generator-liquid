@@ -75,8 +75,8 @@ var yeoman = require('yeoman-generator'),
 
             // Copies BackupBuddy's "settings.txt" to the "backupbuddy" backups folder
             this.fs.copy(
-                this.templatePath('backupbuddy/settings.txt'),
-                this.destinationPath('backupbuddy/settings.txt')
+                this.templatePath('backupbuddy/backupbuddy.txt'),
+                this.destinationPath('backupbuddy.txt')
             );
 
             // Copies "dotfiles" to the project folder
