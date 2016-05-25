@@ -15,9 +15,9 @@
   },
   "install": {
     "path": {
-      "css": "src/liquid/assets/css/scss/bower",
-      "scss": "src/liquid/assets/css/scss/bower",
-      "js": "src/liquid/assets/js"
+      "css": "src/assets/css/scss/bower",
+      "scss": "src/assets/css/scss/bower",
+      "js": "src/assets/js"
     },
     "sources": {
       "jquery": "bower_components/jquery/jquery.min.js",
