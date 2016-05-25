@@ -1,5 +1,5 @@
 /* ========================================================================================== */
-/*  GULP
+/*  Gulp
 /* ========================================================================================== */
 
 var gulp = require('gulp');
@@ -213,7 +213,7 @@ gulp.task('move', function() {
 	    '!' + srcJS + 'vendors/**/*',
 	    '!' + srcJS + 'scripts.js'
 	], {
-		base			: srcRoot
+		base: srcRoot
 	})
 	.pipe(changed(destRoot))
 	.pipe(gulp.dest(destRoot));
