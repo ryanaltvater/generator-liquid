@@ -44,7 +44,7 @@ $ npm install -g generator-liquid
 3. Log in
 4. Under **Appearance**, click **Themes**
   - **Activate** the Liquid theme
-5. Click on **Begin installing plugins** at the top of the page
+5. Click **Begin installing plugins** at the top of the page
 6. Navigate to **Pages**
   - Hover over **Sample Page** and click **Quick Edit**
   - Rename the title from **Sample Page** to **Home**
@@ -98,13 +98,44 @@ After these plugins automagically install, they can be manually activated and de
 
 ### <a name="wordpress-backupbuddy"></a>BackupBuddy
 
+*(Premium plugin)*
+
 ##### Import settings
 
+1. Under **BackupBuddy**, click **Settings**
+  - Click **Import/Export Plugin Settings** at the bottom of the page
+  - Open the `backupbuddy.txt` file
+  - Copy/paste the string into **Import BackupBuddy Settings**
+  - Click **Import Settings**
+
 ##### Create backup
+
+1. Under **BackupBuddy**, click **Backup**
+  - Select a backup profile (Database Only, Complete Backup, Media Only)
 
 ### <a name="wordpress-deployment"></a>Deployment
 
 *(BackupBuddy required)*
+
+##### New environment (Staging or Production)
+
+1. Deploy the Liquid theme (build scripts, Git, FTP)
+2. Under **Appearance**, click **Themes**
+  - **Activate** the Liquid theme
+3. Click **Begin installing plugins** at the top of the page
+4. Under **BackupBuddy**, click **Remote Destinations**
+  - Click **Show Deployment Key** at the top of the page
+  - Copy the deployment key
+
+##### Previous environment (Local or Staging)
+
+1. Under **BackupBuddy**, click **Remote Destinations**
+  - Click **Add New**
+  - Select **BackupBuddy Deployment**
+  - Change the **Destination name** to Staging or Production
+  - Paste the deployment key
+  - Click **Add Destination**
+  - Click **Push to** or **Pull from** to push/pull database content and media uploads
 
 ## <a name="static"></a>Static
 
