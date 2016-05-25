@@ -10,6 +10,7 @@
   - [BackupBuddy](#wordpress-backupbuddy)
   - [Deployment](#wordpress-deployment)
 - [Static](#static)
+  - [Deployment](#static-deployment)
 - [Commands](#commands)
   - [Vagrant](#commands-vagrant)
   - [Dependencies](#commands-dependencies)
@@ -26,7 +27,23 @@ $ npm install -g yo
 $ npm install -g generator-liquid
 ```
 
-*If you don't have **npm**, you'll need to install [node.js](https://changelog.com/install-node-js-with-homebrew-on-os-x).*
+*If you don't have **Node.js**, **Bower**, or **Gulp** installed, you'll need to get those before continuing.*
+
+##### Install Node.js
+
+https://changelog.com/install-node-js-with-homebrew-on-os-x
+
+##### Install Bower
+
+```bash
+npm install -g bower
+```
+
+##### Install Gulp
+
+```bash
+npm install -g gulp
+```
 
 ## <a name="project-setup"></a>Project setup
 
@@ -119,7 +136,7 @@ After these plugins automagically install, they can be manually activated and de
 
 ##### New environment (Staging or Production)
 
-1. Deploy the Liquid theme (build scripts, Git, FTP)
+1. Deploy the production-ready files (build script, Git, FTP)
 2. Under **Appearance**, click **Themes**
   - **Activate** the Liquid theme
 3. Click **Begin installing plugins** at the top of the page
@@ -143,6 +160,10 @@ After these plugins automagically install, they can be manually activated and de
 2. Develop all the things
 
 <img src="https://31.media.tumblr.com/tumblr_m5cyekI7BM1rwcc6bo1_400.gif" width="200" height="200">
+
+### <a name="static-deployment"></a>Deployment
+
+1. Deploy the production-ready files (build script, Git, FTP)
 
 ## <a name="commands"></a>Commands
 
