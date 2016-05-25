@@ -113,6 +113,8 @@ After these plugins automagically install, they can be manually activated and de
 
 ### <a name="wordpress-acf"></a>Advanced Custom Fields
 
+Under **Theme Settings**, there are some predefined groups with basic fields. Some of the fields are used with the Liquid theme (logo, Google Analytics, favicons, etc), and other fields are optional (address, social media profiles, etc).
+
 ### <a name="wordpress-backupbuddy"></a>BackupBuddy
 
 *(Premium plugin)*
