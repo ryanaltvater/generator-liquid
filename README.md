@@ -1,6 +1,6 @@
 ![Alt text](http://ryanaltvater.com/assets/img/logo-liquid.png "Liquid - A Yeoman Generator")
 
-## Table of contents
+# Table of contents
 
 - [Installation](#installation)
 - [Project setup](#project-setup)
@@ -18,7 +18,7 @@
   - [CSScomb](#commands-csscomb)
 - [License](#license)
 
-## <a name="installation"></a>Installation
+# <a name="installation"></a>Installation
 
 Install [Yeoman](http://yeoman.io) and [generator-liquid](https://www.npmjs.com/package/generator-liquid) using [npm](https://docs.npmjs.com/getting-started/what-is-npm).
 
@@ -45,7 +45,7 @@ npm install -g bower
 npm install -g gulp
 ```
 
-## <a name="project-setup"></a>Project setup
+# <a name="project-setup"></a>Project setup
 
 1. Create a project folder
 2. Run `yo liquid` from the root directory
@@ -54,7 +54,7 @@ npm install -g gulp
   - **Static**
 4. Create a **Project name**
 
-## <a name="wordpress"></a>WordPress
+# <a name="wordpress"></a>WordPress
 
 1. Run `gulp` from the root directory
 2. Complete the WordPress installation
@@ -156,7 +156,7 @@ Under **Theme Settings**, there are some predefined groups with basic fields. So
   - Click **Add Destination**
   - Click **Push to** or **Pull from** to push/pull database content and media uploads
 
-## <a name="static"></a>Static
+# <a name="static"></a>Static
 
 1. Run `gulp` from the root directory
 2. Develop all the things
@@ -167,7 +167,7 @@ Under **Theme Settings**, there are some predefined groups with basic fields. So
 
 1. Deploy the production-ready files (build script, Git, FTP)
 
-## <a name="commands"></a>Commands
+# <a name="commands"></a>Commands
 
 ### <a name="commands-vagrant"></a>[Vagrant](https://vagrantup.com)
 
@@ -258,6 +258,6 @@ csscomb src/assets/scss/
 - [Atom](https://atom.io/packages/atom-css-comb)
 - [Sublime Text](https://packagecontrol.io/packages/CSScomb)
 
-## <a name="license"></a>License
+# <a name="license"></a>License
 
 MIT © [Ryan Altvater](http://ryanaltvater.com)
