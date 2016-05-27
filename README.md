@@ -84,7 +84,7 @@ $ npm install -g gulp
 
 After these plugins automagically install, they are activated and cannot be deactivated.
 
-- [Advanced Custom Fields Pro](https://advancedcustomfields.com/pro) *(Premium)*
+- [Advanced Custom Fields](https://advancedcustomfields.com)
 - [BackupBuddy](https://ithemes.com/purchase/backupbuddy) *(Premium)*
 - [Disable Comments](https://wordpress.org/plugins/disable-comments)
 - [Duplicate Post](https://wordpress.org/plugins/duplicate-post/https://wordpress.org/plugins/relevanssi)
