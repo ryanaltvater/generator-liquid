@@ -356,9 +356,9 @@ function register_plugins() {
 /* ============================== */
 
 		array(
-			'name'               => 'Advanced Custom Fields Pro',
-			'slug'               => 'advanced-custom-fields-pro',
-			'source'             => 'http://ryanaltvater.com/downloads/advanced-custom-fields-pro.zip',
+			'name'               => 'Advanced Custom Fields',
+			'slug'               => 'advanced-custom-fields',
+			'source'             => 'https://downloads.wordpress.org/plugin/advanced-custom-fields.4.4.7.zip',
 			'required'           => true,
 			'force_activation'   => true,
 			'force_deactivation' => false,
