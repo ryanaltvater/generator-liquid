@@ -91,7 +91,6 @@ After these plugins automagically install, they are activated and cannot be deac
 - [Relevanssi](https://wordpress.org/plugins/relevanssi)
 - [TinyMCE Advanced](https://wordpress.org/plugins/tinymce-advanced)
 - [Wordfence Security](https://wordpress.org/plugins/wordfence)
-- [WP Media Folder](https://www.joomunited.com/wordpress-products/wp-media-folder)
 - [WP Sweep](https://wordpress.org/plugins/wp-sweep)
 - [Yoast SEO](https://wordpress.org/plugins/wordpress-seo)
 

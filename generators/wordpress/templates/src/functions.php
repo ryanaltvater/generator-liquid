@@ -419,15 +419,6 @@ function register_plugins() {
 			'external_url'       => 'https://wordpress.org/plugins/wordfence/'
 		),
 		array(
-			'name'               => 'WP Media Folder',
-			'slug'               => 'wp-media-folder',
-			'source'             => 'http://ryanaltvater.com/downloads/wp-media-folder.zip',
-			'required'           => true,
-			'force_activation'   => true,
-			'force_deactivation' => false,
-			'external_url'       => 'http://www.joomunited.com/wordpress-products/wp-media-folder/'
-		),
-		array(
 			'name'               => 'WP-Sweep',
 			'slug'               => 'wp-sweep',
 			'source'             => 'https://downloads.wordpress.org/plugin/wp-sweep.zip',
