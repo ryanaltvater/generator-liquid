@@ -36,13 +36,13 @@ https://changelog.com/install-node-js-with-homebrew-on-os-x
 ##### Install Bower
 
 ```bash
-npm install -g bower
+$ npm install -g bower
 ```
 
 ##### Install Gulp
 
 ```bash
-npm install -g gulp
+$ npm install -g gulp
 ```
 
 # <a name="project-setup"></a>Project setup
@@ -244,13 +244,13 @@ CSScomb is a coding style formatter that uses the `.csscomb.json` configuration 
 **Install CSScomb**
 
 ```bash
-npm install -g csscomb
+$ npm install -g csscomb
 ```
 
 **Use CSScomb**
 
 ```bash
-csscomb src/assets/scss/
+$ npm src/assets/scss/
 ```
 
 **CSScomb plugins**
