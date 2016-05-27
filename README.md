@@ -67,7 +67,7 @@ npm install -g gulp
   - Rename the title from **Sample Page** to **Home**
   - Change the slug from **sample-page** to **home**
   - Change the template from **Default Template** to **Liquid » Home**
-    - *(For basic interior pages, create a new page and select the **Liquid » Interior** template. Developing additional templates should follow the same naming convention, **Liquid » Template Name**.)*
+    - *(For basic interior pages, create a new page and select the "Liquid » Interior" template. Developing additional templates should follow the same naming convention, "Liquid » Template Name".)*
   - Click **Update**
 7. Under **Settings**, click **Reading**
   - Under **Front page displays**, change **Your latest posts** to **A static page** and select **Home** from the **Front page** dropdown
