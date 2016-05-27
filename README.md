@@ -27,7 +27,7 @@ $ npm install -g yo
 $ npm install -g generator-liquid
 ```
 
-*If you don't have **Node.js**, **Bower**, or **Gulp** installed, you'll need to get those before continuing.*
+*If you don't have Node.js, Bower, or Gulp, you'll need to install those before continuing.*
 
 ##### Install Node.js
 
