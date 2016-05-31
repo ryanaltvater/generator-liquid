@@ -80,7 +80,7 @@ $ npm install -g gulp
 
 ### <a name="wordpress-plugins"></a>Plugins
 
-##### Required activation
+##### Required
 
 After these plugins automagically install, they are activated and cannot be deactivated.
 
@@ -94,7 +94,7 @@ After these plugins automagically install, they are activated and cannot be deac
 - [WP Sweep](https://wordpress.org/plugins/wp-sweep)
 - [Yoast SEO](https://wordpress.org/plugins/wordpress-seo)
 
-##### Recommended activation
+##### Recommended
 
 After these plugins automagically install, they can be manually activated and deactivated.
 
