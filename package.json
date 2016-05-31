@@ -1,6 +1,6 @@
-{
+{d
   "name": "generator-liquid",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "Liquid is a Yeoman generator for building WordPress and static projects with the following: Scotch Box (Vagrant), Gulp, SCSS, BrowserSync",
   "keywords": [
     "yeoman-generator",
