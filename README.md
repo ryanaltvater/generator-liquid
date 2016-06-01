@@ -56,7 +56,7 @@ $ npm install -g gulp
 
 # <a name="wordpress"></a>WordPress
 
-1. Run `gulp` from the root directory
+1. Go to http://192.168.33.10
 2. Complete the WordPress installation
 3. Log in
 4. Click **Begin installing plugins** at the top of the page
@@ -72,7 +72,9 @@ $ npm install -g gulp
   - Under **For each article in a feed**, change **Full text** to **Summary**
 7. Under **Settings**, click **Permalinks**
   - Under **Common Settings**, change **Day and name** to **Post name**
-8. Develop all the things
+8. Run `gulp` from the root directory
+9. Develop all the things
+  - *(Use http://localhost:3000, or BrowserSync, to work on the front-end, and use http://192.168.33.10 to access WordPress directly and bypass BrowserSync's "auto-refresh" feature.)*
 
 <img src="https://31.media.tumblr.com/tumblr_m5cyekI7BM1rwcc6bo1_400.gif" width="200" height="200">
 
