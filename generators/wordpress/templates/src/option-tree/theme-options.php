@@ -45,7 +45,7 @@ function custom_theme_options() {
             array(
                 'id'            => 'logo',
                 'label'         => 'Logo',
-                'desc'          => '',
+                'desc'          => 'Upload a logo.',
                 'std'           => '',
                 'type'          => 'upload',
                 'section'       => 'global',
@@ -60,7 +60,7 @@ function custom_theme_options() {
             array(
                 'id'            => 'google_analytics',
                 'label'         => 'Google Analytics',
-                'desc'          => 'Enter the tracking ID (UA-XXXXXXXX-X).',
+                'desc'          => 'Enter a tracking ID (UA-XXXXXXXX-X).',
                 'std'           => '',
                 'type'          => 'text',
                 'section'       => 'global',
@@ -75,7 +75,7 @@ function custom_theme_options() {
             array(
                 'id'            => 'company',
                 'label'         => 'Company',
-                'desc'          => '',
+                'desc'          => 'Enter a company.',
                 'std'           => '',
                 'type'          => 'text',
                 'section'       => 'contact_info',
@@ -90,7 +90,7 @@ function custom_theme_options() {
             array(
                 'id'            => 'address_1',
                 'label'         => 'Address 1',
-                'desc'          => '',
+                'desc'          => 'Enter an address, line 1.',
                 'std'           => '',
                 'type'          => 'text',
                 'section'       => 'contact_info',
@@ -104,8 +104,8 @@ function custom_theme_options() {
             ),
             array(
                 'id'            => 'address_2',
-                'label'         => 'Address 2',
-                'desc'          => '',
+                'label'         => 'Address 2 (optional)',
+                'desc'          => 'Enter an address, line 2.',
                 'std'           => '',
                 'type'          => 'text',
                 'section'       => 'contact_info',
@@ -120,7 +120,7 @@ function custom_theme_options() {
             array(
                 'id'            => 'city',
                 'label'         => 'City',
-                'desc'          => '',
+                'desc'          => 'Enter a city.',
                 'std'           => '',
                 'type'          => 'text',
                 'section'       => 'contact_info',
@@ -135,7 +135,7 @@ function custom_theme_options() {
             array(
                 'id'            => 'state',
                 'label'         => 'State',
-                'desc'          => '',
+                'desc'          => 'Enter a state.',
                 'std'           => '',
                 'type'          => 'text',
                 'section'       => 'contact_info',
@@ -150,7 +150,7 @@ function custom_theme_options() {
             array(
                 'id'            => 'zip_code',
                 'label'         => 'Zip Code',
-                'desc'          => '',
+                'desc'          => 'Enter a zip code.',
                 'std'           => '',
                 'type'          => 'text',
                 'section'       => 'contact_info',
@@ -165,7 +165,7 @@ function custom_theme_options() {
             array(
                 'id'            => 'email_address',
                 'label'         => 'Email Address',
-                'desc'          => '',
+                'desc'          => 'Enter an email address.',
                 'std'           => '',
                 'type'          => 'text',
                 'section'       => 'contact_info',
@@ -180,7 +180,7 @@ function custom_theme_options() {
             array(
                 'id'            => 'phone_number',
                 'label'         => 'Phone Number',
-                'desc'          => '',
+                'desc'          => 'Enter a phone number.',
                 'std'           => '',
                 'type'          => 'text',
                 'section'       => 'contact_info',
@@ -195,7 +195,7 @@ function custom_theme_options() {
             array(
                 'id'            => 'facebook_url',
                 'label'         => 'Facebook URL',
-                'desc'          => '',
+                'desc'          => 'Enter a Facebook profile URL. Remember to include "http://" or "https://".',
                 'std'           => '',
                 'type'          => 'text',
                 'section'       => 'social_media',
@@ -210,7 +210,7 @@ function custom_theme_options() {
             array(
                 'id'            => 'googleplus_url',
                 'label'         => 'Google+ URL',
-                'desc'          => '',
+                'desc'          => 'Enter a Google+ profile URL. Remember to include "http://" or "https://".',
                 'std'           => '',
                 'type'          => 'text',
                 'section'       => 'social_media',
@@ -225,7 +225,7 @@ function custom_theme_options() {
             array(
                 'id'            => 'linkedin_url',
                 'label'         => 'LinkedIn URL',
-                'desc'          => '',
+                'desc'          => 'Enter a LinkedIn profile URL. Remember to include "http://" or "https://".',
                 'std'           => '',
                 'type'          => 'text',
                 'section'       => 'social_media',
@@ -240,7 +240,7 @@ function custom_theme_options() {
             array(
                 'id'            => 'twitter_url',
                 'label'         => 'Twitter URL',
-                'desc'          => '',
+                'desc'          => 'Enter a Twitter profile URL. Remember to include "http://" or "https://".',
                 'std'           => '',
                 'type'          => 'text',
                 'section'       => 'social_media',
@@ -255,7 +255,7 @@ function custom_theme_options() {
             array(
                 'id'            => 'youtube_url',
                 'label'         => 'YouTube URL',
-                'desc'          => '',
+                'desc'          => 'Enter a YouTube profile URL. Remember to include "http://" or "https://".',
                 'std'           => '',
                 'type'          => 'text',
                 'section'       => 'social_media',
@@ -270,7 +270,7 @@ function custom_theme_options() {
             array(
                 'id'            => 'favicon_144x144',
                 'label'         => 'Favicon 144x144',
-                'desc'          => '',
+                'desc'          => 'Upload a 144x144 favicon.',
                 'std'           => '',
                 'type'          => 'upload',
                 'section'       => 'favicons',
@@ -285,7 +285,7 @@ function custom_theme_options() {
             array(
                 'id'            => 'favicon_114x114',
                 'label'         => 'Favicon 114x114',
-                'desc'          => '',
+                'desc'          => 'Upload a 114x114 favicon.',
                 'std'           => '',
                 'type'          => 'upload',
                 'section'       => 'favicons',
@@ -300,7 +300,7 @@ function custom_theme_options() {
             array(
                 'id'            => 'favicon_72x72',
                 'label'         => 'Favicon 72x72',
-                'desc'          => '',
+                'desc'          => 'Upload a 72x72 favicon.',
                 'std'           => '',
                 'type'          => 'upload',
                 'section'       => 'favicons',
@@ -315,22 +315,7 @@ function custom_theme_options() {
             array(
                 'id'            => 'favicon_57x57',
                 'label'         => 'Favicon 57x57',
-                'desc'          => '',
-                'std'           => '',
-                'type'          => 'upload',
-                'section'       => 'favicons',
-                'rows'          => '',
-                'post_type'     => '',
-                'taxonomy'      => '',
-                'min_max_step'  => '',
-                'class'         => '',
-                'condition'     => '',
-                'operator'      => 'and'
-            ),
-            array(
-                'id'            => 'favicon',
-                'label'         => 'Favicon',
-                'desc'          => '',
+                'desc'          => 'Upload a 57x57 favicon.',
                 'std'           => '',
                 'type'          => 'upload',
                 'section'       => 'favicons',
