@@ -208,6 +208,7 @@ gulp.task('move', function() {
 		srcImg + '**/*',
 	    srcJS + '**/*',
 		srcRoot + 'includes/**/*',
+		srcRoot + 'option-tree/**/*',
 		srcRoot + 'page-templates/**/*',
 	    '!' + srcJS + 'vendors/',
 	    '!' + srcJS + 'vendors/**/*',
