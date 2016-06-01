@@ -96,7 +96,7 @@ if ( ! function_exists( 'ot_get_option' ) ) {
 }
 
 /**
- * Echo Option. (via Github @joshlevinson)
+ * Echo Option.
  *
  * Helper function to echo the option value.
  * If no value has been saved, it echos $default.
@@ -219,12 +219,32 @@ if ( ! function_exists( 'ot_load_dynamic_css' ) ) {
   function ot_load_dynamic_css() {
     
     /* don't load in the admin */
-    if ( is_admin() )
+    if ( is_admin() ) {
       return;
-    
+    }
+
+    /**
+     * Filter whether or not to enqueue a `dynamic.css` file at the theme level.
+     *
+     * By filtering this to `false` OptionTree will not attempt to enqueue any CSS files.
+     *
+     * Example: add_filter( 'ot_load_dynamic_css', '__return_false' );
+     *
+     * @since 2.5.5
+     *
+     * @param bool $load_dynamic_css Default is `true`.
+     * @return bool
+     */
+    if ( false === (bool) apply_filters( 'ot_load_dynamic_css', true ) ) {
+      return;
+    }
+
     /* grab a copy of the paths */
     $ot_css_file_paths = get_option( 'ot_css_file_paths', array() );
-    
+    if ( is_multisite() ) {
+      $ot_css_file_paths = get_blog_option( get_current_blog_id(), 'ot_css_file_paths', $ot_css_file_paths );
+    }
+
     if ( ! empty( $ot_css_file_paths ) ) {
       
       $last_css = '';
@@ -235,8 +255,16 @@ if ( ! function_exists( 'ot_load_dynamic_css' ) ) {
         if ( '' != $path && file_exists( $path ) ) {
         
           $parts = explode( '/wp-content', $path );
-          
+
           if ( isset( $parts[1] ) ) {
+
+            $sub_parts = explode( '/', $parts[1] );
+
+            if ( isset( $sub_parts[1] ) && isset( $sub_parts[2] ) ) {
+              if ( $sub_parts[1] == 'themes' && $sub_parts[2] != get_stylesheet() ) {
+                continue;
+              }
+            }
             
             $css = set_url_scheme( WP_CONTENT_URL ) . $parts[1];
             
@@ -262,9 +290,85 @@ if ( ! function_exists( 'ot_load_dynamic_css' ) ) {
 }
 
 /**
- * Registers the Theme Option page link for the admin bar.
+ * Enqueue the Google Fonts CSS.
  *
- * @uses      ot_register_settings()
+ * @return    void
+ *
+ * @access    public
+ * @since     2.5.0
+ */
+if ( ! function_exists( 'ot_load_google_fonts_css' ) ) {
+
+  function ot_load_google_fonts_css() {
+
+    /* don't load in the admin */
+    if ( is_admin() )
+      return;
+
+    $ot_google_fonts      = get_theme_mod( 'ot_google_fonts', array() );
+    $ot_set_google_fonts  = get_theme_mod( 'ot_set_google_fonts', array() );
+    $families             = array();
+    $subsets              = array();
+    $append               = '';
+
+    if ( ! empty( $ot_set_google_fonts ) ) {
+
+      foreach( $ot_set_google_fonts as $id => $fonts ) {
+
+        foreach( $fonts as $font ) {
+
+          // Can't find the font, bail!
+          if ( ! isset( $ot_google_fonts[$font['family']]['family'] ) ) {
+            continue;
+          }
+
+          // Set variants & subsets
+          if ( ! empty( $font['variants'] ) && is_array( $font['variants'] ) ) {
+
+            // Variants string
+            $variants = ':' . implode( ',', $font['variants'] );
+
+            // Add subsets to array
+            if ( ! empty( $font['subsets'] ) && is_array( $font['subsets'] ) ) {
+              foreach( $font['subsets'] as $subset ) {
+                $subsets[] = $subset;
+              }
+            }
+
+          }
+
+          // Add family & variants to array
+          if ( isset( $variants ) ) {
+            $families[] = str_replace( ' ', '+', $ot_google_fonts[$font['family']]['family'] ) . $variants;
+          }
+
+        }
+
+      }
+
+    }
+
+    if ( ! empty( $families ) ) {
+
+      $families = array_unique( $families );
+
+      // Append all subsets to the path, unless the only subset is latin.
+      if ( ! empty( $subsets ) ) {
+        $subsets = implode( ',', array_unique( $subsets ) );
+        if ( $subsets != 'latin' ) {
+          $append = '&subset=' . $subsets;
+        }
+      }
+
+      wp_enqueue_style( 'ot-google-fonts', esc_url( '//fonts.googleapis.com/css?family=' . implode( '%7C', $families ) ) . $append, false, null );
+    }
+
+  }
+
+}
+
+/**
+ * Registers the Theme Option page link for the admin bar.
  *
  * @return    void
  *

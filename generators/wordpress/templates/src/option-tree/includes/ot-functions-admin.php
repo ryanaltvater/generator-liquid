@@ -90,7 +90,7 @@ if ( ! function_exists( 'ot_register_settings_page' ) ) {
     global $ot_has_custom_theme_options;
     
     // Display UI Builder admin notice
-    if ( OT_SHOW_OPTIONS_UI == true && isset( $_REQUEST['page'] ) && $_REQUEST['page'] == 'ot-settings' && ( $ot_has_custom_theme_options == true || has_action( 'admin_init', 'custom_theme_options' ) ) ) {
+    if ( OT_SHOW_OPTIONS_UI == true && isset( $_REQUEST['page'] ) && $_REQUEST['page'] == 'ot-settings' && ( $ot_has_custom_theme_options == true || has_action( 'admin_init', 'custom_theme_options' ) || has_action( 'init', 'custom_theme_options' ) ) ) {
       
       function ot_has_custom_theme_options() {
     
@@ -488,32 +488,195 @@ if ( ! function_exists( 'ot_validate_setting' ) ) {
       if ( ! isset( $has_value ) ) {
         $input = '';
       }
+    
+    } else if ( 'border' == $type ) {
+      
+      // Loop over array and set errors or unset key from array.
+      foreach( $input as $key => $value ) {
+        
+        // Validate width
+        if ( $key == 'width' && ! empty( $value ) && ! is_numeric( $value ) ) {
+          
+          $input[$key] = '0';
+          
+          add_settings_error( 'option-tree', 'invalid_border_width', sprintf( __( 'The %s input field for %s only allows numeric values.', 'option-tree' ), '<code>width</code>', '<code>' . $field_id . '</code>' ), 'error' );
+          
+        }
+        
+        // Validate color
+        if ( $key == 'color' && ! empty( $value ) ) {
+
+          $input[$key] = ot_validate_setting( $value, 'colorpicker', $field_id );
+          
+        }
+        
+        // Unset keys with empty values.
+        if ( empty( $value ) && strlen( $value ) == 0 ) {
+          unset( $input[$key] );
+        }
+        
+      }
+      
+      if ( empty( $input ) ) {
+        $input = '';
+      }
+      
+    } else if ( 'box-shadow' == $type ) {
+      
+      // Validate inset
+      $input['inset'] = isset( $input['inset'] ) ? 'inset' : '';
+      
+      // Validate offset-x
+      $input['offset-x'] = ot_validate_setting( $input['offset-x'], 'text', $field_id );
+      
+      // Validate offset-y
+      $input['offset-y'] = ot_validate_setting( $input['offset-y'], 'text', $field_id );
+      
+      // Validate blur-radius
+      $input['blur-radius'] = ot_validate_setting( $input['blur-radius'], 'text', $field_id );
+      
+      // Validate spread-radius
+      $input['spread-radius'] = ot_validate_setting( $input['spread-radius'], 'text', $field_id );
+      
+      // Validate color
+      $input['color'] = ot_validate_setting( $input['color'], 'colorpicker', $field_id );
+      
+      // Unset keys with empty values.
+      foreach( $input as $key => $value ) {
+        if ( empty( $value ) && strlen( $value ) == 0 ) {
+          unset( $input[$key] );
+        }
+      }
+      
+      // Set empty array to empty string.
+      if ( empty( $input ) ) {
+        $input = '';
+      }
       
     } else if ( 'colorpicker' == $type ) {
 
       /* return empty & set error */
-      if ( 0 === preg_match( '/^#([a-f0-9]{6}|[a-f0-9]{3})$/i', $input ) ) {
+      if ( 0 === preg_match( '/^#([a-f0-9]{6}|[a-f0-9]{3})$/i', $input ) && 0 === preg_match( '/^rgba\(\s*([0-9]{1,3})\s*,\s*([0-9]{1,3})\s*,\s*([0-9]{1,3})\s*,\s*([0-9\.]{1,4})\s*\)/i', $input ) ) {
         
         $input = '';
         
-        add_settings_error( 'option-tree', 'invalid_hex', __( 'The Colorpicker only allows valid hexadecimal values.', 'option-tree' ), 'error' );
+        add_settings_error( 'option-tree', 'invalid_hex', sprintf( __( 'The %s Colorpicker only allows valid hexadecimal or rgba values.', 'option-tree' ), '<code>' . $field_id . '</code>' ), 'error' );
       
       }
-    
-    } else if ( in_array( $type, array( 'css', 'text', 'textarea', 'textarea-simple' ) ) ) {
+      
+    } else if ( 'colorpicker-opacity' == $type ) {
+
+      // Not allowed
+      if ( is_array( $input ) ) {
+        $input = '';
+      }
+
+      // Validate color
+      $input = ot_validate_setting( $input, 'colorpicker', $field_id );
+
+    } else if ( in_array( $type, array( 'css', 'javascript', 'text', 'textarea', 'textarea-simple' ) ) ) {
       
       if ( ! current_user_can( 'unfiltered_html' ) && OT_ALLOW_UNFILTERED_HTML == false ) {
       
         $input = wp_kses_post( $input );
         
       }
-            
+    
+    } else if ( 'dimension' == $type ) {
+      
+      // Loop over array and set error keys or unset key from array.
+      foreach( $input as $key => $value ) {
+        if ( ! empty( $value ) && ! is_numeric( $value ) && $key !== 'unit' ) {
+          $errors[] = $key;
+        }
+        if ( empty( $value ) && strlen( $value ) == 0 ) {
+          unset( $input[$key] );
+        }
+      }
+
+      /* return 0 & set error */
+      if ( isset( $errors ) ) {
+        
+        foreach( $errors as $error ) {
+          
+          $input[$error] = '0';
+          
+          add_settings_error( 'option-tree', 'invalid_dimension_' . $error, sprintf( __( 'The %s input field for %s only allows numeric values.', 'option-tree' ), '<code>' . $error . '</code>', '<code>' . $field_id . '</code>' ), 'error' );
+          
+        }
+        
+      }
+      
+      if ( empty( $input ) ) {
+        $input = '';
+      }
+      
+    } else if ( 'google-fonts' == $type ) {
+      
+      unset($input['%key%']);
+      
+      // Loop over array and check for values
+      if ( is_array( $input ) && ! empty( $input ) ) {
+        $input = array_values( $input );
+      }
+
+      // No value; set to empty
+      if ( empty( $input ) ) {
+        $input = '';
+      }
+    
+    } else if ( 'link-color' == $type ) {
+      
+      // Loop over array and check for values
+      if ( is_array( $input ) && ! empty( $input ) ) {
+        foreach( $input as $key => $value ) {
+          if ( ! empty( $value ) ) {
+            $input[$key] = ot_validate_setting( $input[$key], 'colorpicker', $field_id . '-' . $key );
+            $has_value = true;
+          }
+        }
+      }
+      
+      // No value; set to empty
+      if ( ! isset( $has_value ) ) {
+        $input = '';
+      }
+               
     } else if ( 'measurement' == $type ) {
     
       $input[0] = sanitize_text_field( $input[0] );
       
       // No value; set to empty
-      if ( empty( $input[0] ) && empty( $input[1] ) ) {
+      if ( empty( $input[0] ) && strlen( $input[0] ) == 0 && empty( $input[1] ) ) {
+        $input = '';
+      }
+      
+    } else if ( 'spacing' == $type ) {
+      
+      // Loop over array and set error keys or unset key from array.
+      foreach( $input as $key => $value ) {
+        if ( ! empty( $value ) && ! is_numeric( $value ) && $key !== 'unit' ) {
+          $errors[] = $key;
+        }
+        if ( empty( $value ) && strlen( $value ) == 0 ) {
+          unset( $input[$key] );
+        }
+      }
+
+      /* return 0 & set error */
+      if ( isset( $errors ) ) {
+        
+        foreach( $errors as $error ) {
+          
+          $input[$error] = '0';
+          
+          add_settings_error( 'option-tree', 'invalid_spacing_' . $error, sprintf( __( 'The %s input field for %s only allows numeric values.', 'option-tree' ), '<code>' . $error . '</code>', '<code>' . $field_id . '</code>' ), 'error' );
+          
+        }
+        
+      }
+      
+      if ( empty( $input ) ) {
         $input = '';
       }
       
@@ -535,7 +698,9 @@ if ( ! function_exists( 'ot_validate_setting' ) ) {
       
     } else if ( 'upload' == $type ) {
 
-      $input = sanitize_text_field( $input );
+      if( filter_var( $input, FILTER_VALIDATE_INT ) === FALSE ) {
+        $input = esc_url_raw( $input );
+      }
     
     } else if ( 'gallery' == $type ) {
 
@@ -598,6 +763,25 @@ if ( ! function_exists( 'ot_admin_styles' ) ) {
     /* Remove styles added by the Easy Digital Downloads plugin */
     if ( isset( $post->post_type ) && $post->post_type == 'post' )
       wp_dequeue_style( 'jquery-ui-css' );
+
+    /**
+     * Filter the screen IDs used to dequeue `jquery-ui-css`.
+     *
+     * @since 2.5.0
+     *
+     * @param array $screen_ids An array of screen IDs.
+     */
+    $screen_ids = apply_filters( 'ot_dequeue_jquery_ui_css_screen_ids', array( 
+      'toplevel_page_ot-settings', 
+      'optiontree_page_ot-documentation', 
+      'appearance_page_ot-theme-options' 
+    ) );
+    
+    /* Remove styles added by the WP Review plugin and any custom pages added through filtering */
+    if ( in_array( get_current_screen()->id, $screen_ids ) ) {
+      wp_dequeue_style( 'plugin_name-admin-ui-css' );
+      wp_dequeue_style( 'jquery-ui-css' );
+    }
     
     /* execute styles after actions */
     do_action( 'ot_admin_styles_after' );
@@ -632,28 +816,34 @@ if ( ! function_exists( 'ot_admin_scripts' ) ) {
       /* Legacy Thickbox */
       add_thickbox();
     }
-    
+
     /* load jQuery-ui slider */
     wp_enqueue_script( 'jquery-ui-slider' );
-  
+
     /* load jQuery-ui datepicker */
     wp_enqueue_script( 'jquery-ui-datepicker' );
-    
+
     /* load WP colorpicker */
     wp_enqueue_script( 'wp-color-picker' );
-    
-    /* Load Ace Editor for CSS Editing */
-    wp_enqueue_script( 'ace-editor', OT_URL . 'assets/js/vendor/ace/ace.js', null, OT_VERSION );   
-    
+
+    /* load Ace Editor for CSS Editing */
+    wp_enqueue_script( 'ace-editor', 'https://cdnjs.cloudflare.com/ajax/libs/ace/1.1.3/ace.js', null, '1.1.3' );   
+
     /* load jQuery UI timepicker addon */
     wp_enqueue_script( 'jquery-ui-timepicker', OT_URL . 'assets/js/vendor/jquery/jquery-ui-timepicker.js', array( 'jquery', 'jquery-ui-slider', 'jquery-ui-datepicker' ), '1.4.3' );
-    
+
+    /* load the post formats */
+    if ( OT_META_BOXES == true && OT_POST_FORMATS == true ) {
+      wp_enqueue_script( 'ot-postformats', OT_URL . 'assets/js/ot-postformats.js', array( 'jquery' ), '1.0.1' );
+    }
+
     /* load all the required scripts */
     wp_enqueue_script( 'ot-admin-js', OT_URL . 'assets/js/ot-admin.js', array( 'jquery', 'jquery-ui-tabs', 'jquery-ui-sortable', 'jquery-ui-slider', 'wp-color-picker', 'ace-editor', 'jquery-ui-datepicker', 'jquery-ui-timepicker' ), OT_VERSION );
-    
+
     /* create localized JS array */
     $localized_array = array( 
       'ajax'                  => admin_url( 'admin-ajax.php' ),
+      'nonce'                 => wp_create_nonce( 'option_tree' ),
       'upload_text'           => apply_filters( 'ot_upload_text', __( 'Send to OptionTree', 'option-tree' ) ),
       'remove_media_text'     => __( 'Remove Media', 'option-tree' ),
       'reset_agree'           => __( 'Are you sure you want to reset back to the defaults?', 'option-tree' ),
@@ -735,7 +925,8 @@ if ( ! function_exists( 'ot_create_media_post' ) ) {
   
   function ot_create_media_post() {
     
-    register_post_type( 'option-tree', array(
+    $regsiter_post_type = 'register_' . 'post_type';
+    $regsiter_post_type( 'option-tree', array(
       'labels'              => array( 'name' => __( 'Option Tree', 'option-tree' ) ),
       'public'              => false,
       'show_ui'             => false,
@@ -783,15 +974,16 @@ if ( ! function_exists( 'ot_create_media_post' ) ) {
 if ( ! function_exists( 'ot_default_settings' ) ) {
 
   function ot_default_settings() {
-    global $wpdb, $table_prefix;
+    global $wpdb;
     
     if ( ! get_option( ot_settings_id() ) ) {
       
       $section_count = 0;
       $settings_count = 0;
       $settings = array();
+      $table_name = $wpdb->prefix . 'option_tree';
       
-      if ( count( $wpdb->get_results( "SHOW TABLES LIKE '{$table_prefix}option_tree'" ) ) == 1 && $old_settings = $wpdb->get_results( "SELECT * FROM {$table_prefix}option_tree ORDER BY item_sort ASC" ) ) {
+      if ( $wpdb->get_var( $wpdb->prepare( "SHOW TABLES LIKE %s", $table_name ) ) == $table_name && $old_settings = $wpdb->get_results( "SELECT * FROM $table_name ORDER BY item_sort ASC" ) ) {
         
         foreach ( $old_settings as $setting ) {
           
@@ -821,7 +1013,7 @@ if ( ! function_exists( 'ot_default_settings' ) ) {
             
             /* textarea rows */
             $rows = '';
-            if ( in_array( $settings['settings'][$settings_count]['type'], array( 'css', 'textarea' ) ) ) {
+            if ( in_array( $settings['settings'][$settings_count]['type'], array( 'css', 'javascript', 'textarea' ) ) ) {
               if ( (int) $setting->item_options > 0 ) {
                 $rows = (int) $setting->item_options;
               } else {
@@ -1085,7 +1277,7 @@ if ( ! function_exists( 'ot_import' ) ) {
       }
       
       /* redirect */
-      wp_redirect( add_query_arg( array( 'action' => 'import-xml', 'message' => $message ), $_POST['_wp_http_referer'] ) );
+      wp_redirect( esc_url_raw( add_query_arg( array( 'action' => 'import-xml', 'message' => $message ), $_POST['_wp_http_referer'] ) ) );
       exit;
       
     }
@@ -1106,7 +1298,7 @@ if ( ! function_exists( 'ot_import' ) ) {
       }
       
       /* redirect */
-      wp_redirect( add_query_arg( array( 'action' => 'import-settings', 'message' => $message ), $_POST['_wp_http_referer'] ) );
+      wp_redirect( esc_url_raw( add_query_arg( array( 'action' => 'import-settings', 'message' => $message ), $_POST['_wp_http_referer'] ) ) );
       exit;
       
     }
@@ -1154,7 +1346,7 @@ if ( ! function_exists( 'ot_import' ) ) {
       }
       
       /* redirect accordingly */
-      wp_redirect( add_query_arg( array( 'action' => 'import-data', 'message' => $message ), $_POST['_wp_http_referer'] ) );
+      wp_redirect( esc_url_raw( add_query_arg( array( 'action' => 'import-data', 'message' => $message ), $_POST['_wp_http_referer'] ) ) );
       exit;
       
     }
@@ -1222,7 +1414,7 @@ if ( ! function_exists( 'ot_import' ) ) {
       }
         
       /* redirect accordingly */
-      wp_redirect( add_query_arg( array( 'action' => 'import-layouts', 'message' => $message ), $_POST['_wp_http_referer'] ) );
+      wp_redirect( esc_url_raw( add_query_arg( array( 'action' => 'import-layouts', 'message' => $message ), $_POST['_wp_http_referer'] ) ) );
       exit;
       
     }
@@ -1314,7 +1506,7 @@ if ( ! function_exists( 'ot_import_xml' ) ) {
           
           /* textarea rows */
           $rows = '';
-          if ( in_array( $settings['settings'][$settings_count]['type'], array( 'css', 'textarea' ) ) ) {
+          if ( in_array( $settings['settings'][$settings_count]['type'], array( 'css', 'javascript', 'textarea' ) ) ) {
             if ( (int) $value->item_options > 0 ) {
               $rows = (int) $value->item_options;
             } else {
@@ -1601,15 +1793,15 @@ if ( ! function_exists( 'ot_export_php_settings_array' ) ) {
 /**
  * Initialize the custom theme options.
  */
-add_action( 'admin_init', 'custom_theme_options' );
+add_action( 'init', 'custom_theme_options' );
 
 /**
  * Build the custom settings & update OptionTree.
  */
 function custom_theme_options() {
   
-  /* OptionTree is not loaded yet */
-  if ( ! function_exists( 'ot_settings_id' ) )
+  /* OptionTree is not loaded yet, or this is not an admin request */
+  if ( ! function_exists( 'ot_settings_id' ) || ! is_admin() )
     return false;
     
   /**
@@ -1852,7 +2044,7 @@ if ( ! function_exists( 'ot_save_settings' ) ) {
       }
       
       /* redirect */
-      wp_redirect( add_query_arg( array( 'action' => 'save-settings', 'message' => $message ), $_POST['_wp_http_referer'] ) );
+      wp_redirect( esc_url_raw( add_query_arg( array( 'action' => 'save-settings', 'message' => $message ), $_POST['_wp_http_referer'] ) ) );
       exit;
       
     }
@@ -2077,9 +2269,9 @@ if ( ! function_exists( 'ot_modify_layouts' ) ) {
       
       /* redirect */
       if ( isset( $_REQUEST['page'] ) && $_REQUEST['page'] == apply_filters( 'ot_theme_options_menu_slug', 'ot-theme-options' ) ) {
-        $query_args = add_query_arg( array( 'settings-updated' => 'layout' ), remove_query_arg( array( 'action', 'message' ), $_POST['_wp_http_referer'] ) );
+        $query_args = esc_url_raw( add_query_arg( array( 'settings-updated' => 'layout' ), remove_query_arg( array( 'action', 'message' ), $_POST['_wp_http_referer'] ) ) );
       } else {
-        $query_args = add_query_arg( array( 'action' => 'save-layouts', 'message' => $message ), $_POST['_wp_http_referer'] );
+        $query_args = esc_url_raw( add_query_arg( array( 'action' => 'save-layouts', 'message' => $message ), $_POST['_wp_http_referer'] ) );
       }
       wp_redirect( $query_args );
       exit;
@@ -2223,16 +2415,23 @@ if ( ! function_exists( 'ot_option_types_array' ) ) {
   
     return apply_filters( 'ot_option_types_array', array( 
       'background'                => __('Background', 'option-tree'),
+      'border'                    => __('Border', 'option-tree'),
+      'box-shadow'                => __('Box Shadow', 'option-tree'),
       'category-checkbox'         => __('Category Checkbox', 'option-tree'),
       'category-select'           => __('Category Select', 'option-tree'),
       'checkbox'                  => __('Checkbox', 'option-tree'),
-      'colorpicker'               => __('Color Picker', 'option-tree'),
+      'colorpicker'               => __('Colorpicker', 'option-tree'),
+      'colorpicker-opacity'       => __('Colorpicker Opacity', 'option-tree'),
       'css'                       => __('CSS', 'option-tree'),
       'custom-post-type-checkbox' => __('Custom Post Type Checkbox', 'option-tree'),
       'custom-post-type-select'   => __('Custom Post Type Select', 'option-tree'),
       'date-picker'               => __('Date Picker', 'option-tree'),
       'date-time-picker'          => __('Date Time Picker', 'option-tree'),
+      'dimension'                 => __('Dimension', 'option-tree'),
       'gallery'                   => __('Gallery', 'option-tree'),
+      'google-fonts'              => __('Google Fonts', 'option-tree'),
+      'javascript'                => __('JavaScript', 'option-tree'),
+      'link-color'                => __('Link Color', 'option-tree'),
       'list-item'                 => __('List Item', 'option-tree'),
       'measurement'               => __('Measurement', 'option-tree'),
       'numeric-slider'            => __('Numeric Slider', 'option-tree'),
@@ -2247,6 +2446,7 @@ if ( ! function_exists( 'ot_option_types_array' ) ) {
       'sidebar-select'            => __('Sidebar Select',  'option-tree'),
       'slider'                    => __('Slider', 'option-tree'),
       'social-links'              => __('Social Links', 'option-tree'),
+      'spacing'                   => __('Spacing', 'option-tree'),
       'tab'                       => __('Tab', 'option-tree'),
       'tag-checkbox'              => __('Tag Checkbox', 'option-tree'),
       'tag-select'                => __('Tag Select', 'option-tree'),
@@ -2316,6 +2516,38 @@ if ( ! function_exists( 'ot_map_old_option_types' ) ) {
 }
 
 /**
+ * Filters the typography font-family to add Google fonts dynamically.
+ *
+ * @param     array     $families An array of all recognized font families.
+ * @param     string    $field_id ID of the feild being filtered.
+ * @return    array
+ *
+ * @access    public
+ * @since     2.5.0
+ */
+function ot_google_font_stack( $families, $field_id ) {
+
+  $ot_google_fonts = get_theme_mod( 'ot_google_fonts', array() );
+  $ot_set_google_fonts = get_theme_mod( 'ot_set_google_fonts', array() );
+
+  if ( ! empty( $ot_set_google_fonts ) ) {
+    foreach( $ot_set_google_fonts as $id => $sets ) {
+      foreach( $sets as $value ) {
+        $family = isset( $value['family'] ) ? $value['family'] : '';
+        if ( $family && isset( $ot_google_fonts[$family] ) ) {
+          $spaces = explode(' ', $ot_google_fonts[$family]['family'] );
+          $font_stack = count( $spaces ) > 1 ? '"' . $ot_google_fonts[$family]['family'] . '"': $ot_google_fonts[$family]['family'];
+          $families[$family] = apply_filters( 'ot_google_font_stack', $font_stack, $family, $field_id );
+        }
+      }
+    }
+  }
+  
+  return $families;
+}
+add_filter( 'ot_recognized_font_families', 'ot_google_font_stack', 1, 2 );
+
+/**
  * Recognized font families
  *
  * Returns an array of all recognized font families.
@@ -2334,8 +2566,8 @@ if ( ! function_exists( 'ot_map_old_option_types' ) ) {
 if ( ! function_exists( 'ot_recognized_font_families' ) ) {
 
   function ot_recognized_font_families( $field_id = '' ) {
-  
-    return apply_filters( 'ot_recognized_font_families', array(
+    
+    $families = array(
       'arial'     => 'Arial',
       'georgia'   => 'Georgia',
       'helvetica' => 'Helvetica',
@@ -2344,7 +2576,9 @@ if ( ! function_exists( 'ot_recognized_font_families' ) ) {
       'times'     => '"Times New Roman", sans-serif',
       'trebuchet' => 'Trebuchet',
       'verdana'   => 'Verdana'
-    ), $field_id );
+    );
+    
+    return apply_filters( 'ot_recognized_font_families', $families, $field_id );
     
   }
 
@@ -2702,6 +2936,214 @@ if ( ! function_exists( 'ot_recognized_background_position' ) ) {
 }
 
 /**
+ * Border Styles
+ *
+ * Returns an array of all available style types.
+ *
+ * @uses      apply_filters()
+ *
+ * @return    array
+ *
+ * @access    public
+ * @since     2.5.0
+ */
+if ( ! function_exists( 'ot_recognized_border_style_types' ) ) {
+
+  function ot_recognized_border_style_types( $field_id = '' ) {
+
+    return apply_filters( 'ot_recognized_border_style_types', array(
+      'hidden' => 'Hidden',
+      'dashed' => 'Dashed',
+      'solid'  => 'Solid',
+      'double' => 'Double',
+      'groove' => 'Groove',
+      'ridge'  => 'Ridge',
+      'inset'  => 'Inset',
+      'outset' => 'Outset',
+    ), $field_id );
+
+  }
+
+}
+
+/**
+ * Border Units
+ *
+ * Returns an array of all available unit types.
+ *
+ * @uses      apply_filters()
+ *
+ * @return    array
+ *
+ * @access    public
+ * @since     2.5.0
+ */
+if ( ! function_exists( 'ot_recognized_border_unit_types' ) ) {
+
+  function ot_recognized_border_unit_types( $field_id = '' ) {
+
+    return apply_filters( 'ot_recognized_border_unit_types', array(
+      'px' => 'px',
+      '%'  => '%',
+      'em' => 'em',
+      'pt' => 'pt'
+    ), $field_id );
+
+  }
+
+}
+
+/**
+ * Dimension Units
+ *
+ * Returns an array of all available unit types.
+ *
+ * @uses      apply_filters()
+ *
+ * @return    array
+ *
+ * @access    public
+ * @since     2.5.0
+ */
+if ( ! function_exists( 'ot_recognized_dimension_unit_types' ) ) {
+
+  function ot_recognized_dimension_unit_types( $field_id = '' ) {
+
+    return apply_filters( 'ot_recognized_dimension_unit_types', array(
+      'px' => 'px',
+      '%'  => '%',
+      'em' => 'em',
+      'pt' => 'pt'
+    ), $field_id );
+
+  }
+
+}
+
+/**
+ * Spacing Units
+ *
+ * Returns an array of all available unit types.
+ *
+ * @uses      apply_filters()
+ *
+ * @return    array
+ *
+ * @access    public
+ * @since     2.5.0
+ */
+if ( ! function_exists( 'ot_recognized_spacing_unit_types' ) ) {
+
+  function ot_recognized_spacing_unit_types( $field_id = '' ) {
+
+    return apply_filters( 'ot_recognized_spacing_unit_types', array(
+      'px' => 'px',
+      '%'  => '%',
+      'em' => 'em',
+      'pt' => 'pt'
+    ), $field_id );
+
+  }
+
+}
+
+/**
+ * Recognized Google font families
+ *
+ * @uses      apply_filters()
+ *
+ * @return    array
+ *
+ * @access    public
+ * @since     2.5.0
+ */
+if ( ! function_exists( 'ot_recognized_google_font_families' ) ) {
+
+  function ot_recognized_google_font_families( $field_id ) {
+
+    $families = array();
+    $ot_google_fonts = get_theme_mod( 'ot_google_fonts', array() );
+    
+    // Forces an array rebuild when we sitch themes
+    if ( empty( $ot_google_fonts ) ) {
+      $ot_google_fonts = ot_fetch_google_fonts( true, true );
+    }
+    
+    foreach( (array) $ot_google_fonts as $key => $item ) {
+  
+      if ( isset( $item['family'] ) ) {
+  
+        $families[ $key ] = $item['family'];
+  
+      }
+  
+    }
+  
+    return apply_filters( 'ot_recognized_google_font_families', $families, $field_id );
+  
+  }
+
+}
+
+/**
+ * Recognized Google font variants
+ *
+ * @uses      apply_filters()
+ *
+ * @return    array
+ *
+ * @access    public
+ * @since     2.5.0
+ */
+if ( ! function_exists( 'ot_recognized_google_font_variants' ) ) {
+
+  function ot_recognized_google_font_variants( $field_id, $family ) {
+
+    $variants = array();
+    $ot_google_fonts = get_theme_mod( 'ot_google_fonts', array() );
+
+    if ( isset( $ot_google_fonts[ $family ]['variants'] ) ) {
+  
+      $variants = $ot_google_fonts[ $family ]['variants'];
+  
+    }
+  
+    return apply_filters( 'ot_recognized_google_font_variants', $variants, $field_id, $family );
+  
+  }
+
+}
+
+/**
+ * Recognized Google font subsets
+ *
+ * @uses      apply_filters()
+ *
+ * @return    array
+ *
+ * @access    public
+ * @since     2.5.0
+ */
+if ( ! function_exists( 'ot_recognized_google_font_subsets' ) ) {
+
+  function ot_recognized_google_font_subsets( $field_id, $family ) {
+
+    $subsets = array();
+    $ot_google_fonts = get_theme_mod( 'ot_google_fonts', array() );
+  
+    if ( isset( $ot_google_fonts[ $family ]['subsets'] ) ) {
+  
+      $subsets = $ot_google_fonts[ $family ]['subsets'];
+  
+    }
+  
+    return apply_filters( 'ot_recognized_google_font_subsets', $subsets, $field_id, $family );
+  
+  }
+
+}
+
+/**
  * Measurement Units
  *
  * Returns an array of all available unit types.
@@ -2982,84 +3424,163 @@ if ( ! function_exists( 'ot_social_links_settings' ) ) {
  *
  * @access    public
  * @since     1.1.8
- * @updated   2.0.12
+ * @updated   2.5.3
  */
 if ( ! function_exists( 'ot_insert_css_with_markers' ) ) {
 
   function ot_insert_css_with_markers( $field_id = '', $insertion = '', $meta = false ) {
-    
+
     /* missing $field_id or $insertion exit early */
     if ( '' == $field_id || '' == $insertion )
       return;
 
     /* path to the dynamic.css file */
     $filepath = get_stylesheet_directory() . '/dynamic.css';
-    
+    if ( is_multisite() ) {
+      $multisite_filepath = get_stylesheet_directory() . '/dynamic-' . get_current_blog_id() . '.css';
+      if ( file_exists( $multisite_filepath ) ) {
+        $filepath = $multisite_filepath;
+      }
+    }
+
     /* allow filter on path */
     $filepath = apply_filters( 'css_option_file_path', $filepath, $field_id );
-    
+
     /* grab a copy of the paths array */
     $ot_css_file_paths = get_option( 'ot_css_file_paths', array() );
-    
+    if ( is_multisite() ) {
+      $ot_css_file_paths = get_blog_option( get_current_blog_id(), 'ot_css_file_paths', $ot_css_file_paths );
+    }
+
     /* set the path for this field */
     $ot_css_file_paths[$field_id] = $filepath;
-    
+
     /* update the paths */
-    update_option( 'ot_css_file_paths', $ot_css_file_paths );
-    
+    if ( is_multisite() ) {
+      update_blog_option( get_current_blog_id(), 'ot_css_file_paths', $ot_css_file_paths );
+    } else {
+      update_option( 'ot_css_file_paths', $ot_css_file_paths );
+    }
+
     /* insert CSS into file */
     if ( file_exists( $filepath ) ) {
-      
+
       $insertion   = ot_normalize_css( $insertion );
       $regex       = "/{{([a-zA-Z0-9\_\-\#\|\=]+)}}/";
       $marker      = $field_id;
-      
+
       /* Match custom CSS */
       preg_match_all( $regex, $insertion, $matches );
-      
+
       /* Loop through CSS */
       foreach( $matches[0] as $option ) {
 
         $value        = '';
-        $option_id    = str_replace( array( '{{', '}}' ), '', $option );
-        $option_array = explode( '|', $option_id );
+        $option_array = explode( '|', str_replace( array( '{{', '}}' ), '', $option ) );
+        $option_id    = isset( $option_array[0] ) ? $option_array[0] : '';
+        $option_key   = isset( $option_array[1] ) ? $option_array[1] : '';
         $option_type  = ot_get_option_type_by_id( $option_id );
-        
-        /* get the array value */
+        $fallback     = '';
+
+        // Get the meta array value
         if ( $meta ) {
           global $post;
-          
-          $value = get_post_meta( $post->ID, $option_array[0], true );
-          
+
+          $value = get_post_meta( $post->ID, $option_id, true );
+
+        // Get the options array value
         } else {
-        
+
           $options = get_option( ot_options_id() );
-          
-          if ( isset( $options[$option_array[0]] ) ) {
-            
-            $value = $options[$option_array[0]];
-  
+
+          if ( isset( $options[$option_id] ) ) {
+
+            $value = $options[$option_id];
+
           }
-          
+
         }
-        
+
+        // This in an array of values
         if ( is_array( $value ) ) {
-          
-          if ( ! isset( $option_array[1] ) ) {
-          
-            /* Measurement */
-            if ( isset( $value[0] ) && isset( $value[1] ) ) {
-              
-              /* set $value with measurement properties */
-              $value = $value[0].$value[1];
-              
-            /* typography */
-            } else if ( ot_array_keys_exists( $value, array( 'font-color', 'font-family', 'font-size', 'font-style', 'font-variant', 'font-weight', 'letter-spacing', 'line-height', 'text-decoration', 'text-transform' ) ) ) {
+
+          if ( empty( $option_key ) ) {
+
+            // Measurement
+            if ( $option_type == 'measurement' ) {
+              $unit = ! empty( $value[1] ) ? $value[1] : 'px';
+			  
+              // Set $value with measurement properties
+              if ( isset( $value[0] ) && strlen( $value[0] ) > 0 )
+                $value = $value[0].$unit;
+
+            // Border
+            } else if ( $option_type == 'border' ) {
+              $border = array();
+
+              $unit = ! empty( $value['unit'] ) ? $value['unit'] : 'px';
+
+              if ( isset( $value['width'] ) && strlen( $value['width'] ) > 0 )
+                $border[] = $value['width'].$unit;
+
+              if ( ! empty( $value['style'] ) )
+                $border[] = $value['style'];
+
+              if ( ! empty( $value['color'] ) )
+                $border[] = $value['color'];
+
+              /* set $value with border properties or empty string */
+              $value = ! empty( $border ) ? implode( ' ', $border ) : '';
+
+            // Box Shadow
+            } else if ( $option_type == 'box-shadow' ) {
+
+              /* set $value with box-shadow properties or empty string */
+              $value = ! empty( $value ) ? implode( ' ', $value ) : '';
+
+            // Dimension
+            } else if ( $option_type == 'dimension' ) {
+              $dimension = array();
+
+              $unit = ! empty( $value['unit'] ) ? $value['unit'] : 'px';
+
+              if ( isset( $value['width'] ) && strlen( $value['width'] ) > 0 )
+                $dimension[] = $value['width'].$unit;
+
+              if ( isset( $value['height'] ) && strlen( $value['height'] ) > 0 )
+                $dimension[] = $value['height'].$unit;
+
+              // Set $value with dimension properties or empty string
+              $value = ! empty( $dimension ) ? implode( ' ', $dimension ) : '';
+
+            // Spacing
+            } else if ( $option_type == 'spacing' ) {
+              $spacing = array();
+
+              $unit = ! empty( $value['unit'] ) ? $value['unit'] : 'px';
+
+              if ( isset( $value['top'] ) && strlen( $value['top'] ) > 0 )
+                $spacing[] = $value['top'].$unit;
+
+              if ( isset( $value['right'] ) && strlen( $value['right'] ) > 0 )
+                $spacing[] = $value['right'].$unit;
+
+              if ( isset( $value['bottom'] ) && strlen( $value['bottom'] ) > 0 )
+                $spacing[] = $value['bottom'].$unit;
+
+              if ( isset( $value['left'] ) && strlen( $value['left'] ) > 0 )
+                $spacing[] = $value['left'].$unit;
+
+              // Set $value with spacing properties or empty string
+              $value = ! empty( $spacing ) ? implode( ' ', $spacing ) : '';
+
+            // Typography
+            } else if ( $option_type == 'typography' ) {
               $font = array();
-              
+
               if ( ! empty( $value['font-color'] ) )
                 $font[] = "color: " . $value['font-color'] . ";";
-              
+
               if ( ! empty( $value['font-family'] ) ) {
                 foreach ( ot_recognized_font_families( $marker ) as $key => $v ) {
                   if ( $key == $value['font-family'] ) {
@@ -3067,144 +3588,205 @@ if ( ! function_exists( 'ot_insert_css_with_markers' ) ) {
                   }
                 }
               }
-              
+
               if ( ! empty( $value['font-size'] ) )
                 $font[] = "font-size: " . $value['font-size'] . ";";
-              
+
               if ( ! empty( $value['font-style'] ) )
                 $font[] = "font-style: " . $value['font-style'] . ";";
-              
+
               if ( ! empty( $value['font-variant'] ) )
                 $font[] = "font-variant: " . $value['font-variant'] . ";";
-              
+
               if ( ! empty( $value['font-weight'] ) )
                 $font[] = "font-weight: " . $value['font-weight'] . ";";
-                
+
               if ( ! empty( $value['letter-spacing'] ) )
                 $font[] = "letter-spacing: " . $value['letter-spacing'] . ";";
-              
+
               if ( ! empty( $value['line-height'] ) )
                 $font[] = "line-height: " . $value['line-height'] . ";";
-              
+
               if ( ! empty( $value['text-decoration'] ) )
                 $font[] = "text-decoration: " . $value['text-decoration'] . ";";
-              
+
               if ( ! empty( $value['text-transform'] ) )
                 $font[] = "text-transform: " . $value['text-transform'] . ";";
-              
-              /* set $value with font properties or empty string */
+
+              // Set $value with font properties or empty string
               $value = ! empty( $font ) ? implode( "\n", $font ) : '';
-              
-            /* background */
-            } else if ( ot_array_keys_exists( $value, array( 'background-color', 'background-image', 'background-repeat', 'background-attachment', 'background-position', 'background-size' ) ) ) {
+
+            // Background
+            } else if ( $option_type == 'background' ) {
               $bg = array();
-              
+
               if ( ! empty( $value['background-color'] ) )
                 $bg[] = $value['background-color'];
-                
+
               if ( ! empty( $value['background-image'] ) ) {
-                
-                /* If an attachment ID is stored here fetch its URL and replace the value */
+
+                // If an attachment ID is stored here fetch its URL and replace the value
                 if ( wp_attachment_is_image( $value['background-image'] ) ) {
-                
+
                   $attachment_data = wp_get_attachment_image_src( $value['background-image'], 'original' );
-                  
-                  /* check for attachment data */
+
+                  // Check for attachment data
                   if ( $attachment_data ) {
-                  
+
                     $value['background-image'] = $attachment_data[0];
-                    
+
                   }
-                  
+
                 }
-    
+
                 $bg[] = 'url("' . $value['background-image'] . '")';
-                
+
               }
-                
+
               if ( ! empty( $value['background-repeat'] ) )
                 $bg[] = $value['background-repeat'];
-                
+
               if ( ! empty( $value['background-attachment'] ) )
                 $bg[] = $value['background-attachment'];
-                
+
               if ( ! empty( $value['background-position'] ) )
                 $bg[] = $value['background-position'];
-              
+
               if ( ! empty( $value['background-size'] ) )
                 $size = $value['background-size'];
-                
-              /* set $value with background properties or empty string */
+
+              // Set $value with background properties or empty string
               $value = ! empty( $bg ) ? 'background: ' . implode( " ", $bg ) . ';' : '';
-              
+
               if ( isset( $size ) ) {
                 if ( ! empty( $bg ) ) {
                   $value.= apply_filters( 'ot_insert_css_with_markers_bg_size_white_space', "\n\x20\x20", $option_id );
                 }
                 $value.= "background-size: $size;";
               }
-              
+
             }
-          
+
           } else {
-               
-            $value = $value[$option_array[1]];
-            
+
+            $value = $value[$option_key];
+
           }
-         
+
         }
-        
-        /* If an attachment ID is stored here fetch its URL and replace the value */
+
+        // If an attachment ID is stored here fetch its URL and replace the value
         if ( $option_type == 'upload' && wp_attachment_is_image( $value ) ) {
-        
+
           $attachment_data = wp_get_attachment_image_src( $value, 'original' );
-          
-          /* check for attachment data */
+
+          // Check for attachment data
           if ( $attachment_data ) {
-          
+
             $value = $attachment_data[0];
-            
+
           }
-          
+
         }
-            
+
+        // Attempt to fallback when `$value` is empty
+        if ( empty( $value ) ) {
+
+          // We're trying to access a single array key
+          if ( ! empty( $option_key ) ) {
+
+            // Link Color `inherit`
+            if ( $option_type == 'link-color' ) {
+              $fallback = 'inherit';
+            }
+
+          } else {
+
+            // Border
+            if ( $option_type == 'border' ) {
+              $fallback = 'inherit';
+            }
+
+            // Box Shadow
+            if ( $option_type == 'box-shadow' ) {
+              $fallback = 'none';
+            }
+
+            // Colorpicker
+            if ( $option_type == 'colorpicker' ) {
+              $fallback = 'inherit';
+            }
+
+            // Colorpicker Opacity
+            if ( $option_type == 'colorpicker-opacity' ) {
+              $fallback = 'inherit';
+            }
+
+          }
+
+          /**
+           * Filter the `dynamic.css` fallback value.
+           *
+           * @since 2.5.3
+           *
+           * @param string $fallback The default CSS fallback value.
+           * @param string $option_id The option ID.
+           * @param string $option_type The option type.
+           * @param string $option_key The option array key.
+           */
+          $fallback = apply_filters( 'ot_insert_css_with_markers_fallback', $fallback, $option_id, $option_type, $option_key );
+
+        }
+
+        // Let's fallback!
+        if ( ! empty( $fallback ) ) {
+          $value = $fallback;
+        }
+
         // Filter the CSS
         $value = apply_filters( 'ot_insert_css_with_markers_value', $value, $option_id );
-         
-        /* insert CSS, even if the value is empty */
+
+        // Insert CSS, even if the value is empty
         $insertion = stripslashes( str_replace( $option, $value, $insertion ) );
-         
+
       }
-    
-      /* create array from the lines of code */
-      $markerdata = explode( "\n", implode( '', file( $filepath ) ) );
-      
-      /* can't write to the file return false */
-      if ( ! $f = ot_file_open( $filepath, 'w' ) )
+
+      // Can't write to the file so we error out
+      if ( ! is_writable( $filepath ) ) {
+        add_settings_error( 'option-tree', 'dynamic_css', sprintf( __( 'Unable to write to file %s.', 'option-tree' ), '<code>' . $filepath . '</code>' ), 'error' );
         return false;
-      
+      }
+
+      // Create array from the lines of code
+      $markerdata = explode( "\n", implode( '', file( $filepath ) ) );
+
+      // Can't write to the file return false
+      if ( ! $f = ot_file_open( $filepath, 'w' ) ) {
+        return false;
+      }
+
       $searching = true;
       $foundit = false;
-      
-      /* has array of lines */
+
+      // Has array of lines
       if ( ! empty( $markerdata ) ) {
-        
-        /* foreach line of code */
+
+        // Foreach line of code
         foreach( $markerdata as $n => $markerline ) {
-          
-          /* found begining of marker, set $searching to false  */
+
+          // Found begining of marker, set $searching to false
           if ( $markerline == "/* BEGIN {$marker} */" )
             $searching = false;
-          
-          /* keep rewrite each line of CSS  */
+
+          // Keep searching each line of CSS
           if ( $searching == true ) {
             if ( $n + 1 < count( $markerdata ) )
               ot_file_write( $f, "{$markerline}\n" );
             else
               ot_file_write( $f, "{$markerline}" );
           }
-          
-          /* found end marker write code */
+
+          // Found end marker write code
           if ( $markerline == "/* END {$marker} */" ) {
             ot_file_write( $f, "/* BEGIN {$marker} */\n" );
             ot_file_write( $f, "{$insertion}\n" );
@@ -3212,23 +3794,23 @@ if ( ! function_exists( 'ot_insert_css_with_markers' ) ) {
             $searching = true;
             $foundit = true;
           }
-          
+
         }
-        
+
       }
-      
-      /* nothing inserted, write code. DO IT, DO IT! */
+
+      // Nothing inserted, write code. DO IT, DO IT!
       if ( ! $foundit ) {
         ot_file_write( $f, "/* BEGIN {$marker} */\n" );
         ot_file_write( $f, "{$insertion}\n" );
         ot_file_write( $f, "/* END {$marker} */\n" );
       }
-      
-      /* close file */
+
+      // Close file
       ot_file_close( $f );
       return true;
     }
-    
+
     return false;
 
   }
@@ -3500,7 +4082,7 @@ if ( ! function_exists( 'ot_settings_view' ) ) {
       $std = maybe_serialize( $std );
     }
     
-    if ( in_array( $type, array( 'textarea', 'textarea-simple', 'css' ) ) ) {
+    if ( in_array( $type, array( 'css', 'javascript', 'textarea', 'textarea-simple' ) ) ) {
       $std_form_element = '<textarea class="textarea" rows="10" cols="40" name="' . esc_attr( $name ) . '[' . esc_attr( $key ) . '][std]">' . esc_html( $std ) . '</textarea>';
     } else {
       $std_form_element = '<input type="text" name="' . esc_attr( $name ) . '[' . esc_attr( $key ) . '][std]" value="' . esc_attr( $std ) . '" class="widefat option-tree-ui-input" autocomplete="off" />';
@@ -4563,6 +5145,178 @@ function ot_filter_std_value( $value = '', $std = '' ) {
 }
 
 /**
+ * Helper function to set the Google fonts array.
+ *
+ * @param     string    $id The option ID.
+ * @param     bool      $value The option value
+ * @return    void
+ *
+ * @access    public
+ * @since     2.5.0
+ */
+function ot_set_google_fonts( $id = '', $value = '' ) {
+
+  $ot_set_google_fonts = get_theme_mod( 'ot_set_google_fonts', array() );
+
+  if ( is_array( $value ) && ! empty( $value ) ) {
+    $ot_set_google_fonts[$id] = $value;
+  } else if ( isset( $ot_set_google_fonts[$id] ) ) {
+    unset( $ot_set_google_fonts[$id] );
+  }
+
+  set_theme_mod( 'ot_set_google_fonts', $ot_set_google_fonts );
+
+}
+
+/**
+ * Helper function to remove unused options from the Google fonts array.
+ *
+ * @param     array     $options The array of saved options.
+ * @return    array
+ *
+ * @access    public
+ * @since     2.5.0
+ */
+function ot_update_google_fonts_after_save( $options ) {
+
+  $ot_set_google_fonts = get_theme_mod( 'ot_set_google_fonts', array() );
+
+  foreach( $ot_set_google_fonts as $key => $set ) {
+    if ( ! isset( $options[$key] ) ) {
+      unset( $ot_set_google_fonts[$key] );
+    }
+  }
+  set_theme_mod( 'ot_set_google_fonts', $ot_set_google_fonts );
+
+}
+add_action( 'ot_after_theme_options_save', 'ot_update_google_fonts_after_save', 1 );
+
+/**
+ * Helper function to fetch the Google fonts array.
+ *
+ * @param     bool      $normalize Whether or not to return a normalized array. Default 'true'.
+ * @param     bool      $force_rebuild Whether or not to force the array to be rebuilt. Default 'false'.
+ * @return    array
+ *
+ * @access    public
+ * @since     2.5.0
+ */
+function ot_fetch_google_fonts( $normalize = true, $force_rebuild = false ) {
+
+  /* Google Fonts cache key */
+  $ot_google_fonts_cache_key = apply_filters( 'ot_google_fonts_cache_key', 'ot_google_fonts_cache' );
+
+  /* get the fonts from cache */
+  $ot_google_fonts = apply_filters( 'ot_google_fonts_cache', get_transient( $ot_google_fonts_cache_key ) );
+
+  if ( $force_rebuild || ! is_array( $ot_google_fonts ) || empty( $ot_google_fonts ) ) {
+
+    $ot_google_fonts = array();
+
+    /* API url and key */
+    $ot_google_fonts_api_url = apply_filters( 'ot_google_fonts_api_url', 'https://www.googleapis.com/webfonts/v1/webfonts' );
+    $ot_google_fonts_api_key = apply_filters( 'ot_google_fonts_api_key', 'AIzaSyB8G-4UtQr9fhDYTiNrDP40Y5GYQQKrNWI' );
+
+    /* API arguments */
+    $ot_google_fonts_fields = apply_filters( 'ot_google_fonts_fields', array( 'family', 'variants', 'subsets' ) );
+    $ot_google_fonts_sort   = apply_filters( 'ot_google_fonts_sort', 'alpha' );
+
+    /* Initiate API request */
+    $ot_google_fonts_query_args = array(
+      'key'    => $ot_google_fonts_api_key, 
+      'fields' => 'items(' . implode( ',', $ot_google_fonts_fields ) . ')', 
+      'sort'   => $ot_google_fonts_sort
+    );
+
+    /* Build and make the request */
+    $ot_google_fonts_query = esc_url_raw( add_query_arg( $ot_google_fonts_query_args, $ot_google_fonts_api_url ) );
+    $ot_google_fonts_response = wp_safe_remote_get( $ot_google_fonts_query, array( 'sslverify' => false, 'timeout' => 15 ) );
+
+    /* continue if we got a valid response */
+    if ( 200 == wp_remote_retrieve_response_code( $ot_google_fonts_response ) ) {
+
+      if ( $response_body = wp_remote_retrieve_body( $ot_google_fonts_response ) ) {
+
+        /* JSON decode the response body and cache the result */
+        $ot_google_fonts_data = json_decode( trim( $response_body ), true );
+
+        if ( is_array( $ot_google_fonts_data ) && isset( $ot_google_fonts_data['items'] ) ) {
+
+          $ot_google_fonts = $ot_google_fonts_data['items'];
+          
+          // Normalize the array key
+          $ot_google_fonts_tmp = array();
+          foreach( $ot_google_fonts as $key => $value ) {
+            $id = remove_accents( $value['family'] );
+            $id = strtolower( $id );
+            $id = preg_replace( '/[^a-z0-9_\-]/', '', $id );
+            $ot_google_fonts_tmp[$id] = $value;
+          }
+          
+          $ot_google_fonts = $ot_google_fonts_tmp;
+          set_theme_mod( 'ot_google_fonts', $ot_google_fonts );
+          set_transient( $ot_google_fonts_cache_key, $ot_google_fonts, WEEK_IN_SECONDS );
+
+        }
+
+      }
+
+    }
+
+  }
+
+  return $normalize ? ot_normalize_google_fonts( $ot_google_fonts ) : $ot_google_fonts;
+
+}
+
+/**
+ * Helper function to normalize the Google fonts array.
+ *
+ * @param     array     $google_fonts An array of fonts to nrmalize.
+ * @return    array
+ *
+ * @access    public
+ * @since     2.5.0
+ */
+function ot_normalize_google_fonts( $google_fonts ) {
+
+  $ot_normalized_google_fonts = array();
+
+  if ( is_array( $google_fonts ) && ! empty( $google_fonts ) ) {
+
+    foreach( $google_fonts as $google_font ) {
+
+      if( isset( $google_font['family'] ) ) {
+
+        $id = str_replace( ' ', '+', $google_font['family'] );
+
+        $ot_normalized_google_fonts[ $id ] = array(
+          'family' => $google_font['family']
+        );
+
+        if( isset( $google_font['variants'] ) ) {
+
+          $ot_normalized_google_fonts[ $id ]['variants'] = $google_font['variants'];
+
+        }
+
+        if( isset( $google_font['subsets'] ) ) {
+
+          $ot_normalized_google_fonts[ $id ]['subsets'] = $google_font['subsets'];
+
+        }
+
+      }
+
+    }
+
+  }
+
+  return $ot_normalized_google_fonts;
+
+}
+
+/**
  * Helper function to register a WPML string
  *
  * @access    public
@@ -4953,6 +5707,418 @@ if ( ! function_exists( 'ot_get_option_type_by_id' ) ) {
   }
   
 }
+
+/**
+ * Build an array of potential Theme Options that could share terms
+ *
+ * @return    array
+ *
+ * @access    private
+ * @since     2.5.4
+ */
+function _ot_settings_potential_shared_terms() {
+
+  $options      = array();
+  $settings     = get_option( ot_settings_id(), array() );
+  $option_types = array( 
+    'category-checkbox',
+    'category-select',
+    'tag-checkbox',
+    'tag-select',
+    'taxonomy-checkbox',
+    'taxonomy-select'
+  );
+
+  if ( isset( $settings['settings'] ) ) {
+
+    foreach( $settings['settings'] as $value ) {
+
+      if ( isset( $value['type'] ) ) {
+
+        if ( $value['type'] == 'list-item' && isset( $value['settings'] ) ) {
+
+          $saved = ot_get_option( $value['id'] );
+
+          foreach( $value['settings'] as $item ) {
+
+            if ( isset( $value['id'] ) && isset( $item['type'] ) && in_array( $item['type'], $option_types ) ) {
+              $sub_options = array();
+
+              foreach( $saved as $sub_key => $sub_value ) {
+                if ( isset( $sub_value[$item['id']] ) ) {
+                  $sub_options[$sub_key] = $sub_value[$item['id']];
+                }
+              }
+
+              if ( ! empty( $sub_options ) ) {
+                $options[] = array( 
+                  'id'       => $item['id'],
+                  'taxonomy' => $value['taxonomy'],
+                  'parent'   => $value['id'],
+                  'value'    => $sub_options
+                );
+              }
+            }
+
+          }
+
+        }
+
+        if ( in_array( $value['type'], $option_types ) ) {
+          $saved = ot_get_option( $value['id'] );
+          if ( ! empty( $saved ) ) {
+            $options[] = array( 
+              'id'       => $value['id'],
+              'taxonomy' => $value['taxonomy'],
+              'value'    => $saved
+            );
+          }
+        }
+
+      }
+
+    }
+
+  }
+
+  return $options;
+
+}
+
+/**
+ * Build an array of potential Meta Box options that could share terms
+ *
+ * @return    array
+ *
+ * @access    private
+ * @since     2.5.4
+ */
+function _ot_meta_box_potential_shared_terms() {
+  global $ot_meta_boxes;
+
+  $options      = array();
+  $settings     = $ot_meta_boxes;
+  $option_types = array( 
+    'category-checkbox',
+    'category-select',
+    'tag-checkbox',
+    'tag-select',
+    'taxonomy-checkbox',
+    'taxonomy-select'
+  );
+
+  foreach( $settings as $setting ) {
+
+    if ( isset( $setting['fields'] ) ) {
+
+      foreach( $setting['fields'] as $value ) {
+
+        if ( isset( $value['type'] ) ) {
+
+          if ( $value['type'] == 'list-item' && isset( $value['settings'] ) ) {
+
+            $children = array();
+
+            foreach( $value['settings'] as $item ) {
+
+              if ( isset( $value['id'] ) && isset( $item['type'] ) && in_array( $item['type'], $option_types ) ) {
+
+                $children[$value['id']][] = $item['id'];
+
+              }
+
+            }
+            
+            if ( ! empty( $children[$value['id']] ) ) {
+              $options[] = array( 
+                'id'       => $value['id'],
+                'children' => $children[$value['id']],
+                'taxonomy' => $value['taxonomy'],
+              );
+            }
+
+          }
+
+          if ( in_array( $value['type'], $option_types ) ) {
+
+            $options[] = array( 
+              'id'       => $value['id'],
+              'taxonomy' => $value['taxonomy'],
+            );
+
+          }
+
+        }
+
+      }
+
+    }
+
+  }
+
+  return $options;
+
+}
+
+/**
+ * Update terms when a term gets split.
+ *
+ * @param     int     $term_id ID of the formerly shared term.
+ * @param     int     $new_term_id ID of the new term created for the $term_taxonomy_id.
+ * @param     int     $term_taxonomy_id ID for the term_taxonomy row affected by the split.
+ * @param     string  $taxonomy Taxonomy for the split term.
+ * @return    void
+ *
+ * @access    public
+ * @since     2.5.4
+ */
+function ot_split_shared_term( $term_id, $new_term_id, $term_taxonomy_id, $taxonomy ) {
+
+  // Process the Theme Options
+  $settings    = _ot_settings_potential_shared_terms();
+  $old_options = get_option( ot_options_id(), array() );
+  $new_options = $old_options;
+
+  // Process the saved settings
+  if ( ! empty( $settings ) && ! empty( $old_options ) ) {
+
+    // Loop over the Theme Options
+    foreach( $settings as $option ) {
+
+      if ( ! is_array( $option['taxonomy'] ) ) {
+        $option['taxonomy'] = explode( ',', $option['taxonomy'] );
+      }
+
+      if ( ! in_array( $taxonomy, $option['taxonomy'] ) ) {
+        continue;
+      }
+
+      // The option ID was found
+      if ( array_key_exists( $option['id'], $old_options ) || ( isset( $option['parent'] ) && array_key_exists( $option['parent'], $old_options ) ) ) {
+
+        // This is a list item, we have to go deeper
+        if ( isset( $option['parent'] ) ) {
+
+          // Loop over the array
+          foreach( $option['value'] as $key => $value ) {
+
+            // The value is an array of IDs
+            if ( is_array( $value ) ) {
+
+              // Loop over the sub array
+              foreach( $value as $sub_key => $sub_value ) {
+
+                if ( $sub_value == $term_id ) {
+
+                  unset( $new_options[$option['parent']][$key][$option['id']][$sub_key] );
+                  $new_options[$option['parent']][$key][$option['id']][$new_term_id] = $new_term_id;
+
+                }
+
+              }
+
+            } else if ( $value == $term_id ) {
+
+              unset( $new_options[$option['parent']][$key][$option['id']] );
+              $new_options[$option['parent']][$key][$option['id']] = $new_term_id;
+
+            }
+
+          }
+
+        } else {
+
+          // The value is an array of IDs
+          if ( is_array( $option['value'] ) ) {
+
+            // Loop over the array
+            foreach( $option['value'] as $key => $value ) {
+
+              // It's a single value, just replace it
+              if ( $value == $term_id ) {
+
+                unset( $new_options[$option['id']][$key] );
+                $new_options[$option['id']][$new_term_id] = $new_term_id;
+
+              }
+
+            }
+
+          // It's a single value, just replace it
+          } else if ( $option['value'] == $term_id ) {
+
+            $new_options[$option['id']] = $new_term_id;
+
+          }
+
+        }
+
+      }
+
+    }
+
+  }
+
+  // Options need to be updated
+  if ( $old_options !== $new_options ) {
+    update_option( ot_options_id(), $new_options );
+  }
+
+  // Process the Meta Boxes
+  $meta_settings = _ot_meta_box_potential_shared_terms();
+  $option_types  = array( 
+    'category-checkbox',
+    'category-select',
+    'tag-checkbox',
+    'tag-select',
+    'taxonomy-checkbox',
+    'taxonomy-select'
+  );
+
+  if ( ! empty( $meta_settings ) ) {
+    $old_meta = array();
+    
+    foreach( $meta_settings as $option ) {
+
+      if ( ! is_array( $option['taxonomy'] ) ) {
+        $option['taxonomy'] = explode( ',', $option['taxonomy'] );
+      }
+      
+      if ( ! in_array( $taxonomy, $option['taxonomy'] ) ) {
+        continue;
+      }
+
+      if ( isset( $option['children'] ) ) {
+        $post_ids = get_posts( array(
+          'fields'     => 'ids',
+          'meta_key'   => $option['id'],
+        ) );
+
+        if ( $post_ids ) {
+
+          foreach( $post_ids as $post_id ) {
+
+            // Get the meta
+            $old_meta = get_post_meta( $post_id, $option['id'], true );
+            $new_meta = $old_meta;
+
+            // Has a saved value
+            if ( ! empty( $old_meta ) && is_array( $old_meta ) ) {
+
+              // Loop over the array
+              foreach( $old_meta as $key => $value ) {
+
+                foreach( $value as $sub_key => $sub_value ) {
+
+                  if ( in_array( $sub_key, $option['children'] ) ) {
+
+                    // The value is an array of IDs
+                    if ( is_array( $sub_value ) ) {
+
+                      // Loop over the array
+                      foreach( $sub_value as $sub_sub_key => $sub_sub_value ) {
+
+                        // It's a single value, just replace it
+                        if ( $sub_sub_value == $term_id ) {
+
+                          unset( $new_meta[$key][$sub_key][$sub_sub_key] );
+                          $new_meta[$key][$sub_key][$new_term_id] = $new_term_id;
+
+                        }
+
+                      }
+
+                    // It's a single value, just replace it
+                    } else if ( $sub_value == $term_id ) {
+
+                      $new_meta[$key][$sub_key] = $new_term_id;
+
+                    }
+
+                  }
+
+                }
+
+              }
+
+              // Update
+              if ( $old_meta !== $new_meta ) {
+  
+                update_post_meta( $post_id, $option['id'], $new_meta, $old_meta );
+  
+              }
+
+            }
+
+          }
+
+        }
+
+      } else {
+        $post_ids = get_posts( array(
+          'fields'     => 'ids',
+          'meta_query' => array(
+            'key'     => $option['id'],
+            'value'   => $term_id,
+            'compare' => 'IN'
+          ),
+        ) );
+
+        if ( $post_ids ) {
+
+          foreach( $post_ids as $post_id ) {
+
+            // Get the meta
+            $old_meta = get_post_meta( $post_id, $option['id'], true );
+            $new_meta = $old_meta;
+
+            // Has a saved value
+            if ( ! empty( $old_meta ) ) {
+
+              // The value is an array of IDs
+              if ( is_array( $old_meta ) ) {
+
+                // Loop over the array
+                foreach( $old_meta as $key => $value ) {
+
+                  // It's a single value, just replace it
+                  if ( $value == $term_id ) {
+
+                    unset( $new_meta[$key] );
+                    $new_meta[$new_term_id] = $new_term_id;
+
+                  }
+
+                }
+
+              // It's a single value, just replace it
+              } else if ( $old_meta == $term_id ) {
+
+                $new_meta = $new_term_id;
+
+              }
+
+              // Update
+              if ( $old_meta !== $new_meta ) {
+  
+                update_post_meta( $post_id, $option['id'], $new_meta, $old_meta );
+  
+              }
+
+            }
+
+          }
+
+        }
+
+      }
+
+    }
+
+  }
+
+}
+add_action( 'split_shared_term', 'ot_split_shared_term', 10, 4 );
 
 /* End of file ot-functions-admin.php */
 /* Location: ./includes/ot-functions-admin.php */
