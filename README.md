@@ -59,22 +59,20 @@ $ npm install -g gulp
 1. Run `gulp` from the root directory
 2. Complete the WordPress installation
 3. Log in
-4. Under **Appearance**, click **Themes**
-  - **Activate** the Liquid theme
-5. Click **Begin installing plugins** at the top of the page
-6. Navigate to **Pages**
+4. Click **Begin installing plugins** at the top of the page
+5. Navigate to **Pages**
   - Hover over **Sample Page** and click **Quick Edit**
   - Rename the title from **Sample Page** to **Home**
   - Change the slug from **sample-page** to **home**
   - Change the template from **Default Template** to **Liquid » Home**
     - *(For basic interior pages, create a new page and select the "Liquid » Interior" template. Developing additional templates should follow the same naming convention, "Liquid » Template Name".)*
   - Click **Update**
-7. Under **Settings**, click **Reading**
+6. Under **Settings**, click **Reading**
   - Under **Front page displays**, change **Your latest posts** to **A static page** and select **Home** from the **Front page** dropdown
   - Under **For each article in a feed**, change **Full text** to **Summary**
-8. Under **Settings**, click **Permalinks**
+7. Under **Settings**, click **Permalinks**
   - Under **Common Settings**, change **Day and name** to **Post name**
-9. Develop all the things
+8. Develop all the things
 
 <img src="https://31.media.tumblr.com/tumblr_m5cyekI7BM1rwcc6bo1_400.gif" width="200" height="200">
 
