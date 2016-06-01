@@ -1,5 +1,5 @@
 <?php
-	$logo = get_field( 'logo', 'option' );
+	$logo = ot_get_option( 'logo' );
 ?>
 
 		<header class="header">

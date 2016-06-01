@@ -5,12 +5,13 @@
 ?>
 
 <?php
-	$favicon144x144 = get_field( 'favicon_144x144', 'option' );
-	$favicon114x114 = get_field( 'favicon_114x114', 'option' );
-	$favicon72x72 = get_field( 'favicon_72x72', 'option' );
-	$favicon57x57 = get_field( 'favicon_57x57', 'option' );
+	$favicon144x144 = ot_get_option( 'favicon_144x144' );
+	$favicon114x114 = ot_get_option( 'favicon_114x114' );
+	$favicon72x72 = ot_get_option( 'favicon_72x72' );
+	$favicon57x57 = ot_get_option( 'favicon_57x57' );
+	$favicon = ot_get_option( 'favicon' );
 
-	$googleAnalytics = get_field( 'google_analytics', 'option' );
+	$googleAnalytics = ot_get_option( 'google_analytics' );
 ?>
 
 <!doctype html>
@@ -34,7 +35,9 @@
 	        <?php endif; ?>
 			<?php if ( $favicon57x57 ) : ?>
 	        	<link rel="apple-touch-icon-precomposed" href="<?php echo $favicon57x57['url']; ?>">
-				<link rel="shortcut icon" href="<?php echo $favicon57x57['url']; ?>">
+	        <?php endif; ?>
+			<?php if ( $favicon ) : ?>
+				<link rel="shortcut icon" href="<?php echo $favicon['url']; ?>">
 	        <?php endif; ?>
 		<?php endif; ?>
 
