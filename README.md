@@ -6,7 +6,7 @@
 - [Project setup](#project-setup)
 - [WordPress](#wordpress)
   - [Plugins](#wordpress-plugins)
-  - [Advanced Custom Fields](#wordpress-acf)
+  - [OptionTree](#wordpress-optiontree)
   - [BackupBuddy](#wordpress-backupbuddy)
   - [Deployment](#wordpress-deployment)
 - [Static](#static)
@@ -84,10 +84,10 @@ $ npm install -g gulp
 
 After these plugins automagically install, they are activated and cannot be deactivated.
 
-- [Advanced Custom Fields](https://advancedcustomfields.com)
-- [BackupBuddy](https://ithemes.com/purchase/backupbuddy) *(Premium)*
+- [BackupBuddy](https://ithemes.com/purchase/backupbuddy)
 - [Disable Comments](https://wordpress.org/plugins/disable-comments)
 - [Duplicate Post](https://wordpress.org/plugins/duplicate-post/https://wordpress.org/plugins/relevanssi)
+- [OptionTree](https://wordpress.org/plugins/option-tree)
 - [Relevanssi](https://wordpress.org/plugins/relevanssi)
 - [TinyMCE Advanced](https://wordpress.org/plugins/tinymce-advanced)
 - [Wordfence Security](https://wordpress.org/plugins/wordfence)
@@ -98,6 +98,7 @@ After these plugins automagically install, they are activated and cannot be deac
 
 After these plugins automagically install, they can be manually activated and deactivated.
 
+- [Advanced Custom Fields](https://advancedcustomfields.com)
 - [Akismet](https://wordpress.org/plugins/akismet)
 - [Asset Queue Manager](https://wordpress.org/plugins/asset-queue-manager)
 - [BJ Lazy Load](https://wordpress.org/plugins/bj-lazy-load)
@@ -110,13 +111,11 @@ After these plugins automagically install, they can be manually activated and de
 - [Pods](https://wordpress.org/plugins/pods)
 - [Uber Login Logo](https://wordpress.org/plugins/uber-login-logo)
 
-### <a name="wordpress-acf"></a>Advanced Custom Fields
+### <a name="wordpress-optiontree"></a>OptionTree
 
-Under **Theme Settings**, there are some predefined groups with basic fields. Some of the fields are used with the Liquid theme (logo, Google Analytics, favicons, etc), and other fields are optional (address, social media profiles, etc).
+Under **Appearance**, click **Theme Options** to find some predefined groups with basic fields. Some of the fields are already coded into the Liquid theme by default (logo, Google Analytics, favicons, etc), and other fields can be used if added in, manually (address, social media URLs, etc).
 
 ### <a name="wordpress-backupbuddy"></a>BackupBuddy
-
-*(Premium plugin)*
 
 ##### Import settings
 
@@ -132,8 +131,6 @@ Under **Theme Settings**, there are some predefined groups with basic fields. So
   - Select a backup profile (Database Only, Complete Backup, Media Only)
 
 ### <a name="wordpress-deployment"></a>Deployment
-
-*(BackupBuddy required)*
 
 ##### New environment (Staging or Production)
 
