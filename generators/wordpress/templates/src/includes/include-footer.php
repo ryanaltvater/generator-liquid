@@ -1,5 +1,5 @@
 <?php
-	$company = get_field( 'company', 'option' );
+	$company = ot_get_option( 'company' );
 ?>
 
 		<footer class="footer">
