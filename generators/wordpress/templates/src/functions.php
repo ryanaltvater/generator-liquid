@@ -633,7 +633,7 @@ if ( function_exists( 'acf_add_options_page' ) ) :
 	    	'title' => 'Global',
 	    	'fields' => array(
 				array(
-					'key' => "field_56bb92c968504",
+					'key' => 'field_56bb92c968504',
 					'label' => 'Logo',
 					'name' => 'logo',
 					'type' => 'image',
