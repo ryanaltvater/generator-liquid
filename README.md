@@ -47,7 +47,7 @@ $ npm install -g gulp
 
 # <a name="project-setup"></a>Project setup
 
-1. Create a project folder
+1. Create a project folder or clone a new repository
 2. Run `yo liquid` from the root directory
 3. Select a **Project type**
   - **WordPress**
@@ -113,7 +113,7 @@ After these plugins automagically install, they can be manually activated and de
 
 ### <a name="wordpress-optiontree"></a>OptionTree
 
-Under **Appearance**, click **Theme Options** to find some predefined groups with basic fields. Some of the fields are already coded into the Liquid theme by default (logo, Google Analytics, favicons, etc), and other fields can be used if added in, manually (address, social media URLs, etc).
+Under **Appearance**, click **Theme Options** to find some predefined groups with basic fields. Some of the fields are already coded into the Liquid theme by default *(logo, Google Analytics, favicons, etc)*, and other fields can be used if added in, manually *(address, social media URLs, etc)*.
 
 ### <a name="wordpress-backupbuddy"></a>BackupBuddy
 
@@ -128,13 +128,13 @@ Under **Appearance**, click **Theme Options** to find some predefined groups wit
 ##### Create backup
 
 1. Under **BackupBuddy**, click **Backup**
-  - Select a backup profile (Database Only, Complete Backup, Media Only)
+  - Select a backup profile *(Database Only, Complete Backup, Media Only)*
 
 ### <a name="wordpress-deployment"></a>Deployment
 
 ##### New environment (Staging or Production)
 
-1. Deploy the production-ready files (build script, Git, FTP)
+1. Deploy the production-ready files *(build script, Git, FTP)*
 2. Under **Appearance**, click **Themes**
   - **Activate** the Liquid theme
 3. Click **Begin installing plugins** at the top of the page
@@ -161,7 +161,7 @@ Under **Appearance**, click **Theme Options** to find some predefined groups wit
 
 ### <a name="static-deployment"></a>Deployment
 
-1. Deploy the production-ready files (build script, Git, FTP)
+1. Deploy the production-ready files *(build script, Git, FTP)*
 
 # <a name="commands"></a>Commands
 
