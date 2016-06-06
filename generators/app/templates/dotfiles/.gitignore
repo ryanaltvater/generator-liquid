@@ -3,7 +3,7 @@
 *.sublime-*
 .vagrant
 _copy
-_designs
+_design
 icons
 importbuddy.php
 public
