@@ -2,6 +2,10 @@
 
 # Changelog
 
+### 1.1.2
+
+- Renamed a folder in the .gitignore
+
 ### 1.1.1
 
 - Added a changelog
