@@ -48,7 +48,7 @@
 
 <!-- FONTS | STYLESHEETS | LIBRARIES end -->
 
-<!-- GOOGLE ANALYTICS start -->
+<!-- ANALYTICS start -->
 
 		<?php if ( $googleAnalytics ) : ?>
 			<script>
@@ -62,7 +62,7 @@
 			</script>
 		<?php endif; ?>
 
-<!-- GOOGLE ANALYTICS end -->
+<!-- ANALYTICS end -->
 	</head>
 
 	<body <?php echo body_class(); ?>>
