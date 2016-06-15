@@ -151,7 +151,7 @@ gulp.task('icons', function() {
 		fontName: 'icons',
 		normalize: true,
 		appendCodepoints: true,
-//		appendUnicode: true
+		// appendUnicode: true
 	}))
 	.pipe(gulp.dest(srcFonts + 'icons/'))
 	.pipe(reload({
@@ -174,8 +174,8 @@ gulp.task('js', function() {
 	}))
 	.pipe(concat('scripts.min.js'))
 	.pipe(uglify())
- 	.pipe(header(banner, {
-	 	package: package
+	.pipe(header(banner, {
+		package: package
 	 }))
 	.pipe(gulp.dest(destJS))
 	.pipe(reload({
@@ -204,6 +204,7 @@ gulp.task('replace', function() {
 gulp.task('move', function() {
 	return gulp.src([
 		srcRoot + '*.*',
+		srcCSS + '*.css',
 		srcFonts + '**/*',
 		srcImg + '**/*',
 	    srcJS + '**/*',
@@ -227,7 +228,7 @@ gulp.task('move', function() {
 
 gulp.task('webserver', function() {
 	browserSync.init({
- 		proxy: 'http://192.168.33.10'
+		proxy: 'http://192.168.33.10'
 	});
 });
 
@@ -258,7 +259,7 @@ gulp.task('build', function() {
 		'images',
 		'js',
 		'replace',
- 		'move'
+		'move'
 	]);
 });
 
@@ -275,6 +276,6 @@ gulp.task('default', function() {
 		'images',
 		'js',
 		'replace',
- 		'move'
+		'move'
 	], 'webserver', 'watch');
 });

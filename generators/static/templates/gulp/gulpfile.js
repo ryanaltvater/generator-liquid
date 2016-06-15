@@ -165,7 +165,7 @@ gulp.task('icons', function() {
 		fontName: 'icons',
 		normalize: true,
 		appendCodepoints: true
-//		appendUnicode: true
+		// appendUnicode: true
 	}))
 	.pipe(gulp.dest(srcFonts + 'icons/'))
 	.pipe(reload({
