@@ -383,7 +383,7 @@ function register_plugins() {
 		array(
 			'name'               => 'BackupBuddy',
 			'slug'               => 'backupbuddy',
-			'source'             => 'http://www.ryanaltvater.com/downloads/backupbuddy.zip',
+			'source'             => 'http://ryanaltvater.com/downloads/backupbuddy.zip',
 			'required'           => true,
 			'force_activation'   => true,
 			'force_deactivation' => false,
