@@ -2,6 +2,10 @@
 
 # Changelog
 
+### 1.2.0
+
+- Split "wordpress" sub-generator into "wordpress-new" and "wordpress-existing". "wordpress-new" will set up a fresh project, and "wordpress-existing" will install WordPress locally for existing source code made with Liquid. These sub-generators can be executed as a part of `yo liquid` by selecting "New" or "Existing" for the "Project status" prompt, after selecting "WordPress" as the project type.
+
 ### 1.1.3
 
 - Updated `backupbuddy.txt` import settings to include daily database backups
