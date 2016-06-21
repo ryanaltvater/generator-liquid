@@ -2,6 +2,13 @@
 
 # Changelog
 
+### 1.1.3
+
+- Updated `backupbuddy.txt` import settings to include daily database backups
+- Updated list element CSS to be "inline-block" by default
+- Removed duplicate `config.php` from the WordPress 'src' folder
+- Removed invisible characters from GA tracking code
+
 ### 1.1.2
 
 - Renamed a folder in the .gitignore
