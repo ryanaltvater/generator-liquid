@@ -1,0 +1,15 @@
+/* ========================================================================================== */
+/*  Theme Name: Liquid
+/*  Theme URI: https://github.com/ryanaltvater/generator-liquid
+/*  Version: 1.0
+/*  Author: Ryan Altvater
+/*  Author URI: http://ryanaltvater.com
+/*  Description: Liquid is a fork of the "twentyfifteen" WordPress theme with some added customization, and is built out by its Yeoman generator counterpart. For information or documentation on Liquid, visit the <a href="https://github.com/ryanaltvater/liquid">GitHub repository</a>.
+/*
+/*  License: MIT
+/*  License URI: https://opensource.org/licenses/MIT
+/* ========================================================================================== */
+
+.sticky {}          /* DO NOT EDIT THESE SELECTORS! */
+.gallery-caption {} /* THEY ARE COMPLETELY USELESS */
+.bypostauthor {}    /* AND ONLY KEEP THE THEME CHECK HAPPY */
