@@ -20,7 +20,6 @@ var yeoman = require('yeoman-generator'),
 
             this.prompt(prompts, function (props) {
                 this.projectName = props.projectName;
-                this.startVagrant = props.startVagrant;
 
                 done();
             }.bind(this));
