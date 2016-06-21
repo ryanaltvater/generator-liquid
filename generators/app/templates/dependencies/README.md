@@ -1,3 +1,5 @@
+Project made using [Liquid](http://github.com/ryanaltvater/generator-liquid), a [Yeoman](http://yeoman.io) generator for building WordPress and static projects with the following: Scotch Box (Vagrant), Gulp, SCSS, BrowserSync.
+
 ## Table of contents
 
 - [Commands](#commands)
