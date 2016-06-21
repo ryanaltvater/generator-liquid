@@ -47,12 +47,16 @@ $ npm install -g gulp
 
 # <a name="project-setup"></a>Project setup
 
-1. Create a project folder or clone a new repository
+1. Create a project folder or clone a new/existing repository
 2. Run `yo liquid` from the root directory
 3. Select a **Project type**
   - **WordPress**
   - **Static**
-4. Create a **Project name**
+4. Select a **Project status** *(if project type is WordPress)*
+  - **New**
+  - **Existing**
+  - *("New" will set up a fresh project, and "Existing" will install WordPress locally for existing source code made using Liquid.)*
+5. Create a **Project name** *(if project status is "New")*
 
 # <a name="wordpress"></a>WordPress
 
