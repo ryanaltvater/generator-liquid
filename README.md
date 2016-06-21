@@ -1,4 +1,4 @@
-![Alt text](http://ryanaltvater.com/assets/img/logo-liquid.png "Liquid - A Yeoman Generator")
+![Liquid - A Yeoman Generator](http://ryanaltvater.com/assets/img/logo-liquid.png)
 
 # Table of contents
 
