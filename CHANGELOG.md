@@ -2,10 +2,13 @@
 
 # Changelog
 
+### 1.2.3
+
+- Updated `backupbuddy.txt` default import settings
+
 ### 1.2.2
 
 - Added "cursor: pointer;" to default styling of buttons
-- Updated `backupbuddy.txt` default import settings
 
 ### 1.2.1
 
