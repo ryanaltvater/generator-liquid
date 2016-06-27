@@ -2,6 +2,11 @@
 
 # Changelog
 
+### 1.2.2
+
+- Added "cursor: pointer;" to default styling of buttons
+- Updated `backupbuddy.txt` default import settings
+
 ### 1.2.1
 
 - Updated documentation to include added "Project status" step for new/existing WordPress sub-generators
