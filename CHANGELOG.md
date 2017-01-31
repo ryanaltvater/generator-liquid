@@ -2,6 +2,12 @@
 
 # Changelog
 
+### 1.3.0
+
+- Updated Liquid's generator dependencies to latest versions
+- Updated deprecated code to Yeoman 1.0.0 release
+- Updated project `package.json` dependencies to latest versions
+
 ### 1.2.4
 
 - Added a `LICENSE.md` file to the repository
