@@ -74,10 +74,6 @@
 	-moz-osx-font-smoothing: grayscale;
 }
 
-html {
-	font-size: 100%;
-}
-
 body {
 	@include primary-font;
 	@include font-size(14px);
