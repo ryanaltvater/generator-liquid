@@ -2,6 +2,11 @@
 
 # Changelog
 
+### 1.3.2
+
+- Updated Normalize dependency to version 6.0.0
+- Removed legacy `font-size` CSS for older browsers
+
 ### 1.3.1
 
 - Updated Bourbon to version 4.3.4
