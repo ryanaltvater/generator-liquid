@@ -10,11 +10,16 @@
 /// @return {Bool}
 
 @function contains-falsy($list) {
-	@each $item in $list {
-		@if not $item {
-			@return true;
-		}
-	}
+  @if $output-bourbon-deprecation-warnings == true {
+    @warn "[Bourbon] [Deprecation] `contains-falsy` is deprecated and will be " +
+    "removed in 5.0.0.";
+  }
 
-	@return false;
+  @each $item in $list {
+    @if not $item {
+      @return true;
+    }
+  }
+
+  @return false;
 }

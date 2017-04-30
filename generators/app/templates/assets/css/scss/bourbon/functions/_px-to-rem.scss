@@ -3,12 +3,24 @@
 // Assumes $em-base is the font-size of <html>
 
 @function rem($pxval) {
-	$base: $em-base;
-	@if not unitless($pxval) {
-		$pxval: strip-units($pxval);
-	}
-	@if not unitless($base) {
-		$base: strip-units($base);
-	}
-	@return ($pxval / $base) * 1rem;
+  @if $output-bourbon-deprecation-warnings == true {
+    @warn "[Bourbon] [Deprecation] `rem` is deprecated and will be " +
+    "removed in 5.0.0.";
+  }
+
+  $user-deprecation-warnings-setting: $output-bourbon-deprecation-warnings;
+  $output-bourbon-deprecation-warnings: false !global;
+
+  @if not unitless($pxval) {
+    $pxval: strip-units($pxval);
+  }
+
+  $base: $em-base;
+  @if not unitless($base) {
+    $base: strip-units($base);
+  }
+
+  $output-bourbon-deprecation-warnings: $user-deprecation-warnings-setting !global;
+
+  @return ($pxval / $base) * 1rem;
 }

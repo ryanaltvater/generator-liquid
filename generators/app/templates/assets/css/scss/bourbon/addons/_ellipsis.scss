@@ -21,10 +21,10 @@
 ///   }
 
 @mixin ellipsis($width: 100%) {
-	display: inline-block;
-	max-width: $width;
-	overflow: hidden;
-	text-overflow: ellipsis;
-	word-wrap: normal;
-	white-space: nowrap;
+  display: inline-block;
+  max-width: $width;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  word-wrap: normal;
 }

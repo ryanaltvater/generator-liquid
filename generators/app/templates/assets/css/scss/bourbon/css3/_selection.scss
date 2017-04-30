@@ -22,21 +22,23 @@
 ///   }
 
 @mixin selection($current-selector: false) {
-	@if $current-selector {
-		&::-moz-selection {
-			@content;
-		}
+  @include _bourbon-deprecate-for-prefixing("selection");
 
-		&::selection {
-			@content;
-		}
-	} @else {
-		::-moz-selection {
-			@content;
-		}
+  @if $current-selector {
+    &::-moz-selection {
+      @content;
+    }
 
-		::selection {
-			@content;
-		}
-	}
-}
+    &::selection {
+      @content;
+    }
+  } @else {
+    ::-moz-selection {
+      @content;
+    }
+
+    ::selection {
+      @content;
+    }
+  }
+}

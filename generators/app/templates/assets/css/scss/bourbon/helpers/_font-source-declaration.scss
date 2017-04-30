@@ -2,11 +2,16 @@
 // Reference: http://goo.gl/Ru1bKP
 
 @function font-url-prefixer($asset-pipeline) {
-	@if $asset-pipeline == true {
-		@return font-url;
-	} @else {
-		@return url;
-	}
+  @if $output-bourbon-deprecation-warnings == true {
+    @warn "[Bourbon] [Deprecation] `font-url-prefixer` is deprecated and " +
+    "will be removed in 5.0.0.";
+  }
+
+  @if $asset-pipeline == true {
+    @return font-url;
+  } @else {
+    @return url;
+  }
 }
 
 @function font-source-declaration(
@@ -15,8 +20,15 @@
   $asset-pipeline,
   $file-formats,
   $font-url) {
-	$src: ();
-	$formats-map: (
+
+  @if $output-bourbon-deprecation-warnings == true {
+    @warn "[Bourbon] [Deprecation] `font-source-declaration` is deprecated " +
+    "and will be removed in 5.0.0.";
+  }
+
+  $src: ();
+
+  $formats-map: (
     eot:   "#{$file-path}.eot?#iefix" format("embedded-opentype"),
     woff2: "#{$file-path}.woff2" format("woff2"),
     woff:  "#{$file-path}.woff" format("woff"),
@@ -24,18 +36,18 @@
     svg:   "#{$file-path}.svg##{$font-family}" format("svg")
   );
 
-	@each $key, $values in $formats-map {
-		@if contains($file-formats, $key) {
-			$file-path: nth($values, 1);
-			$font-format: nth($values, 2);
+  @each $key, $values in $formats-map {
+    @if contains($file-formats, $key) {
+      $file-path: nth($values, 1);
+      $font-format: nth($values, 2);
 
-			@if $asset-pipeline == true {
-				$src: append($src, font-url($file-path) $font-format, comma);
-			} @else {
-				$src: append($src, url($file-path) $font-format, comma);
-			}
-		}
-	}
+      @if $asset-pipeline == true {
+        $src: append($src, font-url($file-path) $font-format, comma);
+      } @else {
+        $src: append($src, url($file-path) $font-format, comma);
+      }
+    }
+  }
 
-	@return $src;
+  @return $src;
 }

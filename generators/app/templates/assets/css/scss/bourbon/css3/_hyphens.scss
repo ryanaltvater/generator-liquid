@@ -1,4 +1,6 @@
 @mixin hyphens($hyphenation: none) {
-	// none | manual | auto
-	@include prefixer(hyphens, $hyphenation, webkit moz ms spec);
+  @include _bourbon-deprecate-for-prefixing("hyphens");
+
+  // none | manual | auto
+  @include prefixer(hyphens, $hyphenation, webkit moz ms spec);
 }

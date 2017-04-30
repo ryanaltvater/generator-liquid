@@ -18,13 +18,12 @@
 ///   }
 
 @mixin word-wrap($wrap: break-word) {
-	word-wrap: $wrap;
+  overflow-wrap: $wrap;
+  word-wrap: $wrap;
 
-	overflow-wrap: $wrap;
-
-	@if $wrap == break-word {
-		word-break: break-all;
-	} @else {
-		word-break: $wrap;
-	}
+  @if $wrap == break-word {
+    word-break: break-all;
+  } @else {
+    word-break: $wrap;
+  }
 }

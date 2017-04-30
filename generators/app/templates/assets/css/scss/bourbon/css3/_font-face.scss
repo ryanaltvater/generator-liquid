@@ -5,18 +5,25 @@
   $style: normal,
   $asset-pipeline: $asset-pipeline,
   $file-formats: eot woff2 woff ttf svg) {
-	$font-url-prefix: font-url-prefixer($asset-pipeline);
 
-	@font-face {
-		src: font-source-declaration(
-		$font-family,
-		$file-path,
-		$asset-pipeline,
-		$file-formats,
-		$font-url-prefix
-		);
-		font-family: $font-family;
-		font-weight: $weight;
-		font-style: $style;
-	}
+  $user-deprecation-warnings-setting: $output-bourbon-deprecation-warnings;
+  $output-bourbon-deprecation-warnings: false !global;
+
+  $font-url-prefix: font-url-prefixer($asset-pipeline);
+
+  @font-face {
+    font-family: $font-family;
+    font-style: $style;
+    font-weight: $weight;
+
+    src: font-source-declaration(
+      $font-family,
+      $file-path,
+      $asset-pipeline,
+      $file-formats,
+      $font-url-prefix
+    );
+  }
+
+  $output-bourbon-deprecation-warnings: $user-deprecation-warnings-setting !global;
 }

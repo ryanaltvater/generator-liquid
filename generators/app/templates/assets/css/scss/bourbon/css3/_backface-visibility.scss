@@ -1,3 +1,5 @@
 @mixin backface-visibility($visibility) {
-	@include prefixer(backface-visibility, $visibility, webkit spec);
+  @include _bourbon-deprecate-for-prefixing("backface-visibility");
+
+  @include prefixer(backface-visibility, $visibility, webkit spec);
 }
