@@ -2,6 +2,11 @@
 
 # Changelog
 
+### 1.3.1
+
+- Updated Bourbon to version 4.3.4
+- Updated Neat to version 2.0.0
+
 ### 1.3.0
 
 - Updated Liquid's generator dependencies to latest versions
