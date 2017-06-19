@@ -1,11 +1,9 @@
-.nav {
-	ul {
-		padding-left: 0;
-		margin-bottom: 0;
-		list-style: none;
-	}
+.menu {
+	padding-left: 0;
+	margin-bottom: 0;
+	list-style: none;
 
-	li {
+	&__item {
 		display: inline-block;
 		float: left;
 		padding: 0 20px;
