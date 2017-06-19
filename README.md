@@ -171,7 +171,7 @@ Under **Appearance**, click **Theme Options** to find some predefined groups wit
 
 ### <a name="commands-vagrant"></a>[Vagrant](https://vagrantup.com)
 
-There's a `config.php` file embedded in the Liquid theme that displays the Vagrant configuration settings for the project. Once Vagrant is running, you can access the file, locally, at http://192.168.33.10/config.php.
+There's a `config.php` file embedded in the `public` folder that displays the Vagrant configuration settings for the project. Once Vagrant is running, you can access the file, locally, at http://192.168.33.10/config.php.
 
 ##### Start/Resume server
 
@@ -205,7 +205,7 @@ $ vagrant destroy
 
 ### <a name="commands-dependencies"></a>Dependencies
 
-The `package.json` file has been set up to trigger the **bower-installer** tool after `npm install` is complete. This will automagically run `bower install`. In the case that you need to install bower components manually, the command is below.
+The `package.json` file has been set up to trigger the **bower-installer** tool after `npm install` is complete. This will automagically run `bower install`, and remap dependency files to their respective `assets` folder. These files can be defined and renamed in the `bower.json` file. In the case that you need to install bower components manually, the command is below. However, this will not trigger the **bower-installer** tool to remap dependency files.
 
 ##### Install node modules
 
