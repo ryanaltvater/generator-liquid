@@ -9,9 +9,9 @@
     "tests"
   ],
   "devDependencies": {
-    "jquery": "1.9.0",
-    "modernizr": "^2.8.3",
-    "normalize.css": "^6.0.0"
+    "jquery": "3.2.1",
+    "modernizr": "^3.5.0",
+    "normalize.css": "^7.0.0"
   },
   "install": {
     "path": {
