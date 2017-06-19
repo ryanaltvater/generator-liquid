@@ -1,12 +1,12 @@
 @font-face {
+	font-weight: normal;
+	font-style: normal;
+	font-family: "Icons";
 	src: url("../fonts/icons/icons.eot");
 	src: url("../fonts/icons/icons.eot#iefix") format("embedded-opentype"),
 		 url("../fonts/icons/icons.svg#Icons") format("svg"),
 		 url("../fonts/icons/icons.woff") format("woff"),
 		 url("../fonts/icons/icons.ttf") format("truetype");
-	font-family: "Icons";
-	font-weight: normal;
-	font-style: normal;
 }
 
 [class^="icon__"]:before,
@@ -64,6 +64,12 @@
 	&__youtube {
 		&:before {
 			content: "\E007";
+		}
+	}
+
+	&__instagram {
+		&:before {
+			content: "\E008";
 		}
 	}
 }
