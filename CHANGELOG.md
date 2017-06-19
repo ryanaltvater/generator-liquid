@@ -2,6 +2,25 @@
 
 # Changelog
 
+### 1.4.0
+
+- Updated Bourbon to version 5.0.0-beta.7
+- Updated documentation for Vagrant and Dependencies sections
+- Updated Scotch Box configuration page
+- Updated `package.json` dependency versions
+- Updated jQuery, Modernizr, and Normalize.css versions
+- Updated `button` selector to `.button` class name for button markup
+- Updated color variables order
+- Added Instagram SVG icon
+- Added missing path for `_animations.scss`
+- Added `.menu` and `.menu__item` class names for navigation markup
+- Added `appearance` CSS property to reset form styles
+- Added radial gradient mixin
+- Removed Bourbon `appearance` include
+- Removed Pinterest color variable
+- Removed deprecated mixins and vendor prefixes included in mixins
+- Removed unnecessary `icons` font folder in the `src` folder
+
 ### 1.3.2
 
 - Updated Normalize dependency to version 6.0.0
