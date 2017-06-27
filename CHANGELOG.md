@@ -2,6 +2,10 @@
 
 # Changelog
 
+### 1.4.1
+
+- Fixed Modernizr not installing correctly because of a version issue
+
 ### 1.4.0
 
 - Updated Bourbon to version 5.0.0-beta.7
@@ -99,7 +103,7 @@
 
 ### 1.0.1
 
-- Added "Advanced Custom Fields" instructions
 - Updated Google Analytics script
+- Added "Advanced Custom Fields" instructions
 
 ### 1.0.0
