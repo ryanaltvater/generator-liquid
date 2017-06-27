@@ -14,7 +14,7 @@
 			}
 		?>
 
-<!-- FOOTER END -->
+<!-- FOOTER end -->
 
 <!-- SCRIPTS start -->
 
