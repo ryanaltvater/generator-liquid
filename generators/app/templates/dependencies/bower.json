@@ -10,7 +10,7 @@
   ],
   "devDependencies": {
     "jquery": "3.2.1",
-    "modernizr": "^3.5.0",
+    "modernizr": "^2.8.3",
     "normalize.css": "^7.0.0"
   },
   "install": {
