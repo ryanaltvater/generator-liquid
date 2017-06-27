@@ -63,6 +63,7 @@
 		<?php endif; ?>
 
 <!-- ANALYTICS end -->
+
 	</head>
 
 	<body <?php echo body_class(); ?>>
