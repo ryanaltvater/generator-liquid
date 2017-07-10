@@ -167,7 +167,7 @@ gulp.task('icons', function() {
 		appendCodepoints: true
 		// appendUnicode: true
 	}))
-	.pipe(gulp.dest(srcFonts + 'icons/'))
+	.pipe(gulp.dest(destFonts + 'icons/'))
 	.pipe(reload({
 		stream: true
 	}));
