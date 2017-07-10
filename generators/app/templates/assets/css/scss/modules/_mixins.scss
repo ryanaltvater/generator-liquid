@@ -49,6 +49,73 @@
 
 
 /* ============================== */
+/*  Media
+/* ============================== */
+
+@mixin media($query) {
+    @if $query == large {
+        @media (min-width: 1024px) and (max-width: 1279px) {
+            @content;
+        }
+    }
+
+    @if $query == max-large {
+        @media (max-width: 1279px) {
+            @content;
+        }
+    }
+
+    @if $query == max-medium {
+        @media (max-width: 1023px) {
+            @content;
+        }
+    }
+
+    @if $query == max-small {
+        @media (max-width: 767px) {
+            @content;
+        }
+    }
+
+    @if $query == medium {
+        @media (min-width: 768px) and (max-width: 1023px) {
+            @content;
+        }
+    }
+
+    @if $query == min-large {
+        @media (min-width: 1024px) {
+            @content;
+        }
+    }
+
+    @if $query == min-medium {
+        @media (min-width: 768px) {
+            @content;
+        }
+    }
+
+    @if $query == min-x-large {
+        @media (min-width: 1280px) {
+            @content;
+        }
+    }
+
+    @if $query == print {
+        @media print {
+            @content;
+        }
+    }
+
+    @if $query == small {
+        @media (min-width: 320px) and (max-width: 767px) {
+            @content;
+        }
+    }
+}
+
+
+/* ============================== */
 /*  Placeholder
 /* ============================== */
 
