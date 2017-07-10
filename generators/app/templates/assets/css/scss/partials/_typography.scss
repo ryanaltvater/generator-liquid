@@ -25,51 +25,39 @@
 }
 
 .icon {
-	&__menu {
+	&__facebook {
 		&:before {
 			content: "\E001";
 		}
 	}
 
-	&__close {
+	&__google-plus {
 		&:before {
 			content: "\E002";
 		}
 	}
 
-	&__facebook {
+	&__instagram {
 		&:before {
 			content: "\E003";
 		}
 	}
 
-	&__twitter {
+	&__linkedin {
 		&:before {
 			content: "\E004";
 		}
 	}
 
-	&__linkedin {
+	&__twitter {
 		&:before {
 			content: "\E005";
 		}
 	}
 
-	&__google-plus {
-		&:before {
-			content: "\E006";
-		}
-	}
-
 	&__youtube {
 		&:before {
-			content: "\E007";
-		}
-	}
-
-	&__instagram {
-		&:before {
-			content: "\E008";
+			content: "\E006";
 		}
 	}
 }
