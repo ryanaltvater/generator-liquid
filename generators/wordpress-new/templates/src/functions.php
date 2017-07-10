@@ -401,7 +401,7 @@ function register_plugins() {
 		array(
 			'name'               => 'Duplicate Post',
 			'slug'               => 'duplicate-post',
-			'source'             => 'https://downloads.wordpress.org/plugin/duplicate-post.2.6.zip',
+			'source'             => 'https://downloads.wordpress.org/plugin/duplicate-post.3.2.zip',
 			'required'           => true,
 			'force_activation'   => true,
 			'force_deactivation' => false,
@@ -410,7 +410,7 @@ function register_plugins() {
 		array(
 			'name'               => 'Relevanssi',
 			'slug'               => 'relevanssi',
-			'source'             => 'https://downloads.wordpress.org/plugin/relevanssi.3.5.3.zip',
+			'source'             => 'https://downloads.wordpress.org/plugin/relevanssi.3.5.11.1.zip',
 			'required'           => true,
 			'force_activation'   => true,
 			'force_deactivation' => false,
@@ -419,7 +419,7 @@ function register_plugins() {
 		array(
 			'name'               => 'TinyMCE Advanced',
 			'slug'               => 'tinymce-advanced',
-			'source'             => 'https://downloads.wordpress.org/plugin/tinymce-advanced.4.3.10.1.zip',
+			'source'             => 'https://downloads.wordpress.org/plugin/tinymce-advanced.4.6.3.zip',
 			'required'           => true,
 			'force_activation'   => true,
 			'force_deactivation' => false,
@@ -428,7 +428,7 @@ function register_plugins() {
 		array(
 			'name'               => 'Wordfence Security',
 			'slug'               => 'wordfence',
-			'source'             => 'https://downloads.wordpress.org/plugin/wordfence.6.1.7.zip',
+			'source'             => 'https://downloads.wordpress.org/plugin/wordfence.6.3.12.zip',
 			'required'           => true,
 			'force_activation'   => true,
 			'force_deactivation' => false,
@@ -437,7 +437,7 @@ function register_plugins() {
 		array(
 			'name'               => 'WP-Sweep',
 			'slug'               => 'wp-sweep',
-			'source'             => 'https://downloads.wordpress.org/plugin/wp-sweep.zip',
+			'source'             => 'https://downloads.wordpress.org/plugin/wp-sweep.1.0.10.zip',
 			'required'           => true,
 			'force_activation'   => true,
 			'force_deactivation' => false,
@@ -446,7 +446,7 @@ function register_plugins() {
 		array(
 			'name'               => 'Yoast SEO',
 			'slug'               => 'wordpress-seo',
-			'source'             => 'https://downloads.wordpress.org/plugin/wordpress-seo.3.2.5.zip',
+			'source'             => 'https://downloads.wordpress.org/plugin/wordpress-seo.5.0.1.zip',
 			'required'           => true,
 			'force_activation'   => true,
 			'force_deactivation' => false,
@@ -461,7 +461,7 @@ function register_plugins() {
 		array(
 			'name'               => 'Advanced Custom Fields',
 			'slug'               => 'advanced-custom-fields',
-			'source'             => 'https://downloads.wordpress.org/plugin/advanced-custom-fields.4.4.7.zip',
+			'source'             => 'https://downloads.wordpress.org/plugin/advanced-custom-fields.4.4.11.zip',
 			'required'           => false,
 			'force_activation'   => false,
 			'force_deactivation' => false,
@@ -470,7 +470,7 @@ function register_plugins() {
         array(
             'name'               => 'Akismet',
             'slug'               => 'akismet',
-            'source'             => 'https://downloads.wordpress.org/plugin/akismet.3.1.11.zip',
+            'source'             => 'https://downloads.wordpress.org/plugin/akismet.3.3.2.zip',
             'required'           => false,
             'force_activation'   => false,
             'force_deactivation' => false,
@@ -488,7 +488,7 @@ function register_plugins() {
 		array(
 			'name'               => 'BJ Lazy Load',
 			'slug'               => 'bj-lazy-load',
-			'source'             => 'https://downloads.wordpress.org/plugin/bj-lazy-load.1.0.6.zip',
+			'source'             => 'https://downloads.wordpress.org/plugin/bj-lazy-load.zip',
 			'required'           => false,
 			'force_activation'   => false,
 			'force_deactivation' => false,
@@ -497,7 +497,7 @@ function register_plugins() {
         array(
             'name'               => 'Breadcrumb NavXT',
             'slug'               => 'breadcrumb-navxt',
-            'source'             => 'https://downloads.wordpress.org/plugin/breadcrumb-navxt.5.4.0.zip',
+            'source'             => 'https://downloads.wordpress.org/plugin/breadcrumb-navxt.5.7.1.zip',
             'required'           => false,
             'force_activation'   => false,
             'force_deactivation' => false,
@@ -506,7 +506,7 @@ function register_plugins() {
         array(
             'name'               => 'Custom User Profile Photo',
             'slug'               => 'custom-user-profile-photo',
-            'source'             => 'https://downloads.wordpress.org/plugin/custom-user-profile-photo.0.4.zip',
+            'source'             => 'https://downloads.wordpress.org/plugin/custom-user-profile-photo.0.5.3.zip',
             'required'           => false,
             'force_activation'   => false,
             'force_deactivation' => false,
@@ -515,7 +515,7 @@ function register_plugins() {
         array(
             'name'               => 'Formidable Forms',
             'slug'               => 'formidable',
-            'source'             => 'https://downloads.wordpress.org/plugin/formidable.2.01.01.zip',
+            'source'             => 'https://downloads.wordpress.org/plugin/formidable.2.03.09.zip',
             'required'           => false,
             'force_activation'   => false,
             'force_deactivation' => false,
@@ -533,7 +533,7 @@ function register_plugins() {
         array(
             'name'               => 'JetPack',
             'slug'               => 'jetpack',
-            'source'             => 'https://downloads.wordpress.org/plugin/jetpack.4.0.2.zip',
+            'source'             => 'https://downloads.wordpress.org/plugin/jetpack.5.1.zip',
             'required'           => false,
             'force_activation'   => false,
             'force_deactivation' => false,
@@ -551,7 +551,7 @@ function register_plugins() {
         array(
             'name'               => 'Pods',
             'slug'               => 'pods',
-            'source'             => 'https://downloads.wordpress.org/plugin/pods.2.6.5.2.zip',
+            'source'             => 'https://downloads.wordpress.org/plugin/pods.2.6.9.zip',
             'required'           => false,
             'force_activation'   => false,
             'force_deactivation' => false,
