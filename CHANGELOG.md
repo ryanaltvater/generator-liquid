@@ -2,6 +2,19 @@
 
 # Changelog
 
+### 1.4.2
+
+- Updated Gulp “icons” task destination path
+- Updated SVG icons
+- Updated SCSS font icons
+- Updated WordPress plugin versions
+- Updated “include” code spacing
+- Added SCSS media query mixin
+- Removed unnecessary template folders/files for the “wordpress-existing” sub-generator
+- Removed SCSS media query variables
+- Removed unused SVG icons
+- Removed “display: inline-block” style for lists
+
 ### 1.4.1
 
 - Fixed Modernizr not installing correctly because of a version issue
